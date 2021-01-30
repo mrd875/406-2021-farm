@@ -23,6 +23,26 @@ public class PlayerInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            PlayerData.selectedSlotNumber = 0;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            PlayerData.selectedSlotNumber = 1;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            PlayerData.selectedSlotNumber = 2;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            PlayerData.selectedSlotNumber = 3;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            PlayerData.selectedSlotNumber = 4;
+        }
 
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -37,14 +57,14 @@ public class PlayerInteraction : MonoBehaviour
         }
         if (Input.GetKeyDown(itemKey))
         {
-            if (PlayerData.itemStack.Count > 0)
+            if (PlayerData.selectedSlot.Count > 0)
             {
                 Vector3Int pos = grassMap.WorldToCell(gameObject.transform.position);
-                if (PlayerData.itemStack.First.Value.actionTile == null)
+                if (PlayerData.selectedSlot.First.Value.actionTile == null)
                     Debug.Log("Error: No Item");
                 if ((grassMap.GetTile(pos) == null) && (dirtMap.GetTile(pos) == dirt))
                 {
-                    grassMap.SetTile(pos, PlayerData.itemStack.First.Value.actionTile);
+                    grassMap.SetTile(pos, PlayerData.selectedSlot.First.Value.actionTile);
                     PlayerData.ItemUsed();
                 }
             }

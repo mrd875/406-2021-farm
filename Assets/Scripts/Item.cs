@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.Tilemaps;
 using UnityEngine;
 
-public class DroppedItem : MonoBehaviour
+public class Item : MonoBehaviour
 {
     public string itemName;
     public Tile actionTile;
