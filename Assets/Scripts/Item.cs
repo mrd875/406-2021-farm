@@ -8,6 +8,7 @@ public class Item : MonoBehaviour
     public string itemName;
     public Tile actionTile;
 
+    [HideInInspector]
     public bool pickup_allowed = false;
     public bool is_stackable = true;
     public bool is_consumable = true;

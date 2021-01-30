@@ -49,6 +49,27 @@ public class PlayerData : MonoBehaviour
             item.GetComponent<SpriteRenderer>().enabled = false; ;
             return true;
         }
+        else if ((itemSlots[2].Count == 0) || (item.is_stackable && item.itemName == itemSlots[2].First.Value.itemName))
+        {
+            itemSlots[2].AddFirst(item);
+            item.transform.position = new Vector3(0, 0, 0);
+            item.GetComponent<SpriteRenderer>().enabled = false; ;
+            return true;
+        }
+        else if ((itemSlots[3].Count == 0) || (item.is_stackable && item.itemName == itemSlots[3].First.Value.itemName))
+        {
+            itemSlots[3].AddFirst(item);
+            item.transform.position = new Vector3(0, 0, 0);
+            item.GetComponent<SpriteRenderer>().enabled = false; ;
+            return true;
+        }
+        else if ((itemSlots[4].Count == 0) || (item.is_stackable && item.itemName == itemSlots[4].First.Value.itemName))
+        {
+            itemSlots[4].AddFirst(item);
+            item.transform.position = new Vector3(0, 0, 0);
+            item.GetComponent<SpriteRenderer>().enabled = false; ;
+            return true;
+        }
 
         return false;
     }

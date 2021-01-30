@@ -23,6 +23,7 @@ public class PlayerInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Change Item Cursor with keys 1-5
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             PlayerData.selectedSlotNumber = 0;
@@ -44,17 +45,21 @@ public class PlayerInteraction : MonoBehaviour
             PlayerData.selectedSlotNumber = 4;
         }
 
-
+        // Drop Item
         if (Input.GetKeyDown(KeyCode.R))
         {
             PlayerData.DropItem();
         }
+
+        // Cut Tile
         if (Input.GetKeyDown(cutterKey))
         {
             Vector3Int pos = grassMap.WorldToCell(gameObject.transform.position);
             if (grassMap.GetTile(pos) != null)
                 grassMap.SetTile(pos, null);
         }
+
+        // Use Item
         if (Input.GetKeyDown(itemKey))
         {
             if (PlayerData.selectedSlot.Count > 0)
