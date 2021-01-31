@@ -45,6 +45,6 @@ public class Item : MonoBehaviour
 
     private void AddItem()
     {
-        canSwap = PlayerData.EquipItem(this);
+        canSwap = PlayerData.AddItem(this);
     }
 }
