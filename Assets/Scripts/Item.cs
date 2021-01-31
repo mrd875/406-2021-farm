@@ -12,6 +12,7 @@ public class Item : MonoBehaviour
     public bool pickup_allowed = false;
     public bool is_stackable = true;
     public bool is_consumable = true;
+    public bool is_seed = false;
 
     private bool canSwap;
 
@@ -46,5 +47,34 @@ public class Item : MonoBehaviour
     private void AddItem()
     {
         canSwap = PlayerData.AddItem(this);
+    }
+
+    public bool UseItem()
+    {
+        if (is_seed)
+        {
+            Vector3Int pos = WorldData.topLayer.WorldToCell(PlayerData.player.transform.position);
+            if (actionTile == null)
+                Debug.Log("Error: No Item");
+            if ((WorldData.topLayer.GetTile(pos) == null) && (WorldData.baseLayer.GetTile(pos) == WorldData.dirt))
+            {
+                WorldData.topLayer.SetTile(pos, actionTile);
+                return true;
+            }
+        }
+        else {
+            switch (itemName)
+            {
+                case "Shovel":
+                    Vector3Int pos = WorldData.topLayer.WorldToCell(PlayerData.player.transform.position);
+                    if (WorldData.topLayer.GetTile(pos) != null)
+                    {
+                        WorldData.topLayer.SetTile(pos, null);
+                        return true;
+                    }
+                    break;
+            }
+        }
+        return false;
     }
 }

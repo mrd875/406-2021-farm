@@ -56,27 +56,12 @@ public class PlayerInteraction : MonoBehaviour
             PlayerData.DropItem();
         }
 
-        // Cut Tile
-        if (Input.GetKeyDown(cutterKey))
-        {
-            Vector3Int pos = grassMap.WorldToCell(gameObject.transform.position);
-            if (grassMap.GetTile(pos) != null)
-                grassMap.SetTile(pos, null);
-        }
-
         // Use Item
         if (Input.GetKeyDown(itemKey))
         {
             if (PlayerData.selectedSlot.Count > 0)
             {
-                Vector3Int pos = grassMap.WorldToCell(gameObject.transform.position);
-                if (PlayerData.selectedSlot.First.Value.actionTile == null)
-                    Debug.Log("Error: No Item");
-                if ((grassMap.GetTile(pos) == null) && (dirtMap.GetTile(pos) == dirt))
-                {
-                    grassMap.SetTile(pos, PlayerData.selectedSlot.First.Value.actionTile);
-                    PlayerData.ItemUsed();
-                }
+                PlayerData.UseSelectedItem();
             }
         }
         

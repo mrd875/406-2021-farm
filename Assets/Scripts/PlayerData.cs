@@ -103,9 +103,11 @@ public class PlayerData : MonoBehaviour
                 if (item.is_stackable)
                     GameObject.Find("Slot5UI").transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[4].Count;
                 return true;
+            case -1:
+                // inventory full
+                return false; 
          
         }
-
         return false;
     }
 
@@ -129,6 +131,16 @@ public class PlayerData : MonoBehaviour
         }
     }
 
+    // 
+    static public void UseSelectedItem()
+    {
+        if (selectedSlot.First.Value.UseItem())
+        {
+            ItemUsed();
+        }
+    }
+
+    // Deals with item consumption, durability loss, etc.
     static public void ItemUsed()
     {
         if (selectedSlot.First.Value.is_consumable)

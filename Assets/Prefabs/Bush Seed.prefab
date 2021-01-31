@@ -101,6 +101,7 @@ MonoBehaviour:
   pickup_allowed: 0
   is_stackable: 1
   is_consumable: 1
+  is_seed: 1
 --- !u!61 &1029141487144770336
 BoxCollider2D:
   m_ObjectHideFlags: 0
