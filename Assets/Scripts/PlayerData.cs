@@ -46,7 +46,7 @@ public class PlayerData : MonoBehaviour
     static public bool AddItem(Item item)
     {
         int slotToAdd = -1;
-        // Either find the lowest slot number, or the slot number thats item matches the stackable item
+        // Either find the lowest slot number, or the slot number thats item matches the item if it is stackable
         for (int i = 0; i < itemSlots.Length; i++)
         {
             if ((slotToAdd == -1) && (itemSlots[i].Count == 0))
@@ -56,7 +56,7 @@ public class PlayerData : MonoBehaviour
                 if ((itemSlots[i].Count > 0) && (item.itemName == itemSlots[i].First.Value.itemName))
                     slotToAdd = i;
             }
-            else
+            else if (slotToAdd != -1)
             {
                 break;
             }
