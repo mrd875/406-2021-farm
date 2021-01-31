@@ -145,7 +145,14 @@ public class PlayerData : MonoBehaviour
             Item consumedItem = selectedSlot.First.Value;
             selectedSlot.Remove(consumedItem);
             Destroy(consumedItem);
-            selectedSlotUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[selectedSlotNumber].Count;
+            if (selectedSlot.Count == 0)
+            {
+                Image image = selectedSlotUI.transform.GetChild(0).GetComponent<Image>();   // For shorter reference
+                image.color = new Color(image.color.r, image.color.g, image.color.b, 0f);   // Remove visibility of item icon by setting alpha to 0
+                selectedSlotUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = ""; // clear text
+            }
+            else
+                selectedSlotUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[selectedSlotNumber].Count;
         }
     }
 }
