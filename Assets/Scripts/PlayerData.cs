@@ -61,12 +61,15 @@ public class PlayerData : MonoBehaviour
                 break;
             }
         }
+        if (slotToAdd != -1)
+        {
+            itemSlots[slotToAdd].AddFirst(item);
+            item.transform.position = new Vector3(0, 0, 0);
+            item.GetComponent<SpriteRenderer>().enabled = false;
+        }
         switch (slotToAdd)
         {
             case 0:
-                itemSlots[0].AddFirst(item);
-                item.transform.position = new Vector3(0, 0, 0);
-                item.GetComponent<SpriteRenderer>().enabled = false;
                 GameObject.Find("Slot1UI").transform.GetChild(0).GetComponent<Image>().sprite = item.gameObject.GetComponent<SpriteRenderer>().sprite;
                 GameObject.Find("Slot1UI").transform.GetChild(0).GetComponent<Image>().color = item.gameObject.GetComponent<SpriteRenderer>().color;
                 if (item.is_stackable)
@@ -74,9 +77,6 @@ public class PlayerData : MonoBehaviour
                 return true;
 
             case 1:
-                itemSlots[1].AddFirst(item);
-                item.transform.position = new Vector3(0, 0, 0);
-                item.GetComponent<SpriteRenderer>().enabled = false;
                 GameObject.Find("Slot2UI").transform.GetChild(0).GetComponent<Image>().sprite = item.gameObject.GetComponent<SpriteRenderer>().sprite;
                 GameObject.Find("Slot2UI").transform.GetChild(0).GetComponent<Image>().color = item.gameObject.GetComponent<SpriteRenderer>().color;
                 if (item.is_stackable)
@@ -84,9 +84,6 @@ public class PlayerData : MonoBehaviour
                 return true;
 
             case 2:
-                itemSlots[2].AddFirst(item);
-                item.transform.position = new Vector3(0, 0, 0);
-                item.GetComponent<SpriteRenderer>().enabled = false;
                 GameObject.Find("Slot3UI").transform.GetChild(0).GetComponent<Image>().sprite = item.gameObject.GetComponent<SpriteRenderer>().sprite;
                 GameObject.Find("Slot3UI").transform.GetChild(0).GetComponent<Image>().color = item.gameObject.GetComponent<SpriteRenderer>().color;
                 if (item.is_stackable)
@@ -94,9 +91,6 @@ public class PlayerData : MonoBehaviour
                 return true;
 
             case 3:
-                itemSlots[3].AddFirst(item);
-                item.transform.position = new Vector3(0, 0, 0);
-                item.GetComponent<SpriteRenderer>().enabled = false;
                 GameObject.Find("Slot4UI").transform.GetChild(0).GetComponent<Image>().sprite = item.gameObject.GetComponent<SpriteRenderer>().sprite;
                 GameObject.Find("Slot4UI").transform.GetChild(0).GetComponent<Image>().color = item.gameObject.GetComponent<SpriteRenderer>().color;
                 if (item.is_stackable)
@@ -104,9 +98,6 @@ public class PlayerData : MonoBehaviour
                 return true;
             
             case 4:
-                itemSlots[4].AddFirst(item);
-                item.transform.position = new Vector3(0, 0, 0);
-                item.GetComponent<SpriteRenderer>().enabled = false;
                 GameObject.Find("Slot5UI").transform.GetChild(0).GetComponent<Image>().sprite = item.gameObject.GetComponent<SpriteRenderer>().sprite;
                 GameObject.Find("Slot5UI").transform.GetChild(0).GetComponent<Image>().color = item.gameObject.GetComponent<SpriteRenderer>().color;
                 if (item.is_stackable)
