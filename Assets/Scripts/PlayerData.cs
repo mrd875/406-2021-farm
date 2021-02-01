@@ -64,8 +64,7 @@ public class PlayerData : MonoBehaviour
         if (slotToAdd != -1)
         {
             itemSlots[slotToAdd].AddFirst(item);
-            item.transform.position = new Vector3(0, 0, 0);
-            item.GetComponent<SpriteRenderer>().enabled = false;
+            item.transform.position = new Vector3(-500, 0, 0);
         }
         switch (slotToAdd)
         {
