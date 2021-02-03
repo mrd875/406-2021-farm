@@ -11,10 +11,17 @@ public class WorldData : MonoBehaviour
     static public Tilemap diggableLayer;
     static public Tilemap plantableLayer;
 
+    public Transform setPlayerOneSpawn;
+    public Transform setPlayerTwoSpawn;
+
+    static public Transform playerOneSpawn;
+    static public Transform playerTwoSpawn;
+
     void Awake()
     {
         diggableLayer = whatIsDiggableLayer;
         plantableLayer = whatIsPlantableLayer;
-
+        playerOneSpawn = setPlayerOneSpawn;
+        playerTwoSpawn = setPlayerTwoSpawn;
     }
 }
