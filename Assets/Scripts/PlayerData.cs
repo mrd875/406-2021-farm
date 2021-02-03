@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 
+// Static variables for player one
 public class PlayerData : MonoBehaviour
 {
     // Reference to player object
@@ -18,7 +19,7 @@ public class PlayerData : MonoBehaviour
     static public int selectedSlotNumber;
     static public GameObject selectedSlotUI;
 
-    // Players stamina value
+    // Players stamina value : not yet used for anything
     static public float maxStamina = 100;
     static public float currentStamina = 100;
 
@@ -27,6 +28,7 @@ public class PlayerData : MonoBehaviour
     {
         player = GameObject.Find("Player");
         playerRb = player.GetComponent<Rigidbody2D>();
+
         itemSlots = new LinkedList<Item>[5];
         itemSlots[0] = new LinkedList<Item>();
         itemSlots[1] = new LinkedList<Item>();
@@ -38,7 +40,7 @@ public class PlayerData : MonoBehaviour
         selectedSlotUI = GameObject.Find("Slot1UI");
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         selectedSlot = itemSlots[selectedSlotNumber];
@@ -47,7 +49,8 @@ public class PlayerData : MonoBehaviour
     // Adds item either to a slot already containing the same item type, or to a new slot
     static public bool AddItem(Item item)
     {
-        int slotToAdd = -1;
+        int slotToAdd = -1; // slotToAdd will remain -1 until end only if inventory is full
+
         // Either find the lowest slot number, or the slot number thats item matches the item if it is stackable
         for (int i = 0; i < itemSlots.Length; i++)
         {
@@ -68,6 +71,8 @@ public class PlayerData : MonoBehaviour
             itemSlots[slotToAdd].AddFirst(item);
             item.transform.position = new Vector3(-500, 0, 0);
         }
+
+        // Update inventory GUI on screen
         switch (slotToAdd)
         {
             case 0:
@@ -112,6 +117,7 @@ public class PlayerData : MonoBehaviour
         return false;
     }
 
+    // drops item at player location
     static public void DropItem()
     {
         Debug.Log("Attempting to drop");
@@ -132,18 +138,19 @@ public class PlayerData : MonoBehaviour
         }
     }
 
-    // 
+    // calls function stored in held item's script
     static public void UseSelectedItem()
     {
         if (selectedSlot.First.Value.UseItem())
         {
-            ItemUsed();
+            ItemUsed(); // should be called after an item is successfully used
         }
     }
 
     // Deals with item consumption, durability loss, etc.
     static public void ItemUsed()
     {
+        // Consumption
         if (selectedSlot.First.Value.is_consumable)
         {
             Item consumedItem = selectedSlot.First.Value;

@@ -2,29 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Shoots projectile: used in throwing water balloon
 public class Shoot : MonoBehaviour
 {
-    public Transform shooter;
-    //public Transform target;
-    public GameObject projectilePrefab;
     
-    public float projectileSpeed;
-    public float shotCooldown = 1f;
+    public Transform shooter;   // Player who shot the projectile
+    public GameObject projectilePrefab; // prefab to be launched as projectile: must have projectile controller script
+    
+    public float projectileSpeed;   // speed of projectile
+    public float shotCooldown = 1f; // cooldown before fireing another projectile
+    public float speedReduction = 2f;   // Amount of movement speed that is reduced when projecitile collides with other player (NYI)
+
     public bool canShoot = true;
-    public float speedReduction = 2f;
     public bool isShooting = false;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        //target = GameObject.Find("Cursor").GetComponent<Transform>();
-        //target = GameObject.Find("Player (1)").GetComponent<Transform>();
-    }
-
-    // Update is called once per frame
     void Update()
     {
+        // Throw projectile key
         if (Input.GetKeyDown(KeyCode.Q) && canShoot)
         {
             isShooting = true;
@@ -37,6 +31,7 @@ public class Shoot : MonoBehaviour
         }
     }
 
+    // Activates shot cooldown, a period which no shots can be fired in
     private IEnumerator ShotCooldown(float cooldown)
     {
         canShoot = false;
@@ -44,6 +39,7 @@ public class Shoot : MonoBehaviour
         canShoot = true;
     }
 
+    // Creates the projectile and sends it moving
     private void SpawnProjectile()
     {
         GameObject projectile = Instantiate(projectilePrefab, shooter.position, shooter.rotation);
