@@ -5,23 +5,17 @@ using UnityEngine;
 
 public class WorldData : MonoBehaviour
 {
-    public Tilemap whatIsDiggableLayer;
-    public Tilemap whatIsPlantableLayer;
-
     static public Tilemap diggableLayer;
     static public Tilemap plantableLayer;
 
-    public Transform setPlayerOneSpawn;
-    public Transform setPlayerTwoSpawn;
-
-    static public Transform playerOneSpawn;
-    static public Transform playerTwoSpawn;
+    static public Vector2 playerOneSpawnLocation;
+    static public Vector2 playerTwoSpawnLocation;
 
     void Awake()
     {
-        diggableLayer = whatIsDiggableLayer;
-        plantableLayer = whatIsPlantableLayer;
-        playerOneSpawn = setPlayerOneSpawn;
-        playerTwoSpawn = setPlayerTwoSpawn;
+        diggableLayer = GameObject.Find("DiggableTiles").GetComponent<Tilemap>();
+        plantableLayer = GameObject.Find("PlantableTiles").GetComponent<Tilemap>();
+        playerOneSpawnLocation = GameObject.Find("PlayerOneSpawn").transform.position;
+        playerTwoSpawnLocation = GameObject.Find("PlayerTwoSpawn").transform.position;
     }
 }

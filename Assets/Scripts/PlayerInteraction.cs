@@ -59,8 +59,8 @@ public class PlayerInteraction : MonoBehaviour
         // Collision with a player on your land will teleport player back to their land
         if (this.tag == "PlayerOne" && other.transform.tag == "PlayerTwo")
         {
-            Debug.Log(WorldData.playerTwoSpawn.position);
-            other.transform.position = new Vector2(0, 0);// WorldData.playerTwoSpawn.position;
+            Debug.Log(WorldData.playerTwoSpawnLocation);
+            other.transform.position = WorldData.playerTwoSpawnLocation;
         }
     }
 
