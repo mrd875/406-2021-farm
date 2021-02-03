@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// scene that makes a unity walk around in a square
 public class MoveAround : MonoBehaviour
 {
+    
     public Animator animator;
 
 
@@ -11,9 +13,8 @@ public class MoveAround : MonoBehaviour
     public float moveSpeed = 5.0f;
     private Vector2 movement;
 
+    // using sin and cos to dictate directions for ChangeDirection()
     private float degrees = 0;
-
-    private bool isMoving = false;
 
     public Rigidbody2D rb;
 

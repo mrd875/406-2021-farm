@@ -5,22 +5,9 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    public KeyCode cutterKey = KeyCode.Q;
+    // Item use key
     public KeyCode itemKey = KeyCode.E;
-    public Tilemap grassMap;
-    public Tilemap dirtMap;
 
-    public Tile dirt;
-    public Tile grass;
-    //public Tile actionTile;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
     void Update()
     {
         // Change Item Cursor with keys 1-5

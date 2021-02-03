@@ -4,24 +4,15 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public Animator animator;
-
-
     // basic movement variables
     public float moveSpeed = 5.0f;
     public Vector2 movement;
-
     private bool isMoving = false;
 
+    // Player RB to add movement to
     public Rigidbody2D rb;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
         // Get input for movement from WASD or Arrow keys
@@ -39,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         //Move in response to input from WASD or Arrow Keys
-        //rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
+        //rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime); // old way: does not update velocity so changed
         rb.velocity = movement.normalized * moveSpeed * Time.fixedDeltaTime;
 
     }
