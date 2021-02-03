@@ -8,6 +8,7 @@ public class PlayerData : MonoBehaviour
 {
     // Reference to player object
     static public GameObject player;
+    static public Rigidbody2D playerRb;
 
     // Array of linked lists, each indice contains an item slot
     static public LinkedList<Item>[] itemSlots;
@@ -25,6 +26,7 @@ public class PlayerData : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
+        playerRb = player.GetComponent<Rigidbody2D>();
         itemSlots = new LinkedList<Item>[5];
         itemSlots[0] = new LinkedList<Item>();
         itemSlots[1] = new LinkedList<Item>();

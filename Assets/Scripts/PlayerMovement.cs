@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     // basic movement variables
     public float moveSpeed = 5.0f;
-    private Vector2 movement;
+    public Vector2 movement;
 
     private bool isMoving = false;
 
@@ -39,7 +39,8 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         //Move in response to input from WASD or Arrow Keys
-        rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
+        //rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
+        rb.velocity = movement.normalized * moveSpeed * Time.fixedDeltaTime;
 
     }
 }
