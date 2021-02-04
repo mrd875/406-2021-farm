@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     // basic movement variables
-    public float moveSpeed = 5.0f;
+    public float moveSpeed = 250.0f;
     public Vector2 movement;
     private bool isMoving = false;
 
@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         //Move in response to input from WASD or Arrow Keys
-        //rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime); // old way: does not update velocity so changed
+        //rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime); // old way
         rb.velocity = movement.normalized * moveSpeed * Time.fixedDeltaTime;
 
     }

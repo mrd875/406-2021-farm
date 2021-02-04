@@ -10,6 +10,7 @@ public class PlayerData : MonoBehaviour
     // Reference to player object
     static public GameObject player;
     static public Rigidbody2D playerRb;
+    static public CircleCollider2D interactionRadius;
 
     // Array of linked lists, each indice contains an item slot
     static public LinkedList<Item>[] itemSlots;
@@ -28,6 +29,7 @@ public class PlayerData : MonoBehaviour
     {
         player = GameObject.Find("Player");
         playerRb = player.GetComponent<Rigidbody2D>();
+        interactionRadius = GameObject.Find("PlayerOneInteractionRadius").GetComponent<CircleCollider2D>();
 
         itemSlots = new LinkedList<Item>[5];
         itemSlots[0] = new LinkedList<Item>();
@@ -139,9 +141,9 @@ public class PlayerData : MonoBehaviour
     }
 
     // calls function stored in held item's script
-    static public void UseSelectedItem()
+    static public void UseSelectedItem(Vector2 location)
     {
-        if (selectedSlot.First.Value.UseItem())
+        if (selectedSlot.First.Value.UseItem(location))
         {
             ItemUsed(); // should be called after an item is successfully used
         }

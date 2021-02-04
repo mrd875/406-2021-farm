@@ -10,7 +10,7 @@ public class MoveAround : MonoBehaviour
 
 
     // basic movement variables
-    public float moveSpeed = 5.0f;
+    public float moveSpeed = 250.0f;
     private Vector2 movement;
 
     // using sin and cos to dictate directions for ChangeDirection()
@@ -22,7 +22,7 @@ public class MoveAround : MonoBehaviour
     void Start()
     {
         movement = new Vector2(1.0f, 0.0f);
-        rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
+        rb.velocity = movement.normalized * moveSpeed * Time.fixedDeltaTime;
         StartCoroutine(ChangeDirection());
 
     }
@@ -30,7 +30,8 @@ public class MoveAround : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
+        // rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
+        rb.velocity = movement.normalized * moveSpeed * Time.fixedDeltaTime;
 
     }
 
@@ -43,7 +44,7 @@ public class MoveAround : MonoBehaviour
         movement.x = Mathf.Cos((degrees * Mathf.PI) / 180);
         movement.y = Mathf.Sin((degrees * Mathf.PI) / 180);
         yield return new WaitForSeconds(3f);
-        rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
+        rb.velocity = movement.normalized * moveSpeed * Time.fixedDeltaTime;
         StartCoroutine(ChangeDirection());
     }
 }
