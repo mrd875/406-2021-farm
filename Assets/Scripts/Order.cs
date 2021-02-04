@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Order : MonoBehaviour
 {
-    public string produceName = "";
-    public int orderAmount = 0;
+    public string produceName;
+    public int orderAmount;
 
     public Order(string initName, int initAmount) {
         produceName = initName;
