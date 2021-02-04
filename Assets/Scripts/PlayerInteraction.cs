@@ -48,10 +48,29 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (PlayerData.selectedSlot.Count > 0)
             {
-                PlayerData.UseSelectedItem();
+                PlayerData.UseSelectedItem(PlayerData.player.transform.position);
             }
         }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Clicked();
+        }
+    }
+
+    void Clicked()
+    {
+        Vector2 mousePos = Input.mousePosition;
+        Vector2 worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
         
+        if (PlayerData.interactionRadius.bounds.Contains(worldPosition))
+        {
+            PlayerData.UseSelectedItem(worldPosition);
+        }
+        else
+        {
+            Debug.Log("false");
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D other)

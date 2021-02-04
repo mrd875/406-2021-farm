@@ -51,12 +51,12 @@ public class Item : MonoBehaviour
         canSwap = PlayerData.AddItem(this);
     }
 
-    public bool UseItem()
+    public bool UseItem(Vector2 location)
     {
         // if item is a seed it adds a tile based on the editor
         if (is_seed)
         {
-            Vector3Int pos = WorldData.diggableLayer.WorldToCell(PlayerData.player.transform.position);
+            Vector3Int pos = WorldData.diggableLayer.WorldToCell(location);//PlayerData.player.transform.position);
             if (actionTile == null)
                 Debug.Log("Error: actionTile is not set for given seed");
             if ((WorldData.diggableLayer.GetTile(pos) == null) && (WorldData.plantableLayer.GetTile(pos) != null))
@@ -73,7 +73,7 @@ public class Item : MonoBehaviour
                 case "Shovel":
                     // Shovel removes a tile off the top layer of the grid, tile should be flagged as diggable; for example, a shovel shouldn't be allowd to dig through concrete
                     // This can be changed so that it adds a dirt tile on top instead, or it replaces a grass tile with a dirt one with relative ease
-                    Vector3Int pos = WorldData.diggableLayer.WorldToCell(PlayerData.player.transform.position);
+                    Vector3Int pos = WorldData.diggableLayer.WorldToCell(location);//PlayerData.player.transform.position);
                     if (WorldData.diggableLayer.GetTile(pos) != null)
                     {
                         WorldData.diggableLayer.SetTile(pos, null);
