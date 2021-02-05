@@ -7,6 +7,7 @@ public class Item : MonoBehaviour
 {
     public string itemName;
     public Tile actionTile;
+    public GameObject actionPrefab;
 
     [HideInInspector]
     public bool pickup_allowed = false;
@@ -61,7 +62,11 @@ public class Item : MonoBehaviour
                 Debug.Log("Error: actionTile is not set for given seed");
             if ((WorldData.diggableLayer.GetTile(pos) == null) && (WorldData.plantableLayer.GetTile(pos) != null))
             {
-                WorldData.diggableLayer.SetTile(pos, actionTile);
+                // Place item in middle of cell
+                Instantiate(actionPrefab, WorldData.plantableLayer.CellToWorld(pos), Quaternion.identity);
+                
+
+
                 return true;
             }
         }
