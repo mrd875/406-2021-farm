@@ -98,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Berry Seed
   actionTile: {fileID: 11400000, guid: 5b0adc8719424394b821f5e1e0eff8bb, type: 2}
+  actionPrefab: {fileID: 1029141487144770348, guid: c74380aa913fa2547a964abc4f74cda3, type: 3}
   pickup_allowed: 0
   is_stackable: 1
   is_consumable: 1

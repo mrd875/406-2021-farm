@@ -98,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Flower Seed
   actionTile: {fileID: 11400000, guid: 5b0adc8719424394b821f5e1e0eff8bb, type: 2}
+  actionPrefab: {fileID: 1424337128471943071, guid: de3bcfa7c292027418f717107003e828, type: 3}
   pickup_allowed: 0
   is_stackable: 1
   is_consumable: 1
