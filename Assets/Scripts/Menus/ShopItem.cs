@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class ShopItem : MonoBehaviour
 {
+    // Update player's total money count
     public void PurchaseItem() {
-        GameObject.Find("ShopWindow").GetComponent<ShopSystem>().totalMoney = 
-        GameObject.Find("ShopWindow").GetComponent<ShopSystem>().totalMoney - 25;
+        GameObject.Find("Shop").GetComponent<ShopSystem>().totalMoney = 
+        GameObject.Find("Shop").GetComponent<ShopSystem>().totalMoney - 25;
 
-        GameObject.Find("ShopWindow").GetComponent<ShopSystem>().UpdateText();
+        GameObject.Find("Shop").GetComponent<ShopSystem>().UpdateText();
     }
 }
