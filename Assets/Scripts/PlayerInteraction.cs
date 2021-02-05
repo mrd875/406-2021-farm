@@ -8,6 +8,10 @@ public class PlayerInteraction : MonoBehaviour
     // Item use key
     public KeyCode itemKey = KeyCode.E;
 
+    // Temp Shop Window Reference
+    public GameObject shopWindow;
+    // Temp Shop Window Reference
+
     void Update()
     {
         // Change Item Cursor with keys 1-5
@@ -51,6 +55,18 @@ public class PlayerInteraction : MonoBehaviour
                 PlayerData.UseSelectedItem(PlayerData.player.transform.position);
             }
         }
+
+
+        // Temp Open Shop
+        if(Input.GetKeyDown(KeyCode.P)) {
+            if(shopWindow.activeInHierarchy) {
+                shopWindow.SetActive(false);
+            }
+            else {
+                shopWindow.SetActive(true);
+            }
+        }
+        // Temp Open Shop
 
         if (Input.GetMouseButtonDown(0))
         {
