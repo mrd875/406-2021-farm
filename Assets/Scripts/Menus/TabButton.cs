@@ -6,8 +6,10 @@ using UnityEngine.EventSystems;
 
 public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
 {
+    // Tab group holding all of the tab buttons
     public TabGroup tabGroup;
 
+    // Sprite that changes on idle, hover, and click
     public Image background;
 
     public void OnPointerClick(PointerEventData eventData) {
@@ -26,11 +28,5 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
     void Start() {
         background = GetComponent<Image>();
         tabGroup.Subscribe(this);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
