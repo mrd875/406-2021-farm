@@ -98,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Clover Seed
   actionTile: {fileID: 11400000, guid: 9a7af27da5dc8654699e6c4bed83b1eb, type: 2}
+  actionPrefab: {fileID: 1424337128471943071, guid: de3bcfa7c292027418f717107003e828, type: 3}
   pickup_allowed: 0
   is_stackable: 1
   is_consumable: 1
