@@ -7,9 +7,30 @@ public class PlayerInteraction : MonoBehaviour
 {
     // Item use key
     public KeyCode itemKey = KeyCode.E;
+    public Tile highlightTile;
+    Vector3Int previousTileCoordinate;
+
+    void Start()
+    {
+        //previousTileCoordinate = new Vector3Int(0, 0, 5);
+    }
 
     void Update()
     {
+        // Get mouse coordinates
+        Vector2 mousePos = Input.mousePosition;
+        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector3Int tileCoordinate = WorldData.highlighter.WorldToCell(mouseWorldPos);
+
+
+        if (tileCoordinate != previousTileCoordinate)
+        {
+            WorldData.highlighter.SetTile(previousTileCoordinate, null);
+            WorldData.highlighter.SetTile(tileCoordinate, highlightTile);
+            previousTileCoordinate = tileCoordinate;
+        }
+
+
         // Change Item Cursor with keys 1-5
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
