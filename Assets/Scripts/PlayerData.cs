@@ -24,6 +24,11 @@ public class PlayerData : MonoBehaviour
     static public float maxStamina = 100;
     static public float currentStamina = 100;
 
+    //Player global funds and money stuff
+    static public int money = 100;
+    static public bool inBinRange = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -167,5 +172,23 @@ public class PlayerData : MonoBehaviour
             else
                 selectedSlotUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[selectedSlotNumber].Count;
         }
+    }
+
+
+    //Adjust player funds. Can be passed a negative value. Safeguards against going under 0
+    static public void AddMoney(int value)
+    {
+        if (money + value > 0)
+        {
+            money += value;
+        }
+        else
+        {
+            money = 0;
+        }
+
+        //Update money text
+        UpdateMoney moneyText = GameObject.FindObjectOfType<UpdateMoney>();
+        moneyText.UpdateMoneyText();
     }
 }

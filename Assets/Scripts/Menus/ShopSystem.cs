@@ -12,7 +12,7 @@ public class ShopSystem : MonoBehaviour
     public GameObject shopWindow;
 
     // Player's total money and the text to display that number
-    public int totalMoney = 500;
+    public int totalMoney = PlayerData.money;
     public Text moneyText;
 
     void Start() {
@@ -33,7 +33,7 @@ public class ShopSystem : MonoBehaviour
 
     // Update the text displaying the total money "$X.00"
     public void UpdateText() {
-        moneyText.text = "$" + totalMoney + ".00";
+        moneyText.text = "$" + PlayerData.money + ".00";
     }
 
     private void OnTriggerEnter2D(Collider2D collider) {

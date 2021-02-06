@@ -60,12 +60,11 @@ public class Item : MonoBehaviour
             Vector3Int pos = WorldData.diggableLayer.WorldToCell(location);//PlayerData.player.transform.position);
             if (actionTile == null)
                 Debug.Log("Error: actionTile is not set for given seed");
-            if ((WorldData.diggableLayer.GetTile(pos) == null) && (WorldData.plantableLayer.GetTile(pos) != null))
+            if ((WorldData.diggableLayer.GetTile(pos) == null) && (WorldData.plantableLayer.GetTile(pos) != null) && (WorldData.CheckPlantedLocation(pos)))
             {
-                // Place item in middle of cell
+                // Place item in middle of cell, track planted location
                 Instantiate(actionPrefab, WorldData.plantableLayer.CellToWorld(pos), Quaternion.identity);
-                
-
+                WorldData.AddPlantedLocation(pos);
 
                 return true;
             }
@@ -85,6 +84,17 @@ public class Item : MonoBehaviour
                         return true;
                     }
                     break;
+                
+                case "Sellable":
+                    if (PlayerData.inBinRange)
+                    {
+                        Sellable sellComp = GetComponent<Sellable>();
+                        sellComp.SellPlant();
+                        return true;
+                    }
+                    break;
+
+
             }
         }
         return false;
