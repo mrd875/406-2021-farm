@@ -35,10 +35,10 @@ public class WorldData : MonoBehaviour
         // Boundary colliders are in order: top to bottom, left to right. 
         // So 0 is top, 1 is left, 2 is right, 3 is bottom: ❖
         PolygonCollider2D[] boundries = GameObject.Find("Boundries").GetComponents<PolygonCollider2D>();
-        playerOneBoundary = boundries[1];
-        playerTwoBoundary = boundries[0];
-        playerThreeBoundary = boundries[2];
-        playerFourBoundary = boundries[3];
+        playerOneBoundary = boundries[1];   // left
+        playerTwoBoundary = boundries[0];   // top
+        playerThreeBoundary = boundries[2]; // right
+        playerFourBoundary = boundries[3];  // bottom
 
 
         //Used to tell if a plant has been planted at location before, so seed isn't consumed
