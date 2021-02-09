@@ -55,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = baseMoveSpeed;
         if (appliedReductionEffects < 0)
         {
-            Debug.Log("Error, applied speed effects less than 0");
+            Debug.Log("Error: applied speed effects less than 0");
         }
     }
 }
