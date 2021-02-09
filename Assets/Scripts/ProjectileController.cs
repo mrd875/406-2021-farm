@@ -19,9 +19,9 @@ public class ProjectileController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        startLocation = PlayerData.player.transform.position;
+        startLocation = PlayerData.playerOne.transform.position;
         target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        startSpeed = PlayerData.playerRb.velocity;
+        startSpeed = PlayerData.playerOneRb.velocity;
 
         transform.gameObject.tag = tagName;
         direction = (target - startLocation).normalized;

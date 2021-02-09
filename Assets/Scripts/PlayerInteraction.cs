@@ -71,7 +71,7 @@ public class PlayerInteraction : MonoBehaviour
             Debug.Log("Fire");
             if (PlayerData.selectedSlot.Count > 0)
             {
-                PlayerData.UseSelectedItem(PlayerData.player.transform.position);
+                PlayerData.UseSelectedItem(PlayerData.playerOne.transform.position);
             }
         }
 

@@ -11,10 +11,10 @@ public class WorldData : MonoBehaviour
     static public Tilemap highlighter;
 
     // Areas on the map belonging to each player
-    static public PolygonCollider2D playerOneBoundary;
-    static public PolygonCollider2D playerTwoBoundary;
-    static public PolygonCollider2D playerThreeBoundary;
-    static public PolygonCollider2D playerFourBoundary;
+    static public PolygonCollider2D playerOneZone;
+    static public PolygonCollider2D playerTwoZone;
+    static public PolygonCollider2D playerThreeZone;
+    static public PolygonCollider2D playerFourZone;
 
     // Locations where each player spawns after being caught in another's field
     static public Vector2 playerOneSpawnLocation;
@@ -34,11 +34,11 @@ public class WorldData : MonoBehaviour
 
         // Boundary colliders are in order: top to bottom, left to right. 
         // So 0 is top, 1 is left, 2 is right, 3 is bottom: ❖
-        PolygonCollider2D[] boundries = GameObject.Find("Boundries").GetComponents<PolygonCollider2D>();
-        playerOneBoundary = boundries[1];   // left
-        playerTwoBoundary = boundries[0];   // top
-        playerThreeBoundary = boundries[2]; // right
-        playerFourBoundary = boundries[3];  // bottom
+        PolygonCollider2D[] zones = GameObject.Find("Zones").GetComponents<PolygonCollider2D>();
+        playerOneZone = zones[1];   // left
+        playerTwoZone = zones[0];   // top
+        playerThreeZone = zones[2]; // right
+        playerFourZone = zones[3];  // bottom
 
 
         //Used to tell if a plant has been planted at location before, so seed isn't consumed
