@@ -5,13 +5,20 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     // basic movement variables
-    public float moveSpeed = 250.0f;
-    public Vector2 movement;
+    public float moveSpeed = 200.0f;
+    private float baseMoveSpeed;
     private bool isMoving = false;
+    private int appliedReductionEffects; // amount of slow effects applied (for duration purpose)
+    public Vector2 movement;
+    
 
     // Player RB to add movement to
     public Rigidbody2D rb;
 
+    void Start()
+    {
+        baseMoveSpeed = moveSpeed;
+    }
 
     void Update()
     {
@@ -30,8 +37,25 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         //Move in response to input from WASD or Arrow Keys
-        //rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime); // old way
         rb.velocity = movement.normalized * moveSpeed * Time.fixedDeltaTime;
+    }
 
+    public void ReduceSpeed(float reduction)
+    {
+        moveSpeed = baseMoveSpeed * reduction;
+        appliedReductionEffects += 1;
+        StartCoroutine(RegainSpeed());
+    }
+
+    private IEnumerator RegainSpeed()
+    {
+        yield return new WaitForSeconds(3f);
+        appliedReductionEffects -= 1;
+        if (appliedReductionEffects == 0)
+            moveSpeed = baseMoveSpeed;
+        if (appliedReductionEffects > 0)
+        {
+            Debug.Log("Error, applied speed effects is coming in at -1");
+        }
     }
 }

@@ -16,15 +16,9 @@ public class PlayerInteraction : MonoBehaviour
     public Tile highlightTile;
     Vector3Int previousTileCoordinate;
 
-    void Start()
-    {
-        //previousTileCoordinate = new Vector3Int(0, 0, 5);
-    }
-
-
     void Update()
     {
-        // Get mouse coordinates
+        // Get mouse coordinates (for highlight tile)
         Vector2 mousePos = Input.mousePosition;
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector3Int tileCoordinate = WorldData.highlighter.WorldToCell(mouseWorldPos);

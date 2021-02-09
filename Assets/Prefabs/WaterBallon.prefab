@@ -127,5 +127,5 @@ MonoBehaviour:
   startSpeed: {x: 0, y: 0}
   speed: 7
   lifeTime: 0.5
-  speedReduction: 10
+  speedReduction: 0.5
   tagName: PlayerOneProjectile

@@ -295,7 +295,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 746594850}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &203087207
 TilemapRenderer:
@@ -1453,7 +1453,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 746594850}
-  m_RootOrder: 2
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &731659537
 TilemapRenderer:
@@ -29849,9 +29849,10 @@ Transform:
   - {fileID: 1598754892}
   - {fileID: 1249923887}
   - {fileID: 1671300790}
-  - {fileID: 731659536}
+  - {fileID: 899423910}
   - {fileID: 916072994}
   - {fileID: 203087206}
+  - {fileID: 731659536}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -29955,7 +29956,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 899423910}
-  - component: {fileID: 1931886200}
   m_Layer: 0
   m_Name: Recovery GameObject (1931886200)
   m_TagString: Untagged
@@ -30007,7 +30007,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 746594850}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &916072995
 TilemapRenderer:
@@ -61878,7 +61878,6 @@ MonoBehaviour:
   projectilePrefab: {fileID: 4884807220314582406, guid: 29a1448a0a054ae43b6129e8a880f0af, type: 3}
   projectileSpeed: 10
   shotCooldown: 2
-  speedReduction: 2
   canShoot: 1
   isShooting: 0
 --- !u!114 &1932943900
@@ -63273,7 +63272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  moveSpeed: 250
+  moveSpeed: 200
   rb: {fileID: 1635057839178624800}
 --- !u!4 &1635057839178624805
 Transform:
