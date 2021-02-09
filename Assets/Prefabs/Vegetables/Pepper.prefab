@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7891801817533986481
+--- !u!1 &2506083140379774108
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7891801817533986492}
-  - component: {fileID: 7891801817533986495}
-  - component: {fileID: 7891801817533986494}
-  - component: {fileID: 7891801817533986493}
+  - component: {fileID: 279242086674967172}
+  - component: {fileID: 1421038891200751827}
+  - component: {fileID: 9058664792304179225}
   m_Layer: 0
-  m_Name: Shovel
+  m_Name: Pepper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7891801817533986492
+--- !u!4 &279242086674967172
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7891801817533986481}
+  m_GameObject: {fileID: 2506083140379774108}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.61, y: 1.97, z: 0}
+  m_LocalPosition: {x: -8.424155, y: 0.8397404, z: -0.42272693}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &7891801817533986495
+--- !u!212 &1421038891200751827
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7891801817533986481}
+  m_GameObject: {fileID: 2506083140379774108}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -70,63 +69,39 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1712183815
-  m_SortingLayer: 2
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7244422b7e858ea4a9aa2284444b919a, type: 3}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 9
+  m_Sprite: {fileID: -8178225378026889601, guid: f65023eb0320d14458733861add84426, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.15, y: 0.13}
+  m_Size: {x: 0.77, y: 1.29}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7891801817533986494
+--- !u!114 &9058664792304179225
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7891801817533986481}
+  m_GameObject: {fileID: 2506083140379774108}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba16ce24be1a02f44871019c815604e7, type: 3}
+  m_Script: {fileID: 11500000, guid: 8492b3c8b04193546b120abbc6378d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Shovel
-  actionTile: {fileID: 0}
-  actionPrefab: {fileID: 0}
-  InventorySprite: {fileID: 21300000, guid: 7244422b7e858ea4a9aa2284444b919a, type: 3}
-  pickup_allowed: 0
-  is_stackable: 0
-  is_consumable: 0
-  is_seed: 0
---- !u!61 &7891801817533986493
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7891801817533986481}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.001830101, y: 0.00021219254}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.6942857, y: 0.6257143}
-    newSize: {x: 0.15, y: 0.13}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.64418364, y: 0.5980234}
-  m_EdgeRadius: 0
+  vegetableStages:
+  - image: {fileID: 1730867896854437283, guid: daa10cf4bda0d9a4694cf1b931cc982a, type: 3}
+    growTime: 2
+  - image: {fileID: 2033076350440468999, guid: daa10cf4bda0d9a4694cf1b931cc982a, type: 3}
+    growTime: 2
+  - image: {fileID: 3543999295466229728, guid: daa10cf4bda0d9a4694cf1b931cc982a, type: 3}
+    growTime: 3
+  - image: {fileID: -393419010168150447, guid: daa10cf4bda0d9a4694cf1b931cc982a, type: 3}
+    growTime: 4
+  fullyGrownItem: {fileID: 5938930077006130528, guid: 948c71fed4076584e9ffa81d31ddf42e, type: 3}

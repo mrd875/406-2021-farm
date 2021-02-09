@@ -1,13 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.Tilemaps;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Item : MonoBehaviour
 {
     public string itemName;
     public Tile actionTile;
     public GameObject actionPrefab;
+    public Sprite InventorySprite;
 
     [HideInInspector]
     public bool pickup_allowed = false;
@@ -21,6 +25,14 @@ public class Item : MonoBehaviour
     {
         // Grab item button
         if (Input.GetKeyDown(KeyCode.F) && pickup_allowed)
+        {
+            AddItem();
+        }
+    }
+
+    void OnMouseDown()
+    {
+        if (pickup_allowed)
         {
             AddItem();
         }
@@ -46,10 +58,29 @@ public class Item : MonoBehaviour
         
     }
 
+    public void ChangeToInventorySprite()
+    {
+        this.GetComponent<SpriteRenderer>().sprite = InventorySprite;
+        this.GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
     private void AddItem()
     {
+        Sprite oldSprite = this.GetComponent<SpriteRenderer>().sprite;
+        Color oldColor = this.GetComponent<SpriteRenderer>().color;
+        ChangeToInventorySprite();
         // attempt to add item. Canswap takes in a bool returned by AddItem indicating its success
         canSwap = PlayerData.AddItem(this);
+        if (!canSwap)
+        {
+            this.GetComponent<SpriteRenderer>().sprite = oldSprite;
+            this.GetComponent<SpriteRenderer>().color = oldColor;
+        }
+        else
+        {
+            WorldData.RemovePlantedLocation(WorldData.diggableLayer.WorldToCell(this.transform.localPosition));
+        }
+        
     }
 
     public bool UseItem(Vector2 location)
@@ -72,32 +103,37 @@ public class Item : MonoBehaviour
         }
 
         // For items that require specific functions
-        else {
+        else
+        {
             switch (itemName)
             {
                 case "Shovel":
                     // Shovel removes a tile off the top layer of the grid, tile should be flagged as diggable; for example, a shovel shouldn't be allowd to dig through concrete
                     // This can be changed so that it adds a dirt tile on top instead, or it replaces a grass tile with a dirt one with relative ease
-                    Vector3Int tileCoordinate = WorldData.diggableLayer.WorldToCell(location);//PlayerData.player.transform.position);
+                    Vector3Int tileCoordinate =
+                        WorldData.diggableLayer.WorldToCell(location); //PlayerData.player.transform.position);
                     if (WorldData.diggableLayer.GetTile(tileCoordinate) != null)
                     {
                         WorldData.diggableLayer.SetTile(tileCoordinate, null);
                         return true;
                     }
-                    break;
-                
-                case "Sellable":
-                    if (PlayerData.inBinRange)
-                    {
-                        Sellable sellComp = GetComponent<Sellable>();
-                        sellComp.SellPlant();
-                        return true;
-                    }
-                    break;
 
+                    break;
 
             }
+
+            //Vegetables work differently
+            if (itemName.Substring(0, 8) == "Sellable")
+            {
+                if (PlayerData.inBinRange)
+                {
+                    Sellable sellComp = GetComponent<Sellable>();
+                    sellComp.SellPlant();
+                    return true;
+                }
+            }
         }
+
         return false;
     }
 }

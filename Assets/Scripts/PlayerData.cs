@@ -76,7 +76,7 @@ public class PlayerData : MonoBehaviour
         if (slotToAdd != -1)
         {
             itemSlots[slotToAdd].AddFirst(item);
-            item.transform.position = new Vector3(-500, 0, 0);
+            //item.transform.position = new Vector3(-500, 0, 0);
         }
 
         // Update inventory GUI on screen
@@ -87,6 +87,8 @@ public class PlayerData : MonoBehaviour
                 GameObject.Find("Slot1UI").transform.GetChild(0).GetComponent<Image>().color = item.gameObject.GetComponent<SpriteRenderer>().color;
                 if (item.is_stackable)
                     GameObject.Find("Slot1UI").transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[0].Count;
+                WorldData.RemovePlantedLocation(WorldData.diggableLayer.WorldToCell(item.transform.localPosition));
+                item.transform.position = new Vector3(-500, 0, 0);
                 return true;
 
             case 1:
@@ -94,6 +96,8 @@ public class PlayerData : MonoBehaviour
                 GameObject.Find("Slot2UI").transform.GetChild(0).GetComponent<Image>().color = item.gameObject.GetComponent<SpriteRenderer>().color;
                 if (item.is_stackable)
                     GameObject.Find("Slot2UI").transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[1].Count;
+                WorldData.RemovePlantedLocation(WorldData.diggableLayer.WorldToCell(item.transform.localPosition));
+                item.transform.position = new Vector3(-500, 0, 0);
                 return true;
 
             case 2:
@@ -101,6 +105,8 @@ public class PlayerData : MonoBehaviour
                 GameObject.Find("Slot3UI").transform.GetChild(0).GetComponent<Image>().color = item.gameObject.GetComponent<SpriteRenderer>().color;
                 if (item.is_stackable)
                     GameObject.Find("Slot3UI").transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[2].Count;
+                WorldData.RemovePlantedLocation(WorldData.diggableLayer.WorldToCell(item.transform.localPosition));
+                item.transform.position = new Vector3(-500, 0, 0);
                 return true;
 
             case 3:
@@ -108,6 +114,8 @@ public class PlayerData : MonoBehaviour
                 GameObject.Find("Slot4UI").transform.GetChild(0).GetComponent<Image>().color = item.gameObject.GetComponent<SpriteRenderer>().color;
                 if (item.is_stackable)
                     GameObject.Find("Slot4UI").transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[3].Count;
+                WorldData.RemovePlantedLocation(WorldData.diggableLayer.WorldToCell(item.transform.localPosition));
+                item.transform.position = new Vector3(-500, 0, 0);
                 return true;
             
             case 4:
@@ -115,6 +123,8 @@ public class PlayerData : MonoBehaviour
                 GameObject.Find("Slot5UI").transform.GetChild(0).GetComponent<Image>().color = item.gameObject.GetComponent<SpriteRenderer>().color;
                 if (item.is_stackable)
                     GameObject.Find("Slot5UI").transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[4].Count;
+                WorldData.RemovePlantedLocation(WorldData.diggableLayer.WorldToCell(item.transform.localPosition));
+                item.transform.position = new Vector3(-500, 0, 0);
                 return true;
             case -1:
                 // inventory full
