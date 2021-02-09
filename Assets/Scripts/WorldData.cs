@@ -32,13 +32,12 @@ public class WorldData : MonoBehaviour
         playerOneSpawnLocation = GameObject.Find("PlayerOneSpawn").transform.position;
         playerTwoSpawnLocation = GameObject.Find("PlayerTwoSpawn").transform.position;
 
-        // Boundary colliders are in order: top to bottom, left to right. 
-        // So 0 is top, 1 is left, 2 is right, 3 is bottom: ❖
-        PolygonCollider2D[] zones = GameObject.Find("Zones").GetComponents<PolygonCollider2D>();
-        playerOneZone = zones[1];   // left
-        playerTwoZone = zones[0];   // top
-        playerThreeZone = zones[2]; // right
-        playerFourZone = zones[3];  // bottom
+        // Zone colliders are appart from eachother as such: ❖  
+        // Player1 is left, Player2 top, Player3 right, Player4 bottom
+        playerOneZone = GameObject.Find("PlayerOneZone").GetComponent<PolygonCollider2D>();   // left
+        playerTwoZone = GameObject.Find("PlayerTwoZone").GetComponent<PolygonCollider2D>(); ;   // top
+        playerThreeZone = GameObject.Find("PlayerThreeZone").GetComponent<PolygonCollider2D>(); ; // right
+        playerFourZone = GameObject.Find("PlayerFourZone").GetComponent<PolygonCollider2D>(); ;  // bottom
 
 
         //Used to tell if a plant has been planted at location before, so seed isn't consumed
