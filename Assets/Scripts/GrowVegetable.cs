@@ -13,6 +13,7 @@ public class GrowVegetable : MonoBehaviour
         public float growTime;
     }
     public List<stages> vegetableStages;
+    public GameObject fullyGrownItem;
 
 
     //Internal
@@ -54,6 +55,12 @@ public class GrowVegetable : MonoBehaviour
             spriteController.sprite = currentStage.image;
             growTimer = currentStage.growTime;
         }
+
+        //Plant is fully grown! Spawn a pickup and delete self.
+        Instantiate(fullyGrownItem, this.transform.position, this.transform.localRotation);
+        WorldData.RemovePlantedLocation(WorldData.diggableLayer.WorldToCell(this.transform.localPosition));
+
+        Destroy(this.gameObject);
     }
 
 }

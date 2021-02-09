@@ -11,7 +11,7 @@ public class ProjectileController : MonoBehaviour
     public float speed = 10;    // Speed of the projectile
 
     public float lifeTime = 0.5f;   // how long the projectile will remain airborn for
-    public float speedReduction = 10; // default reduction in movement speed to target hit
+    public float speedReduction = 0.5f; // default reduction in movement speed to target hit
     public string tagName = "PlayerOneProjectile"; // default tag, for interaction purpose so, for example, player one cannot get hit by their own projectile
 
     private Vector2 direction; // Direction for projectile to move
@@ -41,7 +41,7 @@ public class ProjectileController : MonoBehaviour
         // Player one projectile hits player two
         if (tagName == "PlayerOneProjectile" && other.tag == "PlayerTwo")
         {
-            other.GetComponent<MoveAround>().moveSpeed /= 2;
+            other.GetComponent<MoveAround>().ReduceSpeed(speedReduction);
             Destroy(this.gameObject);
         }
     }

@@ -10,7 +10,9 @@ public class MoveAround : MonoBehaviour
 
 
     // basic movement variables
-    public float moveSpeed = 250.0f;
+    public float moveSpeed = 200.0f;
+    private float baseMoveSpeed;  
+    private int appliedReductionEffects; // amount of slow effects applied (for duration purpose)
     private Vector2 movement;
 
     // using sin and cos to dictate directions for ChangeDirection()
@@ -21,6 +23,7 @@ public class MoveAround : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        baseMoveSpeed = moveSpeed;
         movement = new Vector2(1.0f, 0.0f);
         rb.velocity = movement.normalized * moveSpeed * Time.fixedDeltaTime;
         StartCoroutine(ChangeDirection());
@@ -46,5 +49,24 @@ public class MoveAround : MonoBehaviour
         yield return new WaitForSeconds(3f);
         rb.velocity = movement.normalized * moveSpeed * Time.fixedDeltaTime;
         StartCoroutine(ChangeDirection());
+    }
+
+    public void ReduceSpeed(float reduction)
+    {
+        moveSpeed = baseMoveSpeed * reduction;
+        appliedReductionEffects += 1;
+        StartCoroutine(RegainSpeed());
+    }
+
+    private IEnumerator RegainSpeed()
+    {
+        yield return new WaitForSeconds(3f);
+        appliedReductionEffects -= 1;
+        if (appliedReductionEffects == 0)
+            moveSpeed = baseMoveSpeed;
+        if (appliedReductionEffects > 0)
+        {
+            Debug.Log("Error, applied speed effects is coming in at -1");
+        }
     }
 }

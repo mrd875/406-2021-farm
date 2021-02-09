@@ -2,14 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInteraction : MonoBehaviour
 {
     // Item use key
     public KeyCode itemKey = KeyCode.E;
 
+    private bool inBinRange = false;
+    public GameObject sellText;
+
+
+    public Tile highlightTile;
+    Vector3Int previousTileCoordinate;
+
     void Update()
     {
+        // Get mouse coordinates (for highlight tile)
+        Vector2 mousePos = Input.mousePosition;
+        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector3Int tileCoordinate = WorldData.highlighter.WorldToCell(mouseWorldPos);
+
+
+        if (tileCoordinate != previousTileCoordinate)
+        {
+            WorldData.highlighter.SetTile(previousTileCoordinate, null);
+            WorldData.highlighter.SetTile(tileCoordinate, highlightTile);
+            previousTileCoordinate = tileCoordinate;
+        }
+
+
         // Change Item Cursor with keys 1-5
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -46,6 +68,7 @@ public class PlayerInteraction : MonoBehaviour
         // Use Item
         if (Input.GetKeyDown(itemKey))
         {
+            Debug.Log("Fire");
             if (PlayerData.selectedSlot.Count > 0)
             {
                 PlayerData.UseSelectedItem(PlayerData.player.transform.position);
@@ -80,6 +103,25 @@ public class PlayerInteraction : MonoBehaviour
         {
             Debug.Log(WorldData.playerTwoSpawnLocation);
             other.transform.position = WorldData.playerTwoSpawnLocation;
+        }
+    }
+
+    //Trigger functions to tell when player is in bin range
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Bin"))
+        {
+            PlayerData.inBinRange = true;
+            sellText.SetActive(true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Bin"))
+        {
+            PlayerData.inBinRange = false;
+            sellText.SetActive(false);
         }
     }
 

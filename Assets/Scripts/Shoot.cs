@@ -11,7 +11,6 @@ public class Shoot : MonoBehaviour
     
     public float projectileSpeed;   // speed of projectile
     public float shotCooldown = 1f; // cooldown before fireing another projectile
-    public float speedReduction = 2f;   // Amount of movement speed that is reduced when projecitile collides with other player (NYI)
 
     public bool canShoot = true;
     public bool isShooting = false;
@@ -44,7 +43,6 @@ public class Shoot : MonoBehaviour
     {
         GameObject projectile = Instantiate(projectilePrefab, shooter.position, shooter.rotation);
         (projectile.GetComponent("ProjectileController") as ProjectileController).tagName = "PlayerOneProjectile";
-        (projectile.GetComponent("ProjectileController") as ProjectileController).speedReduction = speedReduction;
-        //(projectile.GetComponent("ProjectileController") as ProjectileController).target = target;
+/*        (projectile.GetComponent("ProjectileController") as ProjectileController).speedReduction = speedReduction;*/
     }
 }
