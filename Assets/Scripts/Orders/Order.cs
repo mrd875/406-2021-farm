@@ -5,23 +5,16 @@ using UnityEngine.UI;
 
 public class Order
 {
-    public List<string> orderNames;
-    public List<Image> orderSprites;
-    public List<int> orderAmounts;
+    public List<string> orderNames = new List<string>();
+    public List<Sprite> orderSprites = new List<Sprite>();
+    public List<int> orderAmounts = new List<int>();
+    public int items = 0;
 
-    public Order(List<string> initNames, List<Image> initSprites, List<int> initAmounts) {
-        // Initialize orderNames
-        foreach(string name in initNames) {
-            orderNames.Add(name);
-        }
-        // Initialize orderSprites
-        foreach(Image sprite in initSprites) {
-            orderSprites.Add(sprite);
-        }
-        // Initialize orderAmounts
-        foreach(int amount in initAmounts) {
-            orderAmounts.Add(amount);
-        }
+    public void AddItem(string name, Sprite sprite, int amount) {
+        orderNames.Add(name);
+        orderSprites.Add(sprite);
+        orderAmounts.Add(amount);
+        items++;
     }
 
     // public void SetProduceName(string newName) {
