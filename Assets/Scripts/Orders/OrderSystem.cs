@@ -38,12 +38,13 @@ public class OrderSystem : MonoBehaviour
         for(int x = 0; x < 10; x++) {
             Order newOrder = new Order();
 
-            // Determine the number of items in each order ticket, each ticket can have 3
-            // different items
+            // Determine the number of items in each order ticket, each ticket can have 3 different items
             int itemsPerTicket = Random.Range(1, 4); 
 
             for(int y = 0; y < itemsPerTicket; y++) {
-                int randProduce = Random.Range(0, produceNames.Count);
+                int randProduce = Random.Range(0, produceNames.Count); // rand index to be used
+
+                // Use the randProduce as the index to get the random produce name and corresponding sprite
                 string orderProduce = produceNames[randProduce];
                 Sprite orderSprite = produceSprites[randProduce];
                 int orderSize = Random.Range(minOrderSize, maxOrderSize+1);
@@ -55,18 +56,15 @@ public class OrderSystem : MonoBehaviour
             pTwoOrders.Add(newOrder);
         }
 
-        StartCoroutine(LateStart());
+        newTicket(pOneOrders[0]);
+        newTicket(pOneOrders[1]);
+        newTicket(pOneOrders[2]);
     }
 
-    IEnumerator LateStart() {
-        yield return new WaitForSeconds(1f);
-        
-        pOneActiveOrders.Add(pOneOrders[pOneOrdersComplete]);
-
-        newTicket(pOneOrders[pOneOrdersComplete]);
-    }
-
+    // Create a new order ticket to display on screen
     private void newTicket(Order order) {
+        pOneActiveOrders.Add(order);
+
         GameObject newTicket = (GameObject)Instantiate(orderTicketPrefab, Vector3.zero, Quaternion.identity);
         newTicket.transform.SetParent(this.transform);
 
@@ -77,25 +75,20 @@ public class OrderSystem : MonoBehaviour
             newItem.transform.GetChild(0).GetComponent<Image>().sprite = order.orderSprites[x];
             newItem.transform.GetChild(1).GetComponent<TextMeshProUGUI>().SetText("X " + order.orderAmounts[x]);
         }
-
     }
 
 
 
 
 
-    // // Update is called once per frame
-    // void Update()
-    // {
-    //     // If "." is pressed, update Player One
-    //     if(Input.GetKeyDown(KeyCode.Period)) {
-    //         UpdatePlayer(pOneOrders, pOneProduceText, pOneOrderAmountText);
-    //     }
-    //     // If "/" is pressed, update Player Two
-    //     if(Input.GetKeyDown(KeyCode.Slash)) {
-    //         UpdatePlayer(pTwoOrders, pTwoProduceText, pTwoOrderAmountText);
-    //     }
-    // }
+    // Update is called once per frame
+    void Update()
+    {
+        // Add orders until the order queue is full
+        if(pOneActiveOrders.Count < 3) {
+
+        }
+    }
 
     // // Decrease the total amount for the current order, if the order is fulfilled, load a new order
     // private void UpdatePlayer(List<Order> playerOrders, Text produceName, Text orderAmount) {
