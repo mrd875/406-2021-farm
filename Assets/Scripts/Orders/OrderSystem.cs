@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,8 +9,6 @@ public class OrderSystem : MonoBehaviour
     // Order UI Prefabs
     public GameObject orderTicketPrefab;
     public GameObject orderItemPrefab;
-
-    private List<GameObject> orderTicketsList = new List<GameObject>();
 
     // List of strings that contains the names of all produce
     public List<string> produceNames;
@@ -24,10 +22,10 @@ public class OrderSystem : MonoBehaviour
 
     // Player One's list of total orders, active orders, and number of orders completed
     private List<Order> pOneOrders = new List<Order>();
-    private List<Order> pOneActiveOrders = new List<Order>();
     private int pOneOrdersComplete = 0;
 
-    private List<GameObject> pOneOrderTickets = new List<GameObject>();
+    // List of currently active orders
+    private List<GameObject> pOneActiveTickets = new List<GameObject>();
 
     // Player Two's list of orders
     private List<Order> pTwoOrders = new List<Order>();
@@ -62,15 +60,32 @@ public class OrderSystem : MonoBehaviour
         }
     }
 
+
+    // Update is called once per frame
+    void Update()
+    {
+        // Add orders until the order queue is full
+        if(pOneActiveTickets.Count < 3) {
+            timer -= Time.deltaTime;
+            if(timer <= 0.0f) {
+                newTicket(pOneOrders[0]);
+                timer = 15.0f;
+            }
+        }
+        if(Input.GetKeyDown(KeyCode.Space)) {
+            CompleteTicket(0);
+        }
+    }
+
+
     // Create a new order ticket to display on screen
     private void newTicket(Order order) {
-        // Move the current order from total list of orders to active orders
-        pOneActiveOrders.Add(order);
+        // Remove the order from the total list of orders
         pOneOrders.Remove(order);
 
         // Create ticket object and add to list of tickets
         GameObject newTicket = (GameObject)Instantiate(orderTicketPrefab, Vector3.zero, Quaternion.identity);
-        orderTicketsList.Add(newTicket);
+        pOneActiveTickets.Add(newTicket);
         newTicket.transform.SetParent(this.transform);
 
         // Set sprites and amounts for each item in the order
@@ -83,35 +98,13 @@ public class OrderSystem : MonoBehaviour
         }
     }
 
+
     // Remove an order ticket from the screen
     private void CompleteTicket(int ticketIndex) {
         // Find the ticket object at the given index, remove it from the list, and destroy it
-        GameObject ticketToRemove = orderTicketsList[ticketIndex];
-        orderTicketsList.Remove(ticketToRemove);
+        GameObject ticketToRemove = pOneActiveTickets[ticketIndex];
+        pOneActiveTickets.Remove(ticketToRemove);
         Destroy(ticketToRemove);
-
-        // Remove the ticket from the list of active orders
-        pOneActiveOrders.RemoveAt(ticketIndex);
-    }
-
-
-
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        // Add orders until the order queue is full
-        if(pOneActiveOrders.Count < 3) {
-            timer -= Time.deltaTime;
-            if(timer <= 0.0f) {
-                newTicket(pOneOrders[0]);
-                timer = 15.0f;
-            }
-        }
-        if(Input.GetKeyDown(KeyCode.Space)) {
-            CompleteTicket(0);
-        }
     }
 
     // // Decrease the total amount for the current order, if the order is fulfilled, load a new order
