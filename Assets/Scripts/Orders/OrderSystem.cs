@@ -32,6 +32,9 @@ public class OrderSystem : MonoBehaviour
     // Player Two's list of orders
     private List<Order> pTwoOrders = new List<Order>();
 
+    // Timer used to automatically add orders
+    private float timer = 5.0f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -53,7 +56,7 @@ public class OrderSystem : MonoBehaviour
 
                 newOrder.AddItem(orderProduce, orderSprite, orderSize);
             }
-
+            // Add the newly created order to each players total list of orders
             pOneOrders.Add(newOrder);
             pTwoOrders.Add(newOrder);
         }
@@ -80,11 +83,10 @@ public class OrderSystem : MonoBehaviour
         }
     }
 
-    // Remove a ticket from the screen
-    private void removeTicket(int ticketIndex) {
+    // Remove an order ticket from the screen
+    private void CompleteTicket(int ticketIndex) {
         // Find the ticket object at the given index, remove it from the list, and destroy it
         GameObject ticketToRemove = orderTicketsList[ticketIndex];
-
         orderTicketsList.Remove(ticketToRemove);
         Destroy(ticketToRemove);
 
@@ -101,10 +103,14 @@ public class OrderSystem : MonoBehaviour
     {
         // Add orders until the order queue is full
         if(pOneActiveOrders.Count < 3) {
-            newTicket(pOneOrders[0]);
+            timer -= Time.deltaTime;
+            if(timer <= 0.0f) {
+                newTicket(pOneOrders[0]);
+                timer = 5.0f;
+            }
         }
         if(Input.GetKeyDown(KeyCode.Space)) {
-            removeTicket(0);
+            CompleteTicket(0);
         }
     }
 
