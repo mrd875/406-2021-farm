@@ -10,6 +10,8 @@ public class OrderSystem : MonoBehaviour
     public GameObject orderTicketPrefab;
     public GameObject orderItemPrefab;
 
+    private List<GameObject> orderTicketsList = new List<GameObject>();
+
     // List of strings that contains the names of all produce
     public List<string> produceNames;
 
@@ -55,19 +57,20 @@ public class OrderSystem : MonoBehaviour
             pOneOrders.Add(newOrder);
             pTwoOrders.Add(newOrder);
         }
-
-        newTicket(pOneOrders[0]);
-        newTicket(pOneOrders[1]);
-        newTicket(pOneOrders[2]);
     }
 
     // Create a new order ticket to display on screen
     private void newTicket(Order order) {
+        // Move the current order from total list of orders to active orders
         pOneActiveOrders.Add(order);
+        pOneOrders.Remove(order);
 
+        // Create ticket object and add to list of tickets
         GameObject newTicket = (GameObject)Instantiate(orderTicketPrefab, Vector3.zero, Quaternion.identity);
+        orderTicketsList.Add(newTicket);
         newTicket.transform.SetParent(this.transform);
 
+        // Set sprites and amounts for each item in the order
         for(int x = 0; x < order.items; x++) {
             GameObject newItem = (GameObject)Instantiate(orderItemPrefab, Vector3.zero, Quaternion.identity);
             newItem.transform.SetParent(newTicket.transform.GetChild(1));
@@ -75,6 +78,18 @@ public class OrderSystem : MonoBehaviour
             newItem.transform.GetChild(0).GetComponent<Image>().sprite = order.orderSprites[x];
             newItem.transform.GetChild(1).GetComponent<TextMeshProUGUI>().SetText("X " + order.orderAmounts[x]);
         }
+    }
+
+    // Remove a ticket from the screen
+    private void removeTicket(int ticketIndex) {
+        // Find the ticket object at the given index, remove it from the list, and destroy it
+        GameObject ticketToRemove = orderTicketsList[ticketIndex];
+
+        orderTicketsList.Remove(ticketToRemove);
+        Destroy(ticketToRemove);
+
+        // Remove the ticket from the list of active orders
+        pOneActiveOrders.RemoveAt(ticketIndex);
     }
 
 
@@ -86,7 +101,10 @@ public class OrderSystem : MonoBehaviour
     {
         // Add orders until the order queue is full
         if(pOneActiveOrders.Count < 3) {
-
+            newTicket(pOneOrders[0]);
+        }
+        if(Input.GetKeyDown(KeyCode.Space)) {
+            removeTicket(0);
         }
     }
 
