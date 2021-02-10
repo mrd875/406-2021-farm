@@ -33,7 +33,7 @@ public class OrderSystem : MonoBehaviour
     private List<Order> pTwoOrders = new List<Order>();
 
     // Timer used to automatically add orders
-    private float timer = 5.0f;
+    private float timer = 15.0f;
 
 
     // Start is called before the first frame update
@@ -106,7 +106,7 @@ public class OrderSystem : MonoBehaviour
             timer -= Time.deltaTime;
             if(timer <= 0.0f) {
                 newTicket(pOneOrders[0]);
-                timer = 5.0f;
+                timer = 15.0f;
             }
         }
         if(Input.GetKeyDown(KeyCode.Space)) {

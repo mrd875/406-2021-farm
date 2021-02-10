@@ -17,6 +17,14 @@ public class Order
         items++;
     }
 
+    public bool CheckOrder() {
+        foreach(int amount in orderAmounts) {
+            if(amount > 0) {
+                return false;
+            }
+        }
+        return true;
+    }
     // public void SetProduceName(string newName) {
     //     produceName = newName;
     // }

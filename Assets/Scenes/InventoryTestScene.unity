@@ -30091,6 +30091,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &764431035 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5259434684469504552, guid: 060a9b1a4caac3e4e948729cb7b471b1, type: 3}
+  m_PrefabInstance: {fileID: 5259434683398368071}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &779584832 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5259434683965615623, guid: 060a9b1a4caac3e4e948729cb7b471b1, type: 3}
@@ -31570,6 +31575,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1011155130}
   m_CullTransparentMesh: 0
+--- !u!1 &1091814150 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5259434683253627660, guid: 060a9b1a4caac3e4e948729cb7b471b1, type: 3}
+  m_PrefabInstance: {fileID: 5259434683398368071}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1115261653 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5259434684604252188, guid: 060a9b1a4caac3e4e948729cb7b471b1, type: 3}
+  m_PrefabInstance: {fileID: 5259434683398368071}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1182513326
 GameObject:
   m_ObjectHideFlags: 3
@@ -63741,6 +63756,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1267757739}
     m_Modifications:
+    - target: {fileID: 5259434683314399013, guid: 060a9b1a4caac3e4e948729cb7b471b1, type: 3}
+      propertyPath: shopPages.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5259434683314399013, guid: 060a9b1a4caac3e4e948729cb7b471b1, type: 3}
+      propertyPath: shopPages.Array.data[0]
+      value: 
+      objectReference: {fileID: 1091814150}
+    - target: {fileID: 5259434683314399013, guid: 060a9b1a4caac3e4e948729cb7b471b1, type: 3}
+      propertyPath: shopPages.Array.data[1]
+      value: 
+      objectReference: {fileID: 764431035}
+    - target: {fileID: 5259434683314399013, guid: 060a9b1a4caac3e4e948729cb7b471b1, type: 3}
+      propertyPath: shopPages.Array.data[2]
+      value: 
+      objectReference: {fileID: 1115261653}
     - target: {fileID: 5259434684864124281, guid: 060a9b1a4caac3e4e948729cb7b471b1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

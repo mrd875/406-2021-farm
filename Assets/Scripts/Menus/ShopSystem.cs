@@ -12,7 +12,7 @@ public class ShopSystem : MonoBehaviour
     public GameObject shopWindow;
 
     // Player's total money and the text to display that number
-    public int totalMoney = PlayerData.money;
+    private int totalMoney = PlayerData.money;
     public Text moneyText;
 
     void Start() {
@@ -28,6 +28,9 @@ public class ShopSystem : MonoBehaviour
             else {
                 shopWindow.SetActive(true);
             }
+        }
+        if(shopWindow.activeSelf) {
+            UpdateText();
         }
     }
 
