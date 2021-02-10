@@ -18,7 +18,7 @@ public class Shoot : MonoBehaviour
     void Update()
     {
         // Throw projectile key
-        if (Input.GetKeyDown(KeyCode.Q) && canShoot)
+        if (Input.GetKeyDown(KeyCode.Q) && PlayerData.userArea.OverlapPoint(this.transform.position) && canShoot )
         {
             isShooting = true;
             StartCoroutine(ShotCooldown(shotCooldown));

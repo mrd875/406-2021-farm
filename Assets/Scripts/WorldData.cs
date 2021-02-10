@@ -31,6 +31,8 @@ public class WorldData : MonoBehaviour
         highlighter = GameObject.Find("Highlighter").GetComponent<Tilemap>();
         playerOneSpawnLocation = GameObject.Find("PlayerOneSpawn").transform.position;
         playerTwoSpawnLocation = GameObject.Find("PlayerTwoSpawn").transform.position;
+        playerThreeSpawnLocation = GameObject.Find("PlayerThreeSpawn").transform.position;
+        playerFourSpawnLocation = GameObject.Find("PlayerFourSpawn").transform.position;
 
         // Zone colliders are appart from eachother as such: ❖  
         // Player1 is left, Player2 top, Player3 right, Player4 bottom

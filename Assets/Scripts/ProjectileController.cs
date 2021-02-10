@@ -39,9 +39,17 @@ public class ProjectileController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         // Player one projectile hits player two
-        if (tagName == "PlayerOneProjectile" && other.tag == "PlayerTwo")
+        if (tagName == "PlayerOneProjectile" && PlayerData.userArea.OverlapPoint(other.transform.position)
+            && (other.tag == "PlayerTwo" || other.tag == "PlayerThree" || other.tag == "PlayerFour"))
         {
             other.GetComponent<MoveAround>().ReduceSpeed(speedReduction);
+            Destroy(this.gameObject);
+        }
+        else if (other.tag == "Area") { }
+        else if (tagName == "PlayerOneProjectile" && other.tag == "PlayerOne") { }
+        else
+        {
+            // Debug.Log(other.tag);
             Destroy(this.gameObject);
         }
     }

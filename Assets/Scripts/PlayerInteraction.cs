@@ -99,10 +99,22 @@ public class PlayerInteraction : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         // Collision with a player on your land will teleport player back to their land
-        if (this.tag == "PlayerOne" && other.transform.tag == "PlayerTwo")
+        if (other.transform.tag == "PlayerTwo" && PlayerData.userArea.OverlapPoint(other.transform.position))
         {
             Debug.Log(WorldData.playerTwoSpawnLocation);
             other.transform.position = WorldData.playerTwoSpawnLocation;
+        }
+        // Collision with a player on your land will teleport player back to their land
+        if (other.transform.tag == "PlayerThree" && PlayerData.userArea.OverlapPoint(other.transform.position))
+        {
+            Debug.Log(WorldData.playerTwoSpawnLocation);
+            other.transform.position = WorldData.playerThreeSpawnLocation;
+        }
+        // Collision with a player on your land will teleport player back to their land
+        if (other.transform.tag == "PlayerFour" && PlayerData.userArea.OverlapPoint(other.transform.position))
+        {
+            Debug.Log(WorldData.playerTwoSpawnLocation);
+            other.transform.position = WorldData.playerFourSpawnLocation;
         }
     }
 
