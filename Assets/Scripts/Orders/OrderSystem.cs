@@ -5,18 +5,15 @@ using UnityEngine.UI;
 
 public class OrderSystem : MonoBehaviour
 {
-    // Variables to display Player One's orders
-    public Text pOneProduceText;
-    public Image pOneOrderImage;
-    public Text pOneOrderAmountText;
-
-    // Variables to display Player Two's orders
-    public Text pTwoProduceText;
-    public Image pTwoOrderImage;
-    public Text pTwoOrderAmountText;
+    // Order UI Prefabs
+    public GameObject orderTicketPrefab;
+    public GameObject orderItemPrefab;
 
     // List of strings that contains the names of all produce
-    public List<string> produce;
+    public List<string> produceNames;
+
+    // List of all sprites of all produce
+    public List<Image> prdoceSprites;
 
     // Minimum and maximum order sizes
     public int minOrderSize;
