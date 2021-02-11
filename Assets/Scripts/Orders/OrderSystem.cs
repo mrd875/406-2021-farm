@@ -32,13 +32,13 @@ public class OrderSystem : MonoBehaviour
     // private List<Order> pTwoOrders = new List<Order>();
 
     // Timer used to automatically add orders
-    private float timer = 1.0f;
+    private float timer;
     public float timeBetweenOrders;
 
 
     void Start()
     {
-
+        // Initialize the timer
         timer = timeBetweenOrders;
 
         // Create two identical lists of orders, one for each player
@@ -68,7 +68,7 @@ public class OrderSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Add orders until the order queue is full
+        // Add orders every x seconds(timeBetweenOrders) until the order queue is full
         if(oneActiveOrders.Count < 3) {
             timer -= Time.deltaTime;
             if(timer <= 0.0f) {
@@ -78,6 +78,12 @@ public class OrderSystem : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Space)) {
             CompleteTicket(0);
+        }
+        if(Input.GetKeyDown(KeyCode.Slash)) {
+            (bool z, int i) = CheckTickets("Eggplant");
+            if(z) {
+                UpdateTicket("Eggplant", i);
+            }
         }
     }
 
@@ -105,41 +111,40 @@ public class OrderSystem : MonoBehaviour
 
 
     // Remove an order ticket from the screen
-    private void CompleteTicket(int orderIndex) {
+    private void CompleteTicket(int index) {
         // Find the ticket object at the given index, remove it from the list, and destroy it
-        GameObject ticketToRemove = oneActiveTicketObjects[orderIndex];
+        GameObject ticketToRemove = oneActiveTicketObjects[index];
         oneActiveTicketObjects.Remove(ticketToRemove);
         Destroy(ticketToRemove);
 
         // Remove the order from the active list
-        oneActiveOrders.RemoveAt(orderIndex);
+        oneActiveOrders.RemoveAt(index);
     }
 
 
-    public void UpdateTicket(string name) {
-
-
-
+    // Check if any of the active orders contain the given produce
+    // If they do, return true AND the index of the first order to contain that produce
+    public (bool, int) CheckTickets(string name) {
+        for(int x = 0; x < oneActiveOrders.Count; x++) {
+            if(oneActiveOrders[x].OrderContains(name)) {
+                return (true, x);
+            }
+        }
+        return (false, 0);
     }
 
-    // // Decrease the total amount for the current order, if the order is fulfilled, load a new order
-    // private void UpdatePlayer(List<Order> playerOrders, Text produceName, Text orderAmount) {
-    //     int currentAmount = playerOrders[0].GetOrderAmount();
-    //     currentAmount--;
 
-    //     // Remove current order
-    //     if(currentAmount == 0) {
-    //         playerOrders.RemoveAt(0);
-    //     }
-    //     // Set new current order total
-    //     else {
-    //         playerOrders[0].SetOrderAmount(currentAmount);
-    //     }
-    //     DisplayOrder(playerOrders, produceName, orderAmount);
-    // }
+    // Update the item amounts on the given ticket
+    // CheckTickets should have been called and returned true before calling UpdateTicket
+    public void UpdateTicket(string name, int index) {
+        int itemIndex = oneActiveOrders[index].UpdateOrder(name);
 
-    // // Display the current order to the screen
-    // private void DisplayOrder(List<Order> playerOrders) {
-    //     GameObject
-    // }
+        // Get the ticket object at the given index, get it's child "Order List", get the "Order Item" at the itemIndex within "Order List"
+        // Get the "Quantity object of "Order Item" and it's TMP component, update the text to relfect the new total
+        oneActiveTicketObjects[index].transform.GetChild(1).GetChild(itemIndex).GetChild(1).GetComponent<TextMeshProUGUI>().SetText("X " + oneActiveOrders[index].orderAmounts[itemIndex]);
+
+        if(oneActiveOrders[index].CheckOrder()) {
+            CompleteTicket(index);
+        }
+    }
 }

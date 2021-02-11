@@ -20,6 +20,7 @@ public class Order
 
 
     // Check if the order is complete
+    // True if complete, false otherwise
     public bool CheckOrder() {
         foreach(int amount in orderAmounts) {
             if(amount > 0) {
@@ -28,6 +29,31 @@ public class Order
         }
         return true;
     }
+
+
+    // Check if the order contains the given produce and it's value is not 0
+    public bool OrderContains(string name) {
+        for(int x = 0; x < items; x++) {
+            if((name.Equals(orderNames[x])) && (orderAmounts[x] > 0)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    // Updates the total on the order and return the index of the item that was updated
+    public int UpdateOrder(string name) {
+        for(int x = 0; x < items; x++) {
+            if(name.Equals(orderNames[x]) && (orderAmounts[x] > 0)) {
+                orderAmounts[x]--;
+                return x;
+            }
+        }
+        return 0;
+    }
+
+
     // public void SetProduceName(string newName) {
     //     produceName = newName;
     // }
