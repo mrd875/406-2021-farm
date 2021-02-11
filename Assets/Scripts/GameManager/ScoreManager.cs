@@ -5,7 +5,7 @@ using UnityEngine;
 // Holds data to be passed between scenes
 public class ScoreManager : MonoBehaviour
 {
-    public int score;
+    public int score = 10;
 
     public static ScoreManager instance = null;
 
