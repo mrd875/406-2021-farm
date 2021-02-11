@@ -1530,8 +1530,9 @@ MonoBehaviour:
   - {fileID: -8178225378026889601, guid: f65023eb0320d14458733861add84426, type: 3}
   - {fileID: -4891749327694307156, guid: bd8986c3fb0612b49bb3ff80faed69fa, type: 3}
   - {fileID: -1986996513478927356, guid: f65023eb0320d14458733861add84426, type: 3}
-  minOrderSize: 3
-  maxOrderSize: 9
+  minItemAmount: 3
+  maxItemAmount: 9
+  timeBetweenOrders: 1
 --- !u!114 &718693807
 MonoBehaviour:
   m_ObjectHideFlags: 0

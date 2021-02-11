@@ -119,6 +119,8 @@ public class OrderSystem : MonoBehaviour
 
         // Remove the order from the active list
         oneActiveOrders.RemoveAt(index);
+
+        PlayerData.AddMoney(10);
     }
 
 
