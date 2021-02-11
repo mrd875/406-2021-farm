@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerZone : MonoBehaviour
 {
-    public string zoneOwnerTag = "PlayerOne";
+    // The tag of the player that this zone belongs to
+    public string zoneOwnerTag = "PlayerOne"; // default value
 
     void OnTriggerStay2D(Collider2D other)
     {
@@ -18,23 +19,22 @@ public class PlayerZone : MonoBehaviour
             }
             else
             {
-                // become attackable
+
             }
         }
     }
-    void OnTriggerLeave2D(Collider2D other)
+    void OnTriggerExit2D(Collider2D other)
     {
         if (other.tag == "PlayerOne" || other.tag == "PlayerTwo" || other.tag == "PlayerThree" || other.tag == "PlayerFour")
         {
             if (other.tag == zoneOwnerTag)
             {
                 other.gameObject.GetComponent<PlayerInteraction>().inHomeZone = false;
-                //other.gameObject.GetComponent<Shoot>().inHomeZone = false;
-                //other.gameObject.GetComponent<PlayerInteraction>().inHomeZone = false;
+                Debug.Log(zoneOwnerTag + " left their zone");
             }
             else
             {
-                // become attackable
+
             }
         }
     }
