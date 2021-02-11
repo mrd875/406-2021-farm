@@ -10,6 +10,7 @@ public class Order
     public List<int> orderAmounts = new List<int>();
     public int items = 0;
 
+    // Add an item to the order
     public void AddItem(string name, Sprite sprite, int amount) {
         orderNames.Add(name);
         orderSprites.Add(sprite);
@@ -17,6 +18,8 @@ public class Order
         items++;
     }
 
+
+    // Check if the order is complete
     public bool CheckOrder() {
         foreach(int amount in orderAmounts) {
             if(amount > 0) {
