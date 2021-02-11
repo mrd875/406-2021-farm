@@ -5,26 +5,35 @@ using UnityEngine;
 // Shoots projectile: used in throwing water balloon
 public class Shoot : MonoBehaviour
 {
-    
-    public Transform shooter;   // Player who shot the projectile
     public GameObject projectilePrefab; // prefab to be launched as projectile: must have projectile controller script
-    
-    public float projectileSpeed;   // speed of projectile
+    public float projectileSpeed = 10f;   // speed of projectile
     public float shotCooldown = 1f; // cooldown before fireing another projectile
 
+    [HideInInspector]
+    public bool isLocalPlayer = false;
+    [HideInInspector]
     public bool canShoot = true;
+    [HideInInspector]
     public bool isShooting = false;
+
+    void Start()
+    {
+        if (gameObject.tag == PlayerData.localPlayer.tag)
+        {
+            isLocalPlayer = true;
+        }
+    }
 
     void Update()
     {
         // Throw projectile key
-        if (Input.GetKeyDown(KeyCode.Q) && canShoot)
+        if (isLocalPlayer && Input.GetKeyDown(KeyCode.Q) && PlayerData.userArea.OverlapPoint(this.transform.position) && canShoot )
         {
             isShooting = true;
             StartCoroutine(ShotCooldown(shotCooldown));
             SpawnProjectile();
         }
-        else
+        else if (isLocalPlayer)
         {
             isShooting = false;
         }
@@ -41,8 +50,8 @@ public class Shoot : MonoBehaviour
     // Creates the projectile and sends it moving
     private void SpawnProjectile()
     {
-        GameObject projectile = Instantiate(projectilePrefab, shooter.position, shooter.rotation);
-        (projectile.GetComponent("ProjectileController") as ProjectileController).tagName = "PlayerOneProjectile";
-/*        (projectile.GetComponent("ProjectileController") as ProjectileController).speedReduction = speedReduction;*/
+        GameObject projectile = Instantiate(projectilePrefab, gameObject.transform.position, gameObject.transform.rotation);
+        (projectile.GetComponent("ProjectileController") as ProjectileController).parentTagName = PlayerData.localPlayer.tag;      
+/*        (projectile.GetComponent("ProjectileController") as ProjectileController).speedReduction = speedReduction;*/ // Edit with special launcher??
     }
 }

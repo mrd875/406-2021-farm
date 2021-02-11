@@ -6,11 +6,11 @@ public class Follow : MonoBehaviour
 {
     void Start()
     {
-        gameObject.transform.position = PlayerData.player.transform.position;
+        gameObject.transform.position = PlayerData.playerOne.transform.position;
     }
 
     void Update()
     {
-        gameObject.transform.position = PlayerData.player.transform.position;
+        gameObject.transform.position = PlayerData.playerOne.transform.position;
     }
 }
