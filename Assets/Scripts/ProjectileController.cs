@@ -12,7 +12,8 @@ public class ProjectileController : MonoBehaviour
 
     public float lifeTime = 0.5f;   // how long the projectile will remain airborn for
     public float speedReduction = 0.5f; // default reduction in movement speed to target hit
-    public string tagName = "PlayerOneProjectile"; // default tag, for interaction purpose so, for example, player one cannot get hit by their own projectile
+    public string parentTagName; // must be set after instantiation
+    public string tagName; // so shooter cannot get hit by their own projectile
 
     private Vector2 direction; // Direction for projectile to move
 
@@ -34,6 +35,13 @@ public class ProjectileController : MonoBehaviour
     {
         // Object moves slightly faster in the direction it is thrown
         transform.Translate((direction * speed + (startSpeed/2)) * Time.deltaTime); 
+        if (tagName == "")
+        {
+            if (parentTagName == "PlayerOne") { tagName = "PlayerOneProjectile"; }
+            else if (parentTagName == "PlayerTwo") { tagName = "PlayerTwoProjectile"; }
+            else if (parentTagName == "PlayerThree") { tagName = "PlayerThreeProjectile"; }
+            else if (parentTagName == "PlayerFour") { tagName = "PlayerFourProjectile"; }
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)

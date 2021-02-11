@@ -16,68 +16,83 @@ public class PlayerInteraction : MonoBehaviour
     public Tile highlightTile;
     Vector3Int previousTileCoordinate;
 
+    [HideInInspector]
+    public bool isLocalPlayer = false;
+    [HideInInspector]
+    public bool inHomeZone = false;
+
+    void Start()
+    {
+        if (gameObject.tag == PlayerData.localPlayer.tag)
+        {
+            isLocalPlayer = true;
+        }
+    }
+
     void Update()
     {
-        // Get mouse coordinates (for highlight tile)
-        Vector2 mousePos = Input.mousePosition;
-        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
-        Vector3Int tileCoordinate = WorldData.highlighter.WorldToCell(mouseWorldPos);
+        if (isLocalPlayer)
+        {
+            // Get mouse coordinates (for highlight tile)
+            Vector2 mousePos = Input.mousePosition;
+            Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
+            Vector3Int tileCoordinate = WorldData.highlighter.WorldToCell(mouseWorldPos);
 
 
-        if (tileCoordinate != previousTileCoordinate)
-        {
-            WorldData.highlighter.SetTile(previousTileCoordinate, null);
-            WorldData.highlighter.SetTile(tileCoordinate, highlightTile);
-            previousTileCoordinate = tileCoordinate;
-        }
-
-
-        // Change Item Cursor with keys 1-5
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            PlayerData.selectedSlotNumber = 0;
-            PlayerData.selectedSlotUI = GameObject.Find("Slot1UI");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            PlayerData.selectedSlotNumber = 1;
-            PlayerData.selectedSlotUI = GameObject.Find("Slot2UI");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            PlayerData.selectedSlotNumber = 2;
-            PlayerData.selectedSlotUI = GameObject.Find("Slot3UI");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            PlayerData.selectedSlotNumber = 3;
-            PlayerData.selectedSlotUI = GameObject.Find("Slot4UI");
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            PlayerData.selectedSlotNumber = 4;
-            PlayerData.selectedSlotUI = GameObject.Find("Slot5UI");
-        }
-
-        // Drop Item
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            PlayerData.DropItem();
-        }
-
-        // Use Item
-        if (Input.GetKeyDown(itemKey))
-        {
-            Debug.Log("Fire");
-            if (PlayerData.selectedSlot.Count > 0)
+            if (tileCoordinate != previousTileCoordinate)
             {
-                PlayerData.UseSelectedItem(PlayerData.playerOne.transform.position);
+                WorldData.highlighter.SetTile(previousTileCoordinate, null);
+                WorldData.highlighter.SetTile(tileCoordinate, highlightTile);
+                previousTileCoordinate = tileCoordinate;
             }
-        }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            Clicked();
+
+            // Change Item Cursor with keys 1-5
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                PlayerData.selectedSlotNumber = 0;
+                PlayerData.selectedSlotUI = GameObject.Find("Slot1UI");
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                PlayerData.selectedSlotNumber = 1;
+                PlayerData.selectedSlotUI = GameObject.Find("Slot2UI");
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                PlayerData.selectedSlotNumber = 2;
+                PlayerData.selectedSlotUI = GameObject.Find("Slot3UI");
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                PlayerData.selectedSlotNumber = 3;
+                PlayerData.selectedSlotUI = GameObject.Find("Slot4UI");
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                PlayerData.selectedSlotNumber = 4;
+                PlayerData.selectedSlotUI = GameObject.Find("Slot5UI");
+            }
+
+            // Drop Item
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                PlayerData.DropItem();
+            }
+
+            // Use Item
+            if (Input.GetKeyDown(itemKey))
+            {
+                if (PlayerData.selectedSlot.Count > 0)
+                {
+                    PlayerData.UseSelectedItem(PlayerData.localPlayer.transform.position);
+                }
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                Clicked();
+            }
         }
     }
 
@@ -98,23 +113,28 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        // Collision with a player on your land will teleport player back to their land
-        if (other.transform.tag == "PlayerTwo" && PlayerData.userArea.OverlapPoint(other.transform.position))
+        // Collision with a player on user's land will teleport them back to their land
+        if (inHomeZone)
         {
-            Debug.Log(WorldData.playerTwoSpawnLocation);
-            other.transform.position = WorldData.playerTwoSpawnLocation;
-        }
-        // Collision with a player on your land will teleport player back to their land
-        if (other.transform.tag == "PlayerThree" && PlayerData.userArea.OverlapPoint(other.transform.position))
-        {
-            Debug.Log(WorldData.playerTwoSpawnLocation);
-            other.transform.position = WorldData.playerThreeSpawnLocation;
-        }
-        // Collision with a player on your land will teleport player back to their land
-        if (other.transform.tag == "PlayerFour" && PlayerData.userArea.OverlapPoint(other.transform.position))
-        {
-            Debug.Log(WorldData.playerTwoSpawnLocation);
-            other.transform.position = WorldData.playerFourSpawnLocation;
+            if (other.transform.tag == "PlayerOne")
+            {
+                other.transform.position = WorldData.playerOneSpawnLocation;
+            }
+
+            if (other.transform.tag == "PlayerTwo")
+            {
+                other.transform.position = WorldData.playerTwoSpawnLocation;
+            }
+                
+            if (other.transform.tag == "PlayerThree")
+            {
+                other.transform.position = WorldData.playerThreeSpawnLocation;
+            }
+                
+            if (other.transform.tag == "PlayerFour")
+            {
+                other.transform.position = WorldData.playerFourSpawnLocation;
+            }
         }
     }
 

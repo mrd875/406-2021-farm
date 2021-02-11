@@ -12,7 +12,7 @@ public class PlayerData : MonoBehaviour
     static public Rigidbody2D playerOneRb;
     static public CircleCollider2D interactionRadius;
 
-    static public GameObject user;
+    static public GameObject localPlayer;
     static public PolygonCollider2D userArea;
 
     // Array of linked lists, each indice contains an item slot
@@ -30,6 +30,10 @@ public class PlayerData : MonoBehaviour
     //Player global funds and money stuff
     static public int money = 100;
     static public bool inBinRange = false;
+    
+    // Bool for when user is in home zone trigger collider
+    static public bool inHomeZone = false;
+
 
 
     // Start is called before the first frame update
@@ -39,7 +43,7 @@ public class PlayerData : MonoBehaviour
         playerOneRb = playerOne.GetComponent<Rigidbody2D>();
         interactionRadius = GameObject.Find("PlayerOneInteractionRadius").GetComponent<CircleCollider2D>();
 
-        user = playerOne;
+        localPlayer = playerOne;
         userArea = WorldData.playerOneZone;
 
         itemSlots = new LinkedList<Item>[5];
