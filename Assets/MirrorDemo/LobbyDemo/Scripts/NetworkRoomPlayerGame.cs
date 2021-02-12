@@ -40,6 +40,9 @@ public class NetworkRoomPlayerGame : NetworkRoomPlayer
         if (newName.Length < 2)
             return;
 
+        if (newName.Length > 20)
+            return;
+
         displayName = newName;
     }
 

@@ -270,6 +270,12 @@ public class Lobby_UI : MonoBehaviour
             return;
         }
 
+        if (name.Length > 20)
+        {
+            nameSetPanel.OnNameSetOutcome(false, "<color=red>Name cannot be longer than 20 chars!</color>");
+            return;
+        }
+
         PlayerPrefs.SetString(PlayerPrefsNameKey, name);
         PerferedName = name;
         nameSetPanel.OnNameSetOutcome(true);
