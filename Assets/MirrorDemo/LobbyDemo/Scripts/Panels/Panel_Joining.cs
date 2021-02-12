@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Panel_Hosting : MonoBehaviour
+public class Panel_Joining : MonoBehaviour
 {
-    [SerializeField] private TMP_Text status;
-    [SerializeField] private GameObject panel_host;
-    [SerializeField] private GameObject panel_lobby;
+    [SerializeField] public TMP_Text status;
+    [SerializeField] public GameObject panel_join;
+    [SerializeField] public GameObject panel_lobby;
+
 
     private bool flipDots;
     private int dots;
     public void OnEnable()
     {
-        status.text = "Hosting";
+        status.text = "Joining";
         flipDots = false;
         dots = 0;
         InvokeRepeating("Connect", 0.3f, 0.3f);
@@ -44,7 +45,7 @@ public class Panel_Hosting : MonoBehaviour
         }
     }
 
-    public void OnHostOutcome(bool success, string reason = "")
+    public void OnJoinOutcome(bool success, string reason = "")
     {
         if (success)
         {
@@ -62,10 +63,10 @@ public class Panel_Hosting : MonoBehaviour
     public void Button_Cancel()
     {
         // cancel the hosting sequence if needed...
-        gameObject.GetComponentInParent<Lobby_UI>().CancelHosting();
+        gameObject.GetComponentInParent<Lobby_UI>().CancelJoining();
 
         // go back
         gameObject.SetActive(false);
-        panel_host.SetActive(true);
+        panel_join.SetActive(true);
     }
 }

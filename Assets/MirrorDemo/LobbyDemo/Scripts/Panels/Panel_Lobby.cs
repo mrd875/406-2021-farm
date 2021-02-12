@@ -5,23 +5,25 @@ using TMPro;
 
 public class Panel_Lobby : MonoBehaviour
 {
-    [SerializeField] private TMP_Text[] playerNameTexts;
-    [SerializeField] private TMP_Text[] playerReadyTexts;
-    [SerializeField] private GameObject[] kickButtons;
-    [SerializeField] private TMP_Text status;
-    [SerializeField] private TMP_Text btnTxt_Go;
+    [SerializeField] public TMP_Text[] playerNameTexts;
+    [SerializeField] public TMP_Text[] playerReadyTexts;
+    [SerializeField] public GameObject[] kickButtons;
+    [SerializeField] public TMP_Text status;
+    [SerializeField] public TMP_Text btnTxt_Go;
 
-    [SerializeField] private GameObject panel_hostJoin;
+    [SerializeField] public GameObject panel_hostJoin;
 
     public void OnEnable()
     {
         status.text = "In Lobby";
         OnUpdatePlayers();
+
+        InvokeRepeating("OnUpdatePlayers", 0.3f, 0.3f);
     }
 
     public void OnDisable()
     {
-        
+        CancelInvoke("OnUpdatePlayers");
     }
 
     public void Button_Go()

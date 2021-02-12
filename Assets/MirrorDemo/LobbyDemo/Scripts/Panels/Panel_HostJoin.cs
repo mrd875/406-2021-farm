@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Panel_HostJoin : MonoBehaviour
 {
-    [SerializeField] private GameObject panel_nameInput;
-    [SerializeField] private GameObject panel_host;
-    [SerializeField] private GameObject panel_join;
+    [SerializeField] public GameObject panel_nameInput;
+    [SerializeField] public GameObject panel_host;
+    [SerializeField] public GameObject panel_join;
 
     public void Button_Host()
     {

@@ -5,9 +5,9 @@ using TMPro;
 
 public class Panel_NameInput : MonoBehaviour
 {
-    [SerializeField] private TMP_InputField inputName;
-    [SerializeField] private TMP_Text statusText;
-    [SerializeField] private GameObject panel_hostJoin;
+    [SerializeField] public TMP_InputField inputName;
+    [SerializeField] public TMP_Text statusText;
+    [SerializeField] public GameObject panel_hostJoin;
 
 
     public void OnEnable()

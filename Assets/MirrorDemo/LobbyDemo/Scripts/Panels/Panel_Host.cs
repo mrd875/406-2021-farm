@@ -5,14 +5,29 @@ using TMPro;
 
 public class Panel_Host : MonoBehaviour
 {
-    [SerializeField] private TMP_InputField portInput;
-    [SerializeField] private GameObject panel_hostJoin;
-    [SerializeField] private GameObject panel_hosting;
+    [SerializeField] public TMP_InputField portInput;
+    [SerializeField] public GameObject panel_hostJoin;
+    [SerializeField] public GameObject panel_hosting;
+
+    public void OnEnable()
+    {
+        portInput.text = gameObject.GetComponentInParent<Lobby_UI>().GetDefaultPort();
+    }
 
     public void Button_Host()
     {
         var portStr = portInput.text;
-        short port = short.Parse(portStr);
+        ushort port;
+
+        try
+        {
+            port = ushort.Parse(portStr);
+        }
+        catch
+        {
+            Debug.LogError("Port was not valid.");
+            return;
+        }
 
         // go to hosting status menu
         gameObject.SetActive(false);

@@ -5,15 +5,31 @@ using TMPro;
 
 public class Panel_Join : MonoBehaviour
 {
-    [SerializeField] private TMP_InputField portInput;
-    [SerializeField] private TMP_InputField ipInput;
-    [SerializeField] private GameObject panel_hostJoin;
-    [SerializeField] private GameObject panel_joining;
+    [SerializeField] public TMP_InputField portInput;
+    [SerializeField] public TMP_InputField ipInput;
+    [SerializeField] public GameObject panel_hostJoin;
+    [SerializeField] public GameObject panel_joining;
+
+    public void OnEnable()
+    {
+        portInput.text = gameObject.GetComponentInParent<Lobby_UI>().GetDefaultPort();
+        ipInput.text = gameObject.GetComponentInParent<Lobby_UI>().GetDefaultIP();
+    }
 
     public void Button_Join()
     {
         var portStr = portInput.text;
-        short port = short.Parse(portStr);
+        ushort port;
+
+        try
+        {
+            port = ushort.Parse(portStr);
+        }
+        catch
+        {
+            Debug.LogError("Port was not valid");
+            return;
+        }
 
         var ip = ipInput.text;
 
