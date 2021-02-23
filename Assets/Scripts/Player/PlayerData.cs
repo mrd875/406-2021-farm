@@ -8,9 +8,9 @@ using TMPro;
 public class PlayerData : MonoBehaviour
 {
     // Reference to player object
-    static public GameObject player;
-    static public Rigidbody2D playerRb;
-    static public CircleCollider2D interactionRadius;
+    public static GameObject player;
+    public static Rigidbody2D playerRb;
+    public static CircleCollider2D interactionRadius;
 
     // Array of linked lists, each indice contains an item slot
     static public LinkedList<Item>[] itemSlots;
@@ -32,9 +32,9 @@ public class PlayerData : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player");
-        playerRb = player.GetComponent<Rigidbody2D>();
-        interactionRadius = GameObject.Find("PlayerOneInteractionRadius").GetComponent<CircleCollider2D>();
+        //player = GameObject.Find("Player");
+        //playerRb = player.GetComponent<Rigidbody2D>();
+        //interactionRadius = GameObject.Find("PlayerOneInteractionRadius").GetComponent<CircleCollider2D>();
 
         itemSlots = new LinkedList<Item>[5];
         itemSlots[0] = new LinkedList<Item>();
@@ -83,48 +83,23 @@ public class PlayerData : MonoBehaviour
         switch (slotToAdd)
         {
             case 0:
-                GameObject.Find("Slot1UI").transform.GetChild(0).GetComponent<Image>().sprite = item.gameObject.GetComponent<SpriteRenderer>().sprite;
-                GameObject.Find("Slot1UI").transform.GetChild(0).GetComponent<Image>().color = item.gameObject.GetComponent<SpriteRenderer>().color;
-                if (item.is_stackable)
-                    GameObject.Find("Slot1UI").transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[0].Count;
-                WorldData.RemovePlantedLocation(WorldData.diggableLayer.WorldToCell(item.transform.localPosition));
-                item.transform.position = new Vector3(-500, 0, 0);
+                UpdateUI("Slot1UI", item, 0);
                 return true;
 
             case 1:
-                GameObject.Find("Slot2UI").transform.GetChild(0).GetComponent<Image>().sprite = item.gameObject.GetComponent<SpriteRenderer>().sprite;
-                GameObject.Find("Slot2UI").transform.GetChild(0).GetComponent<Image>().color = item.gameObject.GetComponent<SpriteRenderer>().color;
-                if (item.is_stackable)
-                    GameObject.Find("Slot2UI").transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[1].Count;
-                WorldData.RemovePlantedLocation(WorldData.diggableLayer.WorldToCell(item.transform.localPosition));
-                item.transform.position = new Vector3(-500, 0, 0);
+                UpdateUI("Slot2UI", item, 1);
                 return true;
 
             case 2:
-                GameObject.Find("Slot3UI").transform.GetChild(0).GetComponent<Image>().sprite = item.gameObject.GetComponent<SpriteRenderer>().sprite;
-                GameObject.Find("Slot3UI").transform.GetChild(0).GetComponent<Image>().color = item.gameObject.GetComponent<SpriteRenderer>().color;
-                if (item.is_stackable)
-                    GameObject.Find("Slot3UI").transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[2].Count;
-                WorldData.RemovePlantedLocation(WorldData.diggableLayer.WorldToCell(item.transform.localPosition));
-                item.transform.position = new Vector3(-500, 0, 0);
+                UpdateUI("Slot3UI", item, 2);
                 return true;
 
             case 3:
-                GameObject.Find("Slot4UI").transform.GetChild(0).GetComponent<Image>().sprite = item.gameObject.GetComponent<SpriteRenderer>().sprite;
-                GameObject.Find("Slot4UI").transform.GetChild(0).GetComponent<Image>().color = item.gameObject.GetComponent<SpriteRenderer>().color;
-                if (item.is_stackable)
-                    GameObject.Find("Slot4UI").transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[3].Count;
-                WorldData.RemovePlantedLocation(WorldData.diggableLayer.WorldToCell(item.transform.localPosition));
-                item.transform.position = new Vector3(-500, 0, 0);
+                UpdateUI("Slot4UI", item, 3);
                 return true;
             
             case 4:
-                GameObject.Find("Slot5UI").transform.GetChild(0).GetComponent<Image>().sprite = item.gameObject.GetComponent<SpriteRenderer>().sprite;
-                GameObject.Find("Slot5UI").transform.GetChild(0).GetComponent<Image>().color = item.gameObject.GetComponent<SpriteRenderer>().color;
-                if (item.is_stackable)
-                    GameObject.Find("Slot5UI").transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[4].Count;
-                WorldData.RemovePlantedLocation(WorldData.diggableLayer.WorldToCell(item.transform.localPosition));
-                item.transform.position = new Vector3(-500, 0, 0);
+                UpdateUI("Slot5UI", item, 4);
                 return true;
             case -1:
                 // inventory full
@@ -134,8 +109,32 @@ public class PlayerData : MonoBehaviour
         return false;
     }
 
+    public static void UpdateUI(string slotName, Item item, int slotNumber)
+    {
+        GameObject.Find(slotName).transform.GetChild(0).GetComponent<Image>().sprite = item.gameObject.GetComponent<SpriteRenderer>().sprite;
+        Debug.Log("Adding to slot " + slotNumber.ToString());
+        Debug.Log("Active Slot: " + selectedSlotNumber.ToString());
+
+        //Check if item is being added to active slot. Adjust color appropriately. 
+        if (selectedSlotNumber == slotNumber)
+        {
+            Debug.Log("Inside");
+            Color itemColor = item.gameObject.GetComponent<SpriteRenderer>().color;
+            GameObject.Find(slotName).transform.GetChild(0).GetComponent<Image>().color = new Color(itemColor.r, itemColor.g, itemColor.b, 0.5f);
+        }
+        else
+        {
+            GameObject.Find(slotName).transform.GetChild(0).GetComponent<Image>().color = item.gameObject.GetComponent<SpriteRenderer>().color;
+        }
+
+        if (item.is_stackable)
+            GameObject.Find(slotName).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[slotNumber].Count;
+        WorldData.RemovePlantedLocation(WorldData.diggableLayer.WorldToCell(item.transform.localPosition));
+        item.transform.position = new Vector3(-500, 0, 0);
+    }
+
     // drops item at player location
-    static public void DropItem()
+    public static void DropItem()
     {
         Debug.Log("Attempting to drop");
         if (selectedSlot.Count > 0)
@@ -176,7 +175,8 @@ public class PlayerData : MonoBehaviour
             if (selectedSlot.Count == 0)
             {
                 Image image = selectedSlotUI.transform.GetChild(0).GetComponent<Image>();   // For shorter reference
-                image.color = new Color(image.color.r, image.color.g, image.color.b, 0f);   // Remove visibility of item icon by setting alpha to 0
+                image.sprite = null;
+                image.color = new Color(1, 1, 1, 0.5f);
                 selectedSlotUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = ""; // clear text
             }
             else
@@ -200,5 +200,12 @@ public class PlayerData : MonoBehaviour
         //Update money text
         UpdateMoney moneyText = GameObject.FindObjectOfType<UpdateMoney>();
         moneyText.UpdateMoneyText();
+    }
+
+    public static void SetPlayer(GameObject newPlayer)
+    {
+        player = newPlayer;
+        playerRb = newPlayer.GetComponent<Rigidbody2D>();
+        interactionRadius = newPlayer.transform.GetChild(0).GetComponent<CircleCollider2D>();
     }
 }

@@ -1,17 +1,22 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine.Tilemaps;
 using UnityEngine;
 using UnityEngine.UI;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class PlayerInteraction : MonoBehaviour
 {
     // Item use key
     public KeyCode itemKey = KeyCode.E;
 
-    private bool inBinRange = false;
-    public GameObject sellText;
+    //private bool inBinRange = false;
 
+    private int oldSlotNumber = 0;
+    private string[] slotNames = new string[]{"Slot1UI", "Slot2UI","Slot3UI", "Slot4UI", "Slot5UI"};
 
     public Tile highlightTile;
     Vector3Int previousTileCoordinate;
@@ -31,32 +36,51 @@ public class PlayerInteraction : MonoBehaviour
             previousTileCoordinate = tileCoordinate;
         }
 
+        //Scroll to change items
+        if (Input.mouseScrollDelta.y > 0)
+        {
+            if (oldSlotNumber < 4)
+            {
+                SetSlot(slotNames[oldSlotNumber + 1], oldSlotNumber + 1);
+            }
+            else
+            {
+                SetSlot(slotNames[0], 0);
+            }
+        }
+
+        if (Input.mouseScrollDelta.y < 0)
+        {
+            if (oldSlotNumber > 0)
+            {
+                SetSlot(slotNames[oldSlotNumber -1], oldSlotNumber - 1);
+            }
+            else
+            {
+                SetSlot(slotNames[4], 4);
+            }
+        }
 
         // Change Item Cursor with keys 1-5
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            PlayerData.selectedSlotNumber = 0;
-            PlayerData.selectedSlotUI = GameObject.Find("Slot1UI");
+            SetSlot("Slot1UI", 0);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            PlayerData.selectedSlotNumber = 1;
-            PlayerData.selectedSlotUI = GameObject.Find("Slot2UI");
+            SetSlot("Slot2UI", 1);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            PlayerData.selectedSlotNumber = 2;
-            PlayerData.selectedSlotUI = GameObject.Find("Slot3UI");
+            SetSlot("Slot3UI", 2);
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            PlayerData.selectedSlotNumber = 3;
-            PlayerData.selectedSlotUI = GameObject.Find("Slot4UI");
+            SetSlot("Slot4UI", 3);
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            PlayerData.selectedSlotNumber = 4;
-            PlayerData.selectedSlotUI = GameObject.Find("Slot5UI");
+            SetSlot("Slot5UI", 4);
         }
 
         // Drop Item
@@ -81,11 +105,34 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+    //Changes to the given slot. slotName must match exactly to the scene name of UI element.
+    public void SetSlot(string slotName, int slotNumber)
+    {
+        //There is something in the slot you are leaving. Restore opacity
+        if (PlayerData.itemSlots[oldSlotNumber].Count != 0)
+        {
+            PlayerData.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        }
+        //Leaving an empty slot. Make it invisible
+        else
+        {
+            PlayerData.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
+        }
+        //Store data to check on next slot change
+        oldSlotNumber = slotNumber;
+
+        //Change to new item
+        PlayerData.selectedSlotNumber = slotNumber;
+        PlayerData.selectedSlotUI = GameObject.Find(slotName);
+        PlayerData.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+    }
+
     void Clicked()
     {
         Vector2 mousePos = Input.mousePosition;
-        Vector2 worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
-        
+        Vector2 worldPosition2D = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector3 worldPosition = new Vector3(worldPosition2D.x, worldPosition2D.y, this.transform.position.z);
+
         if (PlayerData.interactionRadius.bounds.Contains(worldPosition))
         {
             PlayerData.UseSelectedItem(worldPosition);
@@ -112,7 +159,6 @@ public class PlayerInteraction : MonoBehaviour
         if (other.CompareTag("Bin"))
         {
             PlayerData.inBinRange = true;
-            sellText.SetActive(true);
         }
     }
 
@@ -121,7 +167,6 @@ public class PlayerInteraction : MonoBehaviour
         if (other.CompareTag("Bin"))
         {
             PlayerData.inBinRange = false;
-            sellText.SetActive(false);
         }
     }
 
