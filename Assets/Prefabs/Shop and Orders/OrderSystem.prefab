@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &52727782933409570
+--- !u!1 &8828141697669292177
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 52727782933409571}
-  - component: {fileID: 52727782933409581}
-  - component: {fileID: 52727782933409580}
+  - component: {fileID: 8828141698497526323}
+  - component: {fileID: 8828141697669292179}
+  - component: {fileID: 8828141697669292178}
+  - component: {fileID: 8828141697669292188}
   m_Layer: 0
   m_Name: OrderSystem
   m_TagString: Untagged
@@ -18,13 +19,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &52727782933409571
+--- !u!224 &8828141698497526323
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 52727782933409570}
+  m_GameObject: {fileID: 8828141697669292177}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,26 +33,26 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &52727782933409581
+  m_SizeDelta: {x: 660, y: 250}
+  m_Pivot: {x: 0, y: 1}
+--- !u!222 &8828141697669292179
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 52727782933409570}
+  m_GameObject: {fileID: 8828141697669292177}
   m_CullTransparentMesh: 0
---- !u!114 &52727782933409580
+--- !u!114 &8828141697669292178
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 52727782933409570}
+  m_GameObject: {fileID: 8828141697669292177}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1fd0ec3a7d12a0b46981a1b81c2e5b64, type: 3}
@@ -59,8 +60,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orderTicketPrefab: {fileID: 5445029969153480794, guid: 7cc4f2277b01c2f42af565a09eaa4f3e, type: 3}
   orderItemPrefab: {fileID: 8915413326956065187, guid: 6dbc23651fe4c5a4eb84698ea42e1579, type: 3}
-  produceNames: []
-  produceSprites: []
-  minItemAmount: 0
-  maxItemAmount: 0
-  timeBetweenOrders: 0
+  produceNames:
+  - Beet
+  - Eggplant
+  - Pepper
+  - Potato
+  produceSprites:
+  - {fileID: 5823714711544651156, guid: bd8986c3fb0612b49bb3ff80faed69fa, type: 3}
+  - {fileID: 3200563535392370133, guid: f65023eb0320d14458733861add84426, type: 3}
+  - {fileID: -8178225378026889601, guid: f65023eb0320d14458733861add84426, type: 3}
+  - {fileID: -4891749327694307156, guid: bd8986c3fb0612b49bb3ff80faed69fa, type: 3}
+  minItemAmount: 1
+  maxItemAmount: 10
+  timeBetweenOrders: 5
+--- !u!114 &8828141697669292188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8828141697669292177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 20
+    m_Right: 20
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 10
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
