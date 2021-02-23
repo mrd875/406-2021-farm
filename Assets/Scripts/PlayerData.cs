@@ -8,9 +8,12 @@ using TMPro;
 public class PlayerData : MonoBehaviour
 {
     // Reference to player object
-    static public GameObject player;
-    static public Rigidbody2D playerRb;
+    static public GameObject playerOne;
+    static public Rigidbody2D playerOneRb;
     static public CircleCollider2D interactionRadius;
+
+    static public GameObject localPlayer;
+    static public PolygonCollider2D userArea;
 
     // Array of linked lists, each indice contains an item slot
     static public LinkedList<Item>[] itemSlots;
@@ -27,14 +30,21 @@ public class PlayerData : MonoBehaviour
     //Player global funds and money stuff
     static public int money = 100;
     static public bool inBinRange = false;
+    
+    // Bool for when user is in home zone trigger collider
+    static public bool inHomeZone = false;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player");
-        playerRb = player.GetComponent<Rigidbody2D>();
+        playerOne = GameObject.Find("Player One");
+        playerOneRb = playerOne.GetComponent<Rigidbody2D>();
         interactionRadius = GameObject.Find("PlayerOneInteractionRadius").GetComponent<CircleCollider2D>();
+
+        localPlayer = playerOne;
+        userArea = WorldData.playerOneZone;
 
         itemSlots = new LinkedList<Item>[5];
         itemSlots[0] = new LinkedList<Item>();
@@ -132,7 +142,7 @@ public class PlayerData : MonoBehaviour
         {
             Item droppedItem = selectedSlot.First.Value;
             droppedItem.GetComponent<SpriteRenderer>().enabled = true;
-            droppedItem.transform.position = player.transform.position;
+            droppedItem.transform.position = playerOne.transform.position;
             selectedSlot.Remove(droppedItem);
             if (selectedSlot.Count == 0)
             {
