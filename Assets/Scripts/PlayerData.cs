@@ -55,8 +55,23 @@ public class PlayerData : MonoBehaviour
 
         selectedSlotNumber = 0;
         selectedSlotUI = GameObject.Find("Slot1UI");
+
+        CreatePlayer(playerOne.transform.parent, .0f, .0f);
     }
 
+    /// <summary>
+    /// create player GameObject on demand
+    /// </summary>
+    /// <param name="parent"></param>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    private static void CreatePlayer(Transform parent, float x, float y)
+    {
+        GameObject go =
+            Instantiate(Resources.Load("Player"), new Vector3(x, y, .0f), Quaternion.identity) as GameObject;
+        // TODO: set player's position dynamically
+        go.transform.parent = parent;
+    }
 
     void Update()
     {

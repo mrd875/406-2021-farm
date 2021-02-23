@@ -44,6 +44,13 @@ public class PlayerMovement : MonoBehaviour
                 isMoving = false;
             }
         }
+
+        // enable transformation of player's horizontal face direction
+        float horizontalDirection = Input.GetAxisRaw("Horizontal");
+        if (horizontalDirection != 0)
+        {
+            transform.localScale = new Vector3(horizontalDirection * 0.5f, 0.5f, 1);
+        }
     }
 
     private void FixedUpdate()
