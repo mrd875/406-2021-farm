@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RaisedScene.unity
     guid: 699ee57033ac772409536bc4cd9de506
+  - enabled: 1
+    path: Assets/Scenes/Settings.unity
+    guid: 531723599252cb04c92e298e20df4aba
   m_configObjects: {}
