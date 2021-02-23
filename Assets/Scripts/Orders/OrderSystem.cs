@@ -76,15 +76,6 @@ public class OrderSystem : MonoBehaviour
                 timer = timeBetweenOrders;
             }
         }
-        if(Input.GetKeyDown(KeyCode.Space)) {
-            CompleteTicket(0);
-        }
-        if(Input.GetKeyDown(KeyCode.Slash)) {
-            (bool z, int i) = CheckTickets("Eggplant");
-            if(z) {
-                UpdateTicket("Eggplant", i);
-            }
-        }
     }
 
 

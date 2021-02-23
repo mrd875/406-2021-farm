@@ -82,6 +82,7 @@ public class PlayerData : MonoBehaviour
     // Adds item either to a slot already containing the same item type, or to a new slot
     static public bool AddItem(Item item)
     {
+        Debug.Log("Giving " + item.name);
         int slotToAdd = -1; // slotToAdd will remain -1 until end only if inventory is full
 
         // Either find the lowest slot number, or the slot number thats item matches the item if it is stackable
@@ -183,10 +184,14 @@ public class PlayerData : MonoBehaviour
     // calls function stored in held item's script
     static public void UseSelectedItem(Vector2 location)
     {
-        if (selectedSlot.First.Value.UseItem(location))
+        if (selectedSlot.Count != 0)
         {
-            ItemUsed(); // should be called after an item is successfully used
+            if (selectedSlot.First.Value.UseItem(location))
+            {
+                ItemUsed(); // should be called after an item is successfully used
+            }
         }
+
     }
 
     // Deals with item consumption, durability loss, etc.
@@ -230,8 +235,8 @@ public class PlayerData : MonoBehaviour
 
     public static void SetPlayer(GameObject newPlayer)
     {
-        player = newPlayer;
-        playerRb = newPlayer.GetComponent<Rigidbody2D>();
+        playerOne = newPlayer;
+        playerOneRb = newPlayer.GetComponent<Rigidbody2D>();
         interactionRadius = newPlayer.transform.GetChild(0).GetComponent<CircleCollider2D>();
     }
 }

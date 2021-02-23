@@ -6,13 +6,13 @@ public class Follow : MonoBehaviour
 {
     void Start()
     {
-        gameObject.transform.position = new Vector3(PlayerData.player.transform.position.x,
-            PlayerData.player.transform.position.y, this.transform.position.z);
+        gameObject.transform.position = new Vector3(PlayerData.playerOne.transform.position.x,
+            PlayerData.playerOne.transform.position.y, this.transform.position.z);
     }
 
     void Update()
     {
-        gameObject.transform.position = new Vector3(PlayerData.player.transform.position.x,
-            PlayerData.player.transform.position.y, this.transform.position.z);
+        gameObject.transform.position = new Vector3(PlayerData.playerOne.transform.position.x,
+            PlayerData.playerOne.transform.position.y, this.transform.position.z);
     }
 }
