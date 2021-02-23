@@ -110,12 +110,15 @@ public class Item : MonoBehaviour
                 case "Shovel":
                     // Shovel removes a tile off the top layer of the grid, tile should be flagged as diggable; for example, a shovel shouldn't be allowd to dig through concrete
                     // This can be changed so that it adds a dirt tile on top instead, or it replaces a grass tile with a dirt one with relative ease
-                    Vector3Int tileCoordinate =
-                        WorldData.diggableLayer.WorldToCell(location); //PlayerData.player.transform.position);
-                    if (WorldData.diggableLayer.GetTile(tileCoordinate) != null)
+
+                    Vector3Int tileCoordinate = WorldData.diggableLayer.WorldToCell(location);//PlayerData.player.transform.position);
+                    if (PlayerData.userArea.OverlapPoint(location))
                     {
-                        WorldData.diggableLayer.SetTile(tileCoordinate, null);
-                        return true;
+                        if (WorldData.diggableLayer.GetTile(tileCoordinate) != null)
+                        {
+                            WorldData.diggableLayer.SetTile(tileCoordinate, null);
+                            return true;
+                        }
                     }
 
                     break;

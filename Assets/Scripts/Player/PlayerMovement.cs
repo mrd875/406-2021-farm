@@ -10,34 +10,56 @@ public class PlayerMovement : MonoBehaviour
     private bool isMoving = false;
     private int appliedReductionEffects; // amount of slow effects applied (for duration purpose)
     public Vector2 movement;
-    
 
-    // Player RB to add movement to
+
+    // Player Rigidbody component to add movement to
+    [HideInInspector]
     public Rigidbody2D rb;
+
+    [HideInInspector]
+    public bool isLocalPlayer = false;
 
     void Start()
     {
+        rb = gameObject.GetComponent<Rigidbody2D>();
         baseMoveSpeed = moveSpeed;
+        if (gameObject.tag == PlayerData.localPlayer.tag)
+        {
+            isLocalPlayer = true;
+        }
     }
 
     void Update()
     {
-        // Get input for movement from WASD or Arrow keys
-        movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        if (movement != new Vector2(0, 0) && isMoving == false)
+        if (isLocalPlayer)
         {
-            isMoving = true;
+            // Get input for movement from WASD or Arrow keys
+            movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            if (movement != new Vector2(0, 0) && isMoving == false)
+            {
+                isMoving = true;
+            }
+            else if (movement == new Vector2(0, 0) && isMoving == true)
+            {
+                isMoving = false;
+            }
         }
-        else if (movement == new Vector2(0, 0) && isMoving == true)
+
+        // enable transformation of player's horizontal face direction
+        float horizontalDirection = Input.GetAxisRaw("Horizontal");
+        if (horizontalDirection != 0)
         {
-            isMoving = false;
+            transform.localScale = new Vector3(horizontalDirection * 0.5f, 0.5f, 1);
         }
     }
 
     private void FixedUpdate()
     {
-        //Move in response to input from WASD or Arrow Keys
-        rb.velocity = movement.normalized * moveSpeed * Time.fixedDeltaTime;
+        if (isLocalPlayer)
+        {
+            //Move in response to input from WASD or Arrow Keys
+            rb.velocity = movement.normalized * moveSpeed * Time.fixedDeltaTime;
+        }
     }
 
     public void ReduceSpeed(float reduction)

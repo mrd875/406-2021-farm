@@ -9,6 +9,10 @@ TagManager:
   - PlayerOneProjectile
   - PlayerTwoProjectile
   - Bin
+  - Notify_Popup
+  - PlayerThree
+  - PlayerFour
+  - Area
   layers:
   - Default
   - TransparentFX
