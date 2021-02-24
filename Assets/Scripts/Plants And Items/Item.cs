@@ -28,6 +28,7 @@ public class Item : MonoBehaviour
         {
             AddItem();
         }
+
     }
 
     void OnMouseDown()
