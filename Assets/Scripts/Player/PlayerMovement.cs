@@ -60,6 +60,10 @@ public class PlayerMovement : MonoBehaviour
             //Move in response to input from WASD or Arrow Keys
             rb.velocity = movement.normalized * moveSpeed * Time.fixedDeltaTime;
         }
+        else
+        {
+            rb.velocity = Vector3.zero;
+        }
     }
 
     public void ReduceSpeed(float reduction)
