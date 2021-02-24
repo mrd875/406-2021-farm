@@ -51,52 +51,52 @@ public class PlayerInteraction : MonoBehaviour
                 previousTileCoordinate = tileCoordinate;
             }
 
-        //Scroll to change items
-        if (Input.mouseScrollDelta.y > 0)
-        {
-            if (oldSlotNumber < 4)
+            //Scroll to change items
+            if (Input.mouseScrollDelta.y > 0)
             {
-                SetSlot(slotNames[oldSlotNumber + 1], oldSlotNumber + 1);
+                if (oldSlotNumber < 4)
+                {
+                    SetSlot(slotNames[oldSlotNumber + 1], oldSlotNumber + 1);
+                }
+                else
+                {
+                    SetSlot(slotNames[0], 0);
+                }
             }
-            else
-            {
-                SetSlot(slotNames[0], 0);
-            }
-        }
 
-        if (Input.mouseScrollDelta.y < 0)
-        {
-            if (oldSlotNumber > 0)
+            if (Input.mouseScrollDelta.y < 0)
             {
-                SetSlot(slotNames[oldSlotNumber -1], oldSlotNumber - 1);
+                if (oldSlotNumber > 0)
+                {
+                    SetSlot(slotNames[oldSlotNumber -1], oldSlotNumber - 1);
+                }
+                else
+                {
+                    SetSlot(slotNames[4], 4);
+                }
             }
-            else
-            {
-                SetSlot(slotNames[4], 4);
-            }
-        }
 
-        // Change Item Cursor with keys 1-5
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SetSlot("Slot1UI", 0);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SetSlot("Slot2UI", 1);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SetSlot("Slot3UI", 2);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            SetSlot("Slot4UI", 3);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            SetSlot("Slot5UI", 4);
-        }
+            // Change Item Cursor with keys 1-5
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                SetSlot("Slot1UI", 0);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                SetSlot("Slot2UI", 1);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                SetSlot("Slot3UI", 2);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                SetSlot("Slot4UI", 3);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                SetSlot("Slot5UI", 4);
+            }
 
             // Drop Item
             if (Input.GetKeyDown(KeyCode.R))
@@ -147,8 +147,12 @@ public class PlayerInteraction : MonoBehaviour
         Vector2 mousePos = Input.mousePosition;
         Vector2 worldPosition2D = Camera.main.ScreenToWorldPoint(mousePos);
         Vector3 worldPosition = new Vector3(worldPosition2D.x, worldPosition2D.y, this.transform.position.z);
-
-        if (PlayerData.interactionRadius.bounds.Contains(worldPosition))
+        if (PlayerData.itemClicked != null)
+        {
+            PlayerData.AddItem(PlayerData.itemClicked);
+            PlayerData.itemClicked = null;
+        }
+        else if (PlayerData.selectedSlot.First.Value != null && PlayerData.interactionRadius.bounds.Contains(worldPosition))
         {
             PlayerData.UseSelectedItem(worldPosition);
         }
@@ -156,6 +160,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             Debug.Log("false");
         }
+        
     }
 
     private void OnCollisionEnter2D(Collision2D other)

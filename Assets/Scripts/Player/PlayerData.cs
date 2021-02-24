@@ -25,6 +25,7 @@ public class PlayerData : MonoBehaviour
 
     // boolean to make sure only one item is added at a time
     static public bool canAddItem = true;
+    static public Item itemClicked;
 
     // Players stamina value : not yet used for anything
     static public float maxStamina = 100;

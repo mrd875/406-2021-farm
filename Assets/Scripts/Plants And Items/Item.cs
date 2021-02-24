@@ -71,7 +71,8 @@ public class Item : MonoBehaviour
         Color oldColor = this.GetComponent<SpriteRenderer>().color;
         ChangeToInventorySprite();
         // attempt to add item. Canswap takes in a bool returned by AddItem indicating its success
-        canSwap = PlayerData.AddItem(this);
+        //canSwap = PlayerData.AddItem(this);
+        PlayerData.itemClicked = this;
         if (!canSwap)
         {
             this.GetComponent<SpriteRenderer>().sprite = oldSprite;

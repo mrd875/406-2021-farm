@@ -28,7 +28,8 @@ public class SeedBin : MonoBehaviour
         Debug.Log("Clicked");
         if (hasEntered)
         {
-            PlayerData.AddItem(seed);
+            //PlayerData.AddItem(seed);
+            PlayerData.itemClicked = seed;
             Debug.Log("Fired");
         }
     }
