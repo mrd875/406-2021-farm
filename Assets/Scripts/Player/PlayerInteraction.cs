@@ -149,6 +149,7 @@ public class PlayerInteraction : MonoBehaviour
         Vector3 worldPosition = new Vector3(worldPosition2D.x, worldPosition2D.y, this.transform.position.z);
         if (PlayerData.itemClicked != null)
         {
+            Debug.Log("adding item " + PlayerData.itemClicked.itemName);
             PlayerData.AddItem(PlayerData.itemClicked);
             PlayerData.itemClicked = null;
         }

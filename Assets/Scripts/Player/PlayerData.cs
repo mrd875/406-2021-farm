@@ -22,9 +22,8 @@ public class PlayerData : MonoBehaviour
     static public LinkedList<Item> selectedSlot;
     static public int selectedSlotNumber;
     static public GameObject selectedSlotUI;
-
-    // boolean to make sure only one item is added at a time
-    static public bool canAddItem = true;
+    
+    // Reference to an item clicked on
     static public Item itemClicked;
 
     // Players stamina value : not yet used for anything
@@ -86,11 +85,6 @@ public class PlayerData : MonoBehaviour
     // Adds item either to a slot already containing the same item type, or to a new slot
     static public bool AddItem(Item item)
     {
-        if (!canAddItem)
-        {
-            return false;
-        }
-        canAddItem = false;
         int slotToAdd = -1; // slotToAdd will remain -1 until end only if inventory is full
 
         // Either find the lowest slot number, or the slot number thats item matches the item if it is stackable
@@ -111,7 +105,6 @@ public class PlayerData : MonoBehaviour
         if (slotToAdd != -1)
         {
             itemSlots[slotToAdd].AddFirst(item);
-            canAddItem = true;
             //item.transform.position = new Vector3(-500, 0, 0);
         }
 
