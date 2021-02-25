@@ -19,7 +19,7 @@ public class Sellable : MonoBehaviour
 
     public void SellPlant()
     {
-        PlayerData.AddMoney(sellPrice);
+        PlayerData.localPlayer.GetComponent<PlayerInventory>().AddMoney(sellPrice);
         (bool, int) orderCheck = orders.CheckTickets(itemName);
 
         if (orderCheck.Item1)

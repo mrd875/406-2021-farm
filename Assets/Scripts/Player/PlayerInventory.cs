@@ -4,88 +4,48 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 
-// Static variables for player one
-public class PlayerData : MonoBehaviour
+public class PlayerInventory : MonoBehaviour
 {
-    // Reference to player object
-    static public GameObject playerOne;
-    static public Rigidbody2D playerOneRb;
-    static public CircleCollider2D interactionRadius;
-
-    static public GameObject localPlayer;   // the player being controlled
-    static public PolygonCollider2D userArea;   // localPlayer's field collider area
+    // ToDo: Move player inventory elements from player data to here. static?
 
     // Array of linked lists, each indice contains an item slot
-    //static public LinkedList<Item>[] itemSlots;
+    public LinkedList<Item>[] itemSlots;
 
     // A pointer to the slot the player has control over
-    /*static public LinkedList<Item> selectedSlot;
-    static public int selectedSlotNumber;
-    static public GameObject selectedSlotUI;
-    */
-    // Reference to an item clicked on
-    /*static public Item itemClicked;
-*/
-    // Players stamina value : not yet used for anything
-    static public float maxStamina = 100;
-    static public float currentStamina = 100;
+    public LinkedList<Item> selectedSlot;
+    public int selectedSlotNumber;
+    public GameObject selectedSlotUI;
 
     //Player global funds and money stuff
-    static public int money = 100;
-    static public bool inBinRange = false;
-    
-    // Bool for when user is in home zone trigger collider
-    static public bool inHomeZone = false;
+    public int money = 100;
+    public bool inBinRange = false;
 
-
+    public Item itemClicked;
 
     // Start is called before the first frame update
     void Start()
     {
-
-        playerOne = GameObject.Find("Player One");
-        playerOneRb = playerOne.GetComponent<Rigidbody2D>();
-        interactionRadius = GameObject.Find("PlayerOneInteractionRadius").GetComponent<CircleCollider2D>();
-
-        localPlayer = playerOne;
-        userArea = WorldData.playerOneZone;
-
-/*        itemSlots = new LinkedList<Item>[5];
+        itemSlots = new LinkedList<Item>[5];
         itemSlots[0] = new LinkedList<Item>();
         itemSlots[1] = new LinkedList<Item>();
         itemSlots[2] = new LinkedList<Item>();
         itemSlots[3] = new LinkedList<Item>();
-        itemSlots[4] = new LinkedList<Item>();*/
+        itemSlots[4] = new LinkedList<Item>();
 
-        /*selectedSlotNumber = 0;
-        selectedSlotUI = GameObject.Find("Slot1UI");*/
-
-        CreatePlayer(playerOne.transform.parent, .0f, .0f);
+        selectedSlotNumber = 0;
     }
 
-    /// <summary>
-    /// create player GameObject on demand
-    /// </summary>
-    /// <param name="parent"></param>
-    /// <param name="x"></param>
-    /// <param name="y"></param>
-    private static void CreatePlayer(Transform parent, float x, float y)
-    {
-        GameObject go =
-            Instantiate(Resources.Load("Player"), new Vector3(x, y, .0f), Quaternion.identity) as GameObject;
-        // TODO: set player's position dynamically
-        go.transform.parent = parent;
-    }
-
+    // Update is called once per frame
     void Update()
     {
-        /*selectedSlot = itemSlots[selectedSlotNumber];*/
+        selectedSlot = itemSlots[selectedSlotNumber];
+        selectedSlotUI = GameObject.Find("Slot1UI");
     }
 
-    // Adds item either to a slot already containing the same item type, or to a new slot
-   /* static public bool AddItem(Item item)
+    public bool AddItem(Item item)
     {
-        int slotToAdd = -1; // slotToAdd will remain -1 until end only if inventory is full
+        // slotToAdd will remain -1 until end only if inventory is full
+        int slotToAdd = -1; 
 
         // Either find the lowest slot number, or the slot number thats item matches the item if it is stackable
         for (int i = 0; i < itemSlots.Length; i++)
@@ -102,6 +62,7 @@ public class PlayerData : MonoBehaviour
                 break;
             }
         }
+
         if (slotToAdd != -1)
         {
             itemSlots[slotToAdd].AddFirst(item);
@@ -126,19 +87,19 @@ public class PlayerData : MonoBehaviour
             case 3:
                 UpdateUI("Slot4UI", item, 3);
                 return true;
-            
+
             case 4:
                 UpdateUI("Slot5UI", item, 4);
                 return true;
             case -1:
                 // inventory full
-                return false; 
-         
+                return false;
+
         }
         return false;
-    }*/
+    }
 
-    /*public static void UpdateUI(string slotName, Item item, int slotNumber)
+    public void UpdateUI(string slotName, Item item, int slotNumber)
     {
         GameObject.Find(slotName).transform.GetChild(0).GetComponent<Image>().sprite = item.gameObject.GetComponent<SpriteRenderer>().sprite;
         Debug.Log("Adding to slot " + slotNumber.ToString());
@@ -160,17 +121,16 @@ public class PlayerData : MonoBehaviour
             GameObject.Find(slotName).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[slotNumber].Count;
         WorldData.RemovePlantedLocation(WorldData.diggableLayer.WorldToCell(item.transform.localPosition));
         item.transform.position = new Vector3(-500, 0, 0);
-    }*/
+    }
 
-    // drops item at player location
-    /*public static void DropItem()
+    public void DropItem()
     {
         Debug.Log("Attempting to drop");
         if (selectedSlot.Count > 0)
         {
             Item droppedItem = selectedSlot.First.Value;
             droppedItem.GetComponent<SpriteRenderer>().enabled = true;
-            droppedItem.transform.position = playerOne.transform.position;
+            droppedItem.transform.position = gameObject.transform.position;
             selectedSlot.Remove(droppedItem);
             if (selectedSlot.Count == 0)
             {
@@ -181,10 +141,9 @@ public class PlayerData : MonoBehaviour
             else
                 selectedSlotUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[selectedSlotNumber].Count;
         }
-    }*/
+    }
 
-    // calls function stored in held item's script
-   /* static public void UseSelectedItem(Vector2 location)
+    public void UseSelectedItem(Vector2 location)
     {
         if (selectedSlot.Count != 0)
         {
@@ -193,11 +152,9 @@ public class PlayerData : MonoBehaviour
                 ItemUsed(); // should be called after an item is successfully used
             }
         }
+    }
 
-    }*/
-
-    // Deals with item consumption, durability loss, etc.
-    /*static public void ItemUsed()
+    public void ItemUsed()
     {
         // Consumption
         if (selectedSlot.First.Value.is_consumable)
@@ -215,11 +172,9 @@ public class PlayerData : MonoBehaviour
             else
                 selectedSlotUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[selectedSlotNumber].Count;
         }
-    }*/
+    }
 
-
-    //Adjust player funds. Can be passed a negative value. Safeguards against going under 0
-    /*static public void AddMoney(int value)
+    public void AddMoney(int value)
     {
         if (money + value > 0)
         {
@@ -233,12 +188,5 @@ public class PlayerData : MonoBehaviour
         //Update money text
         UpdateMoney moneyText = GameObject.FindObjectOfType<UpdateMoney>();
         moneyText.UpdateMoneyText();
-    }*/
-
-    public static void SetPlayer(GameObject newPlayer)
-    {
-        playerOne = newPlayer;
-        playerOneRb = newPlayer.GetComponent<Rigidbody2D>();
-        interactionRadius = newPlayer.transform.GetChild(0).GetComponent<CircleCollider2D>();
     }
 }
