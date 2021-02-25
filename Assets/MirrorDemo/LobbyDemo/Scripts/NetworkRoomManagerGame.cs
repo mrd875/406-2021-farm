@@ -228,7 +228,7 @@ public class NetworkRoomManagerGame : NetworkRoomManager
 
         OnRoomClientExited?.Invoke();
     }
-
+     
     /// <summary>
     /// This is called on the client when it connects to server.
     /// </summary>

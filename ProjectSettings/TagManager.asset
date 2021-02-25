@@ -13,6 +13,10 @@ TagManager:
   - PlayerThree
   - PlayerFour
   - Area
+  - GameSpawner
+  - GameGrid
+  - Zone
+  - GameSpawn
   layers:
   - Default
   - TransparentFX
