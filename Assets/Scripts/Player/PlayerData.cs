@@ -16,16 +16,16 @@ public class PlayerData : MonoBehaviour
     static public PolygonCollider2D userArea;   // localPlayer's field collider area
 
     // Array of linked lists, each indice contains an item slot
-    //static public LinkedList<Item>[] itemSlots;
+    static public LinkedList<Item>[] itemSlots;
 
     // A pointer to the slot the player has control over
-    /*static public LinkedList<Item> selectedSlot;
+    static public LinkedList<Item> selectedSlot;
     static public int selectedSlotNumber;
     static public GameObject selectedSlotUI;
-    */
+    
     // Reference to an item clicked on
-    /*static public Item itemClicked;
-*/
+    static public Item itemClicked;
+
     // Players stamina value : not yet used for anything
     static public float maxStamina = 100;
     static public float currentStamina = 100;
@@ -50,15 +50,15 @@ public class PlayerData : MonoBehaviour
         localPlayer = playerOne;
         userArea = WorldData.playerOneZone;
 
-/*        itemSlots = new LinkedList<Item>[5];
+        itemSlots = new LinkedList<Item>[5];
         itemSlots[0] = new LinkedList<Item>();
         itemSlots[1] = new LinkedList<Item>();
         itemSlots[2] = new LinkedList<Item>();
         itemSlots[3] = new LinkedList<Item>();
-        itemSlots[4] = new LinkedList<Item>();*/
+        itemSlots[4] = new LinkedList<Item>();
 
-        /*selectedSlotNumber = 0;
-        selectedSlotUI = GameObject.Find("Slot1UI");*/
+        selectedSlotNumber = 0;
+        selectedSlotUI = GameObject.Find("Slot1UI");
 
         CreatePlayer(playerOne.transform.parent, .0f, .0f);
     }
@@ -79,11 +79,11 @@ public class PlayerData : MonoBehaviour
 
     void Update()
     {
-        /*selectedSlot = itemSlots[selectedSlotNumber];*/
+        selectedSlot = itemSlots[selectedSlotNumber];
     }
 
     // Adds item either to a slot already containing the same item type, or to a new slot
-   /* static public bool AddItem(Item item)
+    static public bool AddItem(Item item)
     {
         int slotToAdd = -1; // slotToAdd will remain -1 until end only if inventory is full
 
@@ -136,9 +136,9 @@ public class PlayerData : MonoBehaviour
          
         }
         return false;
-    }*/
+    }
 
-    /*public static void UpdateUI(string slotName, Item item, int slotNumber)
+    public static void UpdateUI(string slotName, Item item, int slotNumber)
     {
         GameObject.Find(slotName).transform.GetChild(0).GetComponent<Image>().sprite = item.gameObject.GetComponent<SpriteRenderer>().sprite;
         Debug.Log("Adding to slot " + slotNumber.ToString());
@@ -160,10 +160,10 @@ public class PlayerData : MonoBehaviour
             GameObject.Find(slotName).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[slotNumber].Count;
         WorldData.RemovePlantedLocation(WorldData.diggableLayer.WorldToCell(item.transform.localPosition));
         item.transform.position = new Vector3(-500, 0, 0);
-    }*/
+    }
 
     // drops item at player location
-    /*public static void DropItem()
+    public static void DropItem()
     {
         Debug.Log("Attempting to drop");
         if (selectedSlot.Count > 0)
@@ -181,10 +181,10 @@ public class PlayerData : MonoBehaviour
             else
                 selectedSlotUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[selectedSlotNumber].Count;
         }
-    }*/
+    }
 
     // calls function stored in held item's script
-   /* static public void UseSelectedItem(Vector2 location)
+    static public void UseSelectedItem(Vector2 location)
     {
         if (selectedSlot.Count != 0)
         {
@@ -194,10 +194,10 @@ public class PlayerData : MonoBehaviour
             }
         }
 
-    }*/
+    }
 
     // Deals with item consumption, durability loss, etc.
-    /*static public void ItemUsed()
+    static public void ItemUsed()
     {
         // Consumption
         if (selectedSlot.First.Value.is_consumable)
@@ -215,11 +215,11 @@ public class PlayerData : MonoBehaviour
             else
                 selectedSlotUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[selectedSlotNumber].Count;
         }
-    }*/
+    }
 
 
     //Adjust player funds. Can be passed a negative value. Safeguards against going under 0
-    /*static public void AddMoney(int value)
+    static public void AddMoney(int value)
     {
         if (money + value > 0)
         {
@@ -233,7 +233,7 @@ public class PlayerData : MonoBehaviour
         //Update money text
         UpdateMoney moneyText = GameObject.FindObjectOfType<UpdateMoney>();
         moneyText.UpdateMoneyText();
-    }*/
+    }
 
     public static void SetPlayer(GameObject newPlayer)
     {

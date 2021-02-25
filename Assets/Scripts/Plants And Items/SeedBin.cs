@@ -29,7 +29,7 @@ public class SeedBin : MonoBehaviour
         if (hasEntered)
         {
             //PlayerData.AddItem(seed);
-            PlayerData.localPlayer.GetComponent<PlayerInventory>().itemClicked = seed;
+            PlayerData.itemClicked = seed;
             Debug.Log("Fired");
         }
     }

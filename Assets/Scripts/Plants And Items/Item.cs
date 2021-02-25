@@ -72,7 +72,7 @@ public class Item : MonoBehaviour
         ChangeToInventorySprite();
         // attempt to add item. Canswap takes in a bool returned by AddItem indicating its success
         //canSwap = PlayerData.AddItem(this);
-        PlayerData.localPlayer.GetComponent<PlayerInventory>().itemClicked = this;
+        PlayerData.itemClicked = this;
         if (!canSwap)
         {
             this.GetComponent<SpriteRenderer>().sprite = oldSprite;

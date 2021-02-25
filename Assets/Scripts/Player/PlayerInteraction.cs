@@ -26,15 +26,12 @@ public class PlayerInteraction : MonoBehaviour
     [HideInInspector]
     public bool inHomeZone = false;
 
-    private PlayerInventory inventory;
-
     void Start()
     {
         if (gameObject.tag == PlayerData.localPlayer.tag)
         {
             isLocalPlayer = true;
         }
-        inventory = gameObject.GetComponent<PlayerInventory>();
     }
 
     void Update()
@@ -104,15 +101,15 @@ public class PlayerInteraction : MonoBehaviour
             // Drop Item
             if (Input.GetKeyDown(KeyCode.R))
             {
-                inventory.DropItem();
+                PlayerData.DropItem();
             }
 
             // Use Item
             if (Input.GetKeyDown(itemKey))
             {
-                if (gameObject.GetComponent<PlayerInventory>().selectedSlot.Count > 0)
+                if (PlayerData.selectedSlot.Count > 0)
                 {
-                    inventory.UseSelectedItem(PlayerData.localPlayer.transform.position);
+                    PlayerData.UseSelectedItem(PlayerData.localPlayer.transform.position);
                 }
             }
 
@@ -127,22 +124,22 @@ public class PlayerInteraction : MonoBehaviour
     public void SetSlot(string slotName, int slotNumber)
     {
         //There is something in the slot you are leaving. Restore opacity
-        if (inventory.itemSlots[oldSlotNumber].Count != 0)
+        if (PlayerData.itemSlots[oldSlotNumber].Count != 0)
         {
-            inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            PlayerData.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
         }
         //Leaving an empty slot. Make it invisible
         else
         {
-            inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
+            PlayerData.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
         }
         //Store data to check on next slot change
         oldSlotNumber = slotNumber;
 
         //Change to new item
-        inventory.selectedSlotNumber = slotNumber;
-        inventory.selectedSlotUI = GameObject.Find(slotName);
-        inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+        PlayerData.selectedSlotNumber = slotNumber;
+        PlayerData.selectedSlotUI = GameObject.Find(slotName);
+        PlayerData.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
     }
 
     void Clicked()
@@ -150,15 +147,15 @@ public class PlayerInteraction : MonoBehaviour
         Vector2 mousePos = Input.mousePosition;
         Vector2 worldPosition2D = Camera.main.ScreenToWorldPoint(mousePos);
         Vector3 worldPosition = new Vector3(worldPosition2D.x, worldPosition2D.y, this.transform.position.z);
-        if (inventory.itemClicked != null)
+        if (PlayerData.itemClicked != null)
         {
-            Debug.Log("adding item " + inventory.itemClicked.itemName);
-            inventory.AddItem(inventory.itemClicked);
-            inventory.itemClicked = null;
+            Debug.Log("adding item " + PlayerData.itemClicked.itemName);
+            PlayerData.AddItem(PlayerData.itemClicked);
+            PlayerData.itemClicked = null;
         }
-        else if (inventory.selectedSlot.First.Value != null && PlayerData.interactionRadius.bounds.Contains(worldPosition))
+        else if (PlayerData.selectedSlot.First.Value != null && PlayerData.interactionRadius.bounds.Contains(worldPosition))
         {
-            inventory.UseSelectedItem(worldPosition);
+            PlayerData.UseSelectedItem(worldPosition);
         }
         else
         {
@@ -199,7 +196,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (other.CompareTag("Bin"))
         {
-            inventory.inBinRange = true;
+            PlayerData.inBinRange = true;
         }
     }
 
@@ -207,7 +204,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (other.CompareTag("Bin"))
         {
-            inventory.inBinRange = false;
+            PlayerData.inBinRange = false;
         }
     }
 
