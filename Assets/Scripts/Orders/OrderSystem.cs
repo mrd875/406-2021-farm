@@ -36,15 +36,21 @@ public class OrderSystem : NetworkBehaviour
 
     void Start()
     {
+        // Game seed to synchronize player orders
         Random.seed = servRandom.rand;
+
         // Initialize the timer
         timer = timeBetweenOrders;
 
-        // Create two identical lists of orders, one for each player
-        for(int x = 0; x < 10; x++) {
+        CreateOrderList();
+    }
+
+    private void CreateOrderList() {
+        // Create list of 20 orders 
+        for(int x = 0; x < 20; x++) {
             Order newOrder = new Order();
 
-            // Determine the number of items in each order ticket, each ticket can have 3 different items
+            // Determine the number of items in each order ticket, each ticket can have up to 3 different items
             int itemsPerTicket = Random.Range(1, 4); 
 
             for(int y = 0; y < itemsPerTicket; y++) {
@@ -62,10 +68,6 @@ public class OrderSystem : NetworkBehaviour
         }
     }
 
-    private void CreateOrderList() {
-
-    }
-
 
     // Update is called once per frame
     void Update()
@@ -76,22 +78,6 @@ public class OrderSystem : NetworkBehaviour
             if(timer <= 0.0f) {
                 newTicket(oneOrders[0]);
                 timer = timeBetweenOrders;
-            }
-        }
-        if(Input.GetKeyDown(KeyCode.Space)) {
-            (bool, int) orderCheck = CheckTickets("Eggplant");
-
-            if (orderCheck.Item1)
-            {
-                UpdateTicket("Eggplant", orderCheck.Item2);
-            }
-        }
-        if(Input.GetKeyDown(KeyCode.Period)) {
-            (bool, int) orderCheck = CheckTickets("Potato");
-
-            if (orderCheck.Item1)
-            {
-                UpdateTicket("Potato", orderCheck.Item2);
             }
         }
     }

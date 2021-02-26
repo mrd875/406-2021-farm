@@ -14,8 +14,4 @@ public class ServRandom : NetworkBehaviour
     {
         rand = Random.Range(0, 1000);
     }
-
-    public int GetRand() {
-        return rand;
-    }
 }
