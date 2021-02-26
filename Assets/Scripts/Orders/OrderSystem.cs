@@ -7,6 +7,7 @@ using Mirror;
 
 public class OrderSystem : NetworkBehaviour
 {
+    public ServRandom servRandom;   
     // Order UI Prefabs
     public GameObject orderTicketPrefab;
     public GameObject orderItemPrefab;
@@ -33,14 +34,9 @@ public class OrderSystem : NetworkBehaviour
     private float timer;
     public float timeBetweenOrders;
 
-    [SyncVar]
-    private int seed;
-
     void Start()
     {
-        seed = Random.Range(0, 100);
-        Debug.Log("Random Number: " + seed);
-        Random.seed = seed;
+        Random.seed = servRandom.rand;
         // Initialize the timer
         timer = timeBetweenOrders;
 
