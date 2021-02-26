@@ -8,10 +8,13 @@ public class PlayerClick : NetworkBehaviour
 {
     private Tilemap gl;
 
+    private PlayerInventory2 inventory;
+
 
     private void Start()
     {
         gl = GameObject.FindGameObjectWithTag("GameGrid").GetComponent<Tilemap>();
+        inventory = gameObject.GetComponent<PlayerInventory2>();
     }
 
     private void Update()
@@ -21,6 +24,28 @@ public class PlayerClick : NetworkBehaviour
             return;
 
         if (Input.GetMouseButtonDown(0))
+        {
+            Vector2 mousePos = Input.mousePosition;
+            Vector2 worldPosition2D = Camera.main.ScreenToWorldPoint(mousePos);
+            Vector3 worldPosition = new Vector3(worldPosition2D.x, worldPosition2D.y, this.transform.position.z);
+            if (inventory.itemClicked != null)
+            {
+                Debug.Log("adding item " + inventory.itemClicked.itemName);
+                inventory.AddItem(inventory.itemClicked);
+                inventory.itemClicked = null;
+            }
+            else if (inventory.selectedSlot.First.Value != null)
+            {
+                inventory.UseSelectedItem(worldPosition);
+            }
+            else
+            {
+                Debug.Log("false");
+            }
+
+        }
+
+        if (Input.GetMouseButtonDown(1))
         {
             // get the position of the click
 

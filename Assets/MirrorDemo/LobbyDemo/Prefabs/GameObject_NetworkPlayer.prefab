@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 5812680087649141758}
   - component: {fileID: 9000735518018980513}
   - component: {fileID: 3446838428414448638}
+  - component: {fileID: -3543099866852962456}
   m_Layer: 0
   m_Name: GameObject_NetworkPlayer
   m_TagString: Player
@@ -176,6 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  ownZone: {fileID: 0}
 --- !u!114 &5812680087649141758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,3 +232,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  inZone: {fileID: 0}
+--- !u!114 &-3543099866852962456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4769266443965390434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050ebca61ae7d4f4aa8ebc38b1c79391, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  selectedSlotNumber: 0
+  selectedSlotUI: {fileID: 0}
+  money: 100
+  inBinRange: 0
+  itemClicked: {fileID: 0}
