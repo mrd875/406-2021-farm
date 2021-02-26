@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Mirror;
 
-public class OrderSystem : MonoBehaviour
+public class OrderSystem : NetworkBehaviour
 {
+    public ServRandom servRandom;   
     // Order UI Prefabs
     public GameObject orderTicketPrefab;
     public GameObject orderItemPrefab;
@@ -28,24 +30,27 @@ public class OrderSystem : MonoBehaviour
     // List of currently active ticket objects
     private List<GameObject> oneActiveTicketObjects = new List<GameObject>();
 
-    // Player Two's list of orders
-    // private List<Order> pTwoOrders = new List<Order>();
-
     // Timer used to automatically add orders
     private float timer;
     public float timeBetweenOrders;
 
-
     void Start()
     {
+        // Game seed to synchronize player orders
+        Random.seed = servRandom.rand;
+
         // Initialize the timer
         timer = timeBetweenOrders;
 
-        // Create two identical lists of orders, one for each player
-        for(int x = 0; x < 10; x++) {
+        CreateOrderList();
+    }
+
+    private void CreateOrderList() {
+        // Create list of 20 orders 
+        for(int x = 0; x < 20; x++) {
             Order newOrder = new Order();
 
-            // Determine the number of items in each order ticket, each ticket can have 3 different items
+            // Determine the number of items in each order ticket, each ticket can have up to 3 different items
             int itemsPerTicket = Random.Range(1, 4); 
 
             for(int y = 0; y < itemsPerTicket; y++) {
@@ -60,7 +65,6 @@ public class OrderSystem : MonoBehaviour
             }
             // Add the newly created order to each players total list of orders
             oneOrders.Add(newOrder);
-            // pTwoOrders.Add(newOrder);
         }
     }
 

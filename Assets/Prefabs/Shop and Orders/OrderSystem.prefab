@@ -58,6 +58,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fd0ec3a7d12a0b46981a1b81c2e5b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  servRandom: {fileID: 3123697969478834984, guid: 1f5ec59389a21cb44b7b60acc6ad0c73, type: 3}
   orderTicketPrefab: {fileID: 5445029969153480794, guid: 7cc4f2277b01c2f42af565a09eaa4f3e, type: 3}
   orderItemPrefab: {fileID: 8915413326956065187, guid: 6dbc23651fe4c5a4eb84698ea42e1579, type: 3}
   produceNames:
