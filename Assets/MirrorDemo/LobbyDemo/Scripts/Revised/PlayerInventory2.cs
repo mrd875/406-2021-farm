@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.Tilemaps;
 using UnityEngine;
 using TMPro;
 using Mirror;
@@ -20,8 +21,9 @@ public class PlayerInventory2 : NetworkBehaviour
     //Player global funds and money stuff
     public int money = 100;
     public bool inBinRange = false;
+    
+    private Tilemap gl;
 
-    // Start is called before the first frame update
     void Start()
     {
         itemSlots = new LinkedList<Item2>[5];
@@ -31,11 +33,11 @@ public class PlayerInventory2 : NetworkBehaviour
         itemSlots[3] = new LinkedList<Item2>();
         itemSlots[4] = new LinkedList<Item2>();
 
-
         selectedSlotNumber = 0;
+
+        gl = GameObject.FindGameObjectWithTag("GameGrid").GetComponent<Tilemap>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         selectedSlot = itemSlots[selectedSlotNumber];
@@ -147,10 +149,55 @@ public class PlayerInventory2 : NetworkBehaviour
     {
         if (selectedSlot.Count != 0)
         {
-            if (selectedSlot.First.Value.UseItem(location))
+            Item2 item = selectedSlot.First.Value;
+            // if item is a seed it adds a tile based on the editor
+            if (item.is_seed)
             {
-                ItemUsed(); // should be called after an item is successfully used
+/*                Vector3Int pos = WorldData.diggableLayer.WorldToCell(location);//PlayerData.player.transform.position);
+
+                if ((WorldData.diggableLayer.GetTile(pos) == null) && (WorldData.plantableLayer.GetTile(pos) != null) && (WorldData.CheckPlantedLocation(pos)))
+                {
+                    // Place item in middle of cell, track planted location
+                    Instantiate(actionPrefab, WorldData.plantableLayer.CellToWorld(pos), Quaternion.identity);
+                    WorldData.AddPlantedLocation(pos);
+
+                    return true;
+                }*/
             }
+            else
+            {
+                switch (item.itemName)
+                {
+                    case "Shovel":
+                        // get the position of the click
+
+                        Vector2 mousePos = Input.mousePosition;
+                        Vector2 worldPosition2D = Camera.main.ScreenToWorldPoint(mousePos);
+                        Vector3 worldPosition = new Vector3(worldPosition2D.x, worldPosition2D.y, transform.position.z);
+                        Vector3Int worldPos = gl.WorldToCell(worldPosition);
+
+                        // locally update our tile
+                        gl.SetTile(worldPos, null);
+
+                        // tell the server to tell other clients about our click
+                        CmdSetTile(worldPos);
+
+                        break;
+
+                }
+
+                //Vegetables work differently
+                if (item.itemName.Substring(0, 8) == "Sellable")
+                {
+                    if (PlayerData.inBinRange)
+                    {
+                        Sellable sellComp = GetComponent<Sellable>();
+                        sellComp.SellPlant();
+                    }
+                }
+            }
+
+            ItemUsed(); // should be called after an item is successfully used
         }
     }
 
@@ -189,4 +236,18 @@ public class PlayerInventory2 : NetworkBehaviour
         UpdateMoney moneyText = GameObject.FindObjectOfType<UpdateMoney>();
         moneyText.UpdateMoneyText();
     }
+
+    private void CmdSetTile(Vector3Int v)
+    {
+        // tell other clients about our click
+        RpcSetTile(v);
+    }
+
+    [ClientRpc]
+    private void RpcSetTile(Vector3Int v)
+    {
+        // update our tile
+        gl.SetTile(v, null);
+    }
+
 }

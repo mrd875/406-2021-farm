@@ -20,13 +20,7 @@ public class Item2 : NetworkBehaviour
     public bool is_consumable = true;
     public bool is_seed = false;
     
-    private Tilemap gl;
     private bool canSwap;
-
-    void Start()
-    {
-        gl = GameObject.FindGameObjectWithTag("GameGrid").GetComponent<Tilemap>();
-    }
 
 
 /*    void OnMouseDown()
@@ -81,7 +75,7 @@ public class Item2 : NetworkBehaviour
         }
     }
 
-    public bool UseItem(Vector2 location)
+   /* public bool UseItem(Vector2 location)
     {
         // if item is a seed it adds a tile based on the editor
         if (is_seed)
@@ -134,20 +128,7 @@ public class Item2 : NetworkBehaviour
         }
 
         return false;
-    }
+    }*/
 
-    [Command]
-    private void CmdSetTile(Vector3Int v)
-    {
-        // tell other clients about our click
-        RpcSetTile(v);
-    }
-
-    [ClientRpc]
-    private void RpcSetTile(Vector3Int v)
-    {
-        // update our tile
-        gl.SetTile(v, null);
-    }
 
 }
