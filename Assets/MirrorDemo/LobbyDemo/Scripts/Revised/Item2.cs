@@ -29,7 +29,7 @@ public class Item2 : NetworkBehaviour
     }
 
 
-    void OnMouseDown()
+/*    void OnMouseDown()
     {
         //if (pickup_allowed)
         //{
@@ -37,7 +37,7 @@ public class Item2 : NetworkBehaviour
         Debug.Log("Clicked on item");
         // AddItem();
         //}
-    }
+    }*/
 
 
 
@@ -74,11 +74,6 @@ public class Item2 : NetworkBehaviour
         ChangeToInventorySprite();
         // attempt to add item. Canswap takes in a bool returned by AddItem indicating its success
         //canSwap = .AddItem(this);
-        GameObject.Find("GameObject_NetworkPlayer(Clone)").GetComponent<PlayerInventory2>().itemClicked = this;
-        if (GameObject.Find("GameObject_NetworkPlayer(Clone)").GetComponent<PlayerInventory2>().itemClicked != null)
-            canSwap = true;
-        else
-            canSwap = false;
         if (!canSwap)
         {
             this.GetComponent<SpriteRenderer>().sprite = oldSprite;

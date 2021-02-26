@@ -28,11 +28,11 @@ public class PlayerClick : NetworkBehaviour
             Vector2 mousePos = Input.mousePosition;
             Vector2 worldPosition2D = Camera.main.ScreenToWorldPoint(mousePos);
             Vector3 worldPosition = new Vector3(worldPosition2D.x, worldPosition2D.y, this.transform.position.z);
-            if (inventory.itemClicked != null)
+            RaycastHit2D hit = Physics2D.Raycast(worldPosition2D, Vector2.zero);
+
+            if (hit.collider != null && hit.collider.gameObject.GetComponent<Item2>() != null)
             {
-                Debug.Log("adding item " + inventory.itemClicked.itemName);
-                inventory.AddItem(inventory.itemClicked);
-                inventory.itemClicked = null;
+                inventory.AddItem(hit.collider.gameObject.GetComponent<Item2>());
             }
             else if (inventory.selectedSlot.First.Value != null)
             {

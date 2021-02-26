@@ -21,8 +21,6 @@ public class PlayerInventory2 : NetworkBehaviour
     public int money = 100;
     public bool inBinRange = false;
 
-    public Item2 itemClicked;
-
     // Start is called before the first frame update
     void Start()
     {
