@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Mirror;
 
-public class OrderSystem : MonoBehaviour
+public class OrderSystem : NetworkBehaviour
 {
     // Order UI Prefabs
     public GameObject orderTicketPrefab;
@@ -28,16 +29,18 @@ public class OrderSystem : MonoBehaviour
     // List of currently active ticket objects
     private List<GameObject> oneActiveTicketObjects = new List<GameObject>();
 
-    // Player Two's list of orders
-    // private List<Order> pTwoOrders = new List<Order>();
-
     // Timer used to automatically add orders
     private float timer;
     public float timeBetweenOrders;
 
+    [SyncVar]
+    private int seed;
 
     void Start()
     {
+        seed = Random.Range(0, 100);
+        Debug.Log("Random Number: " + seed);
+        Random.seed = seed;
         // Initialize the timer
         timer = timeBetweenOrders;
 
@@ -60,8 +63,11 @@ public class OrderSystem : MonoBehaviour
             }
             // Add the newly created order to each players total list of orders
             oneOrders.Add(newOrder);
-            // pTwoOrders.Add(newOrder);
         }
+    }
+
+    private void CreateOrderList() {
+
     }
 
 
@@ -74,6 +80,22 @@ public class OrderSystem : MonoBehaviour
             if(timer <= 0.0f) {
                 newTicket(oneOrders[0]);
                 timer = timeBetweenOrders;
+            }
+        }
+        if(Input.GetKeyDown(KeyCode.Space)) {
+            (bool, int) orderCheck = CheckTickets("Eggplant");
+
+            if (orderCheck.Item1)
+            {
+                UpdateTicket("Eggplant", orderCheck.Item2);
+            }
+        }
+        if(Input.GetKeyDown(KeyCode.Period)) {
+            (bool, int) orderCheck = CheckTickets("Potato");
+
+            if (orderCheck.Item1)
+            {
+                UpdateTicket("Potato", orderCheck.Item2);
             }
         }
     }
