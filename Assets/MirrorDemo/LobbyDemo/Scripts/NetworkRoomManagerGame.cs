@@ -138,6 +138,14 @@ public class NetworkRoomManagerGame : NetworkRoomManager
     {
         OnRoomServerCreatedGamePlayer?.Invoke(conn, roomPlayer);
 
+        if (roomPlayer.GetComponent<NetworkRoomPlayerGame>().index == 0)
+            roomPlayer.tag = "PlayerOne";
+        if (roomPlayer.GetComponent<NetworkRoomPlayerGame>().index == 1)
+            roomPlayer.tag = "PlayerTwo";
+
+        Debug.Log(roomPlayer.name);
+        Debug.Log(roomPlayer.GetComponent<NetworkRoomPlayerGame>().index);
+
         return base.OnRoomServerCreateGamePlayer(conn, roomPlayer);
     }
 
