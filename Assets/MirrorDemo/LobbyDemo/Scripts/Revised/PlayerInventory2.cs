@@ -180,7 +180,10 @@ public class PlayerInventory2 : NetworkBehaviour
                         WorldData2.diggableLayer.SetTile(worldPos, null);
 
                         // tell the server to tell other clients about our click
-                        CmdSetTile(worldPos);
+                        if (isServer)
+                            RpcSetTile(worldPos);
+                        else
+                            CmdSetTile(worldPos);
 
                         break;
 
@@ -237,6 +240,7 @@ public class PlayerInventory2 : NetworkBehaviour
         moneyText.UpdateMoneyText();
     }
 
+    [Command]
     private void CmdSetTile(Vector3Int v)
     {
         // tell other clients about our click
