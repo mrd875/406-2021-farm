@@ -192,6 +192,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  WhatIsInteractable:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!61 &9000735518018980513
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -251,4 +254,3 @@ MonoBehaviour:
   selectedSlotUI: {fileID: 0}
   money: 100
   inBinRange: 0
-  itemClicked: {fileID: 0}

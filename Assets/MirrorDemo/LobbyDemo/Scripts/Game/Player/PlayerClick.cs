@@ -20,10 +20,13 @@ public class PlayerClick : NetworkBehaviour
     private int oldSlotNumber = 0;
     private string[] slotNames = new string[] { "Slot1UI", "Slot2UI", "Slot3UI", "Slot4UI", "Slot5UI" };
 
+    private LayerMask whatIsItem;
+
     private void Start()
     {
         gl = GameObject.FindGameObjectWithTag("GameGrid").GetComponent<Tilemap>();
         inventory = gameObject.GetComponent<PlayerInventory2>();
+        whatIsItem = LayerMask.GetMask("Item");
     }
 
     private void Update()
@@ -91,7 +94,8 @@ public class PlayerClick : NetworkBehaviour
             Vector2 mousePos = Input.mousePosition;
             Vector2 worldPosition2D = Camera.main.ScreenToWorldPoint(mousePos);
             Vector3 worldPosition = new Vector3(worldPosition2D.x, worldPosition2D.y, this.transform.position.z);
-            RaycastHit2D hit = Physics2D.Raycast(worldPosition2D, Vector2.zero);
+            RaycastHit2D hit = Physics2D.Raycast(worldPosition2D, Vector2.zero, 1.0f, whatIsItem);
+            //Debug.Log("Hit item name: "+hit.collider.gameObject.name);
 
             if (hit.collider != null && hit.collider.gameObject.GetComponent<Item2>() != null)
             {

@@ -49,6 +49,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shovel Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7891801817533986481, guid: 301241cd0cf5650499daeb565da19c41, type: 3}
+      propertyPath: m_TagString
+      value: Item
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891801817533986481, guid: 301241cd0cf5650499daeb565da19c41, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7891801817533986492, guid: 301241cd0cf5650499daeb565da19c41, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
