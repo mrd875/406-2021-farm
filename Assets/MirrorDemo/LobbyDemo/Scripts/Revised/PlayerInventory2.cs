@@ -187,7 +187,7 @@ public class PlayerInventory2 : NetworkBehaviour
                 }
 
                 //Vegetables work differently
-                if (item.itemName.Substring(0, 8) == "Sellable")
+                if (item.itemName.Length > 8 && item.itemName.Substring(0, 8) == "Sellable")
                 {
                     if (PlayerData.inBinRange)
                     {

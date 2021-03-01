@@ -102,7 +102,8 @@ public class PlayerClick : NetworkBehaviour
                 inventory.AddItem(hit.collider.gameObject.GetComponent<Item2>());
                 CmdAddItem(hit.collider.gameObject.GetComponent<Item2>());
             }
-            else if (inventory.selectedSlot.First.Value != null)
+            // The if selectedSlot.First == null, expression will evaluate to null while ignoring anything after the ':'so null exception will not be thrown
+            else if ((inventory.selectedSlot.First == null ? null : inventory.selectedSlot.First.Value) != null)
             {
                 inventory.UseSelectedItem(worldPosition);
             }
