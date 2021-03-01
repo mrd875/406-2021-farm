@@ -82,6 +82,7 @@ public class PlayerClick : NetworkBehaviour
         // Drop Item
         if (Input.GetKeyDown(KeyCode.R))
         {
+            CmdDropItem(inventory.selectedSlot.First.Value.GetComponent<Item2>(), gameObject.transform.position);
             inventory.DropItem();
         }
 
@@ -95,6 +96,7 @@ public class PlayerClick : NetworkBehaviour
             if (hit.collider != null && hit.collider.gameObject.GetComponent<Item2>() != null)
             {
                 inventory.AddItem(hit.collider.gameObject.GetComponent<Item2>());
+                CmdAddItem(hit.collider.gameObject.GetComponent<Item2>());
             }
             else if (inventory.selectedSlot.First.Value != null)
             {
@@ -153,10 +155,34 @@ public class PlayerClick : NetworkBehaviour
         RpcSetTile(v);
     }
 
+    [Command]
+    private void CmdAddItem(Item2 i)
+    {
+        RpcAddItem(i);
+    }
+
+    [Command]
+    private void CmdDropItem(Item2 i, Vector2 v)
+    {
+        RpcDropItem(i, v);
+    }
+
     [ClientRpc]
     private void RpcSetTile(Vector3Int v)
     {
         // update our tile
         gl.SetTile(v, null);
+    }
+
+    [ClientRpc]
+    private void RpcAddItem(Item2 i)
+    {
+        i.transform.position = new Vector3(-500, 0, 0);
+    }
+
+    [ClientRpc]
+    private void RpcDropItem(Item2 i, Vector2 v)
+    {
+        i.transform.position = v;
     }
 }

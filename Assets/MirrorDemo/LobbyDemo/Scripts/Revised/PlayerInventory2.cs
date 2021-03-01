@@ -132,7 +132,7 @@ public class PlayerInventory2 : NetworkBehaviour
         {
             Item2 droppedItem = selectedSlot.First.Value;
             droppedItem.GetComponent<SpriteRenderer>().enabled = true;
-            droppedItem.transform.position = gameObject.transform.position;
+            //droppedItem.transform.position = gameObject.transform.position;   Done in command script
             selectedSlot.Remove(droppedItem);
             if (selectedSlot.Count == 0)
             {
