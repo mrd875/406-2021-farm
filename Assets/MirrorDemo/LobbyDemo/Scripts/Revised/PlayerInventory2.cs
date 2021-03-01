@@ -177,7 +177,7 @@ public class PlayerInventory2 : NetworkBehaviour
                         Vector3Int worldPos = gl.WorldToCell(worldPosition);
 
                         // locally update our tile
-                        WorldData2.diggableLayer.SetTile(worldPos, null);
+                        //WorldData2.diggableLayer.SetTile(worldPos, null);
 
                         // tell the server to tell other clients about our click
                         CmdSetTile(worldPos);
@@ -247,7 +247,7 @@ public class PlayerInventory2 : NetworkBehaviour
     private void RpcSetTile(Vector3Int v)
     {
         // update our tile
-        gl.SetTile(v, null);
+        WorldData2.diggableLayer.SetTile(v, null);
     }
 
 }
