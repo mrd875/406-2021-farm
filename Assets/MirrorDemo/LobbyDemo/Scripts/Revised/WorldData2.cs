@@ -16,8 +16,8 @@ public class WorldData2 : MonoBehaviour
 
 
     // Locations where each player spawns after being caught in another's field
-    static public Vector2 playerOneSpawnLocation;
-    static public Vector2 playerTwoSpawnLocation;
+    static public Vector2 playerOneSpawnerLocation;
+    static public Vector2 playerTwoSpawnerLocation;
     //static public Vector2 playerThreeSpawnLocation;
     //static public Vector2 playerFourSpawnLocation;
 
@@ -30,8 +30,8 @@ public class WorldData2 : MonoBehaviour
         highlighter = GameObject.Find("Highlighter").GetComponent<Tilemap>();
 
         // Spawn locations for each player
-        playerOneSpawnLocation = GameObject.Find("PlayerOneSpawn").transform.position;
-        playerTwoSpawnLocation = GameObject.Find("PlayerTwoSpawn").transform.position;
+        playerOneSpawnerLocation = GameObject.Find("PlayerOneSpawner").transform.position;
+        playerTwoSpawnerLocation = GameObject.Find("PlayerTwoSpawner").transform.position;
 
         playerOneZone = GameObject.Find("PlayerOneZone").GetComponent<PolygonCollider2D>();   // left
         playerTwoZone = GameObject.Find("PlayerTwoZone").GetComponent<PolygonCollider2D>(); ;   // right
