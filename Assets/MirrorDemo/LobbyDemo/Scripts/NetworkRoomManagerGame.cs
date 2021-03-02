@@ -138,15 +138,8 @@ public class NetworkRoomManagerGame : NetworkRoomManager
     {
         OnRoomServerCreatedGamePlayer?.Invoke(conn, roomPlayer);
 
-        //GameObject gamePlayer = base.OnRoomServerCreateGamePlayer(conn, roomPlayer); (original)
-        GameObject gamePlayer = Instantiate(playerPrefab);
-
-        if (roomPlayer.GetComponent<NetworkRoomPlayerGame>().index == 0)
-            gamePlayer.tag = "PlayerOne";
-        if (roomPlayer.GetComponent<NetworkRoomPlayerGame>().index == 1)
-            gamePlayer.tag = "PlayerTwo";
-
-        return gamePlayer.gameObject;
+        GameObject gamePlayer = base.OnRoomServerCreateGamePlayer(conn, roomPlayer);
+        return gamePlayer;
     }
 
     /// <summary>

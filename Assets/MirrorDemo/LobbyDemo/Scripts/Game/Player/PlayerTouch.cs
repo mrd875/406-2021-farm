@@ -21,16 +21,16 @@ public class PlayerTouch : NetworkBehaviour
             if (collision.transform.tag == "PlayerOne")
             {
                 if (isServer)
-                    RpcSetLocation(collision.gameObject, WorldData.playerOneSpawnLocation);
+                    RpcSetLocation(collision.gameObject, WorldData2.playerOneSpawnerLocation);
                 else
-                    CmdSetLocation(collision.gameObject, WorldData.playerOneSpawnLocation);
+                    CmdSetLocation(collision.gameObject, WorldData2.playerOneSpawnerLocation);
             }
             if (collision.transform.tag == "PlayerTwo")
             {
                 if (isServer)
-                    RpcSetLocation(collision.gameObject, WorldData.playerTwoSpawnLocation);
+                    RpcSetLocation(collision.gameObject, WorldData2.playerTwoSpawnerLocation);
                 else
-                    CmdSetLocation(collision.gameObject, WorldData.playerTwoSpawnLocation);
+                    CmdSetLocation(collision.gameObject, WorldData2.playerTwoSpawnerLocation);
             }
         }
 
@@ -46,12 +46,6 @@ public class PlayerTouch : NetworkBehaviour
         RpcOnCollidePlayer(c);
     }
 
-    [Command]
-    private void CmdSetLocation(GameObject g, Vector2 l)
-    {
-        RpcSetLocation(g, l);
-    }
-
     [ClientRpc]
     private void RpcOnCollidePlayer(NetworkIdentity c)
     {
@@ -62,6 +56,12 @@ public class PlayerTouch : NetworkBehaviour
             return;
 
         c.gameObject.transform.position = c.GetComponent<PlayerAuthority>().ownZone.GetComponentInChildren<NetworkStartPosition>().transform.position;
+    }
+
+    [Command]
+    private void CmdSetLocation(GameObject g, Vector2 l)
+    {
+        RpcSetLocation(g, l);
     }
 
     [ClientRpc]
