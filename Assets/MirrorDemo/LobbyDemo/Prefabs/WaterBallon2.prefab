@@ -126,6 +126,7 @@ MonoBehaviour:
   startLocation: {x: 0, y: 0}
   startSpeed: {x: 0, y: 0}
   speed: 10
+  shovelPrefab: {fileID: 1618075013237995541, guid: f53f1ac7d364cbb45a96ff437f0c65a6, type: 3}
   lifeTime: 0.5
   speedReduction: 0.5
   parentTagName: 

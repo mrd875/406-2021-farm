@@ -10,6 +10,8 @@ public class ProjectileController2 : MonoBehaviour
     public Vector2 startSpeed;  // The speed of the launcher slightly affects the speed of the projectile
     public float speed = 10;    // Speed of the projectile
 
+    public GameObject shovelPrefab;
+
     public float lifeTime = 0.5f;   // how long the projectile will remain airborn for
     public float speedReduction = 0.5f; // default reduction in movement speed to target hit
 
@@ -21,7 +23,6 @@ public class ProjectileController2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         direction = (target - startLocation).normalized;
       
         // bullet is destroyed after a given time after not colliding with anything
@@ -39,22 +40,25 @@ public class ProjectileController2 : MonoBehaviour
             else if (parentTagName == "PlayerThree") { gameObject.tag = "PlayerThreeProjectile"; }
             else if (parentTagName == "PlayerFour") { gameObject.tag = "PlayerFourProjectile"; }
         }
-        Debug.Log(gameObject.tag);
+        Debug.Log(gameObject.tag+"  "+parentTagName);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         // Player one projectile hits player two
-        if (gameObject.tag == "PlayerOneProjectile" && (other.tag == "PlayerTwo" || other.tag == "PlayerThree" || other.tag == "PlayerFour")
-            && !other.gameObject.GetComponent<PlayerTouch>().inHomeZone)
+        if (gameObject.tag == "PlayerOneProjectile" && (other.tag == "PlayerTwo" || other.tag == "PlayerThree" || other.tag == "PlayerFour"))
         {
-            other.GetComponent<PlayerMovement2>().ReduceSpeed(speedReduction);
+            // Don't slow other player if they are in their own field
+            if (!other.gameObject.GetComponent<PlayerTouch>().inHomeZone)
+                other.GetComponent<PlayerMovement2>().ReduceSpeed(speedReduction);
             Destroy(this.gameObject);
+
         }
-        else if (gameObject.tag == "PlayerTwoProjectile" && (other.tag == "PlayerOne" || other.tag == "PlayerThree" || other.tag == "PlayerFour")
-            && !other.gameObject.GetComponent<PlayerTouch>().inHomeZone)
+        else if (gameObject.tag == "PlayerTwoProjectile" && (other.tag == "PlayerOne" || other.tag == "PlayerThree" || other.tag == "PlayerFour"))
         {
-            other.GetComponent<PlayerMovement2>().ReduceSpeed(speedReduction);
+            // Don't slow other player if they are in their own field
+            if (other.gameObject.GetComponent<PlayerTouch>().inHomeZone)
+                other.GetComponent<PlayerMovement2>().ReduceSpeed(speedReduction);
             Destroy(this.gameObject);
         }
 
@@ -64,7 +68,7 @@ public class ProjectileController2 : MonoBehaviour
 
         else
         {
-            Destroy(this.gameObject);
+            // Destroy(this.gameObject);
         }
     }
 

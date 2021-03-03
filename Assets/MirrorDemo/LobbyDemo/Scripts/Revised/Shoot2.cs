@@ -20,17 +20,27 @@ public class Shoot2 : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
-        if (Input.GetKeyDown(KeyCode.Q) && canShoot)
+        if (Input.GetKeyDown(KeyCode.Q) && gameObject.GetComponent<PlayerTouch>().inHomeZone && canShoot)
         {
             isShooting = true;
             StartCoroutine(ShotCooldown(shotCooldown));
             if (isServer)
             {
-                RpcSpawnProjectile(gameObject.transform.position, gameObject.GetComponent<Rigidbody2D>().velocity, gameObject.tag);
+                RpcSpawnProjectile(
+                    Camera.main.ScreenToWorldPoint(Input.mousePosition),     // target
+                    gameObject.transform.position,  // start location
+                    gameObject.GetComponent<Rigidbody2D>().velocity,     // start speed
+                    gameObject.tag  // launcher tag
+                    );
             }
             else
             {
-                CmdSpawnProjectile(gameObject.transform.position, gameObject.GetComponent<Rigidbody2D>().velocity, gameObject.tag);
+                CmdSpawnProjectile(
+                    Camera.main.ScreenToWorldPoint(Input.mousePosition),    // target
+                    gameObject.transform.position,  // start location
+                    gameObject.GetComponent<Rigidbody2D>().velocity,    // start speed
+                    gameObject.tag  // launcher tag
+                    );    
             }
         }
         else
@@ -58,18 +68,20 @@ public class Shoot2 : NetworkBehaviour
     }*/
 
     [Command]
-    private void CmdSpawnProjectile(Vector2 startLocation, Vector2 startSpeed, string tag)
+    private void CmdSpawnProjectile(Vector2 target, Vector2 startLocation, Vector2 startSpeed, string tag)
     {
-        RpcSpawnProjectile(startLocation, startSpeed, tag);
+        RpcSpawnProjectile(target, startLocation, startSpeed, tag);
     }
 
     // Creates a projectile and sends it moving
     [ClientRpc]
-    private void RpcSpawnProjectile(Vector2 startLocation, Vector2 startSpeed, string tag)
+    private void RpcSpawnProjectile(Vector2 target, Vector2 startLocation, Vector2 startSpeed, string tag)
     {
-        GameObject projectile = Instantiate(projectilePrefab, gameObject.transform.position, gameObject.transform.rotation);
-        (projectile.GetComponent("ProjectileController2") as ProjectileController2).parentTagName = tag;
+        GameObject projectile = Instantiate(projectilePrefab, startLocation, gameObject.transform.rotation);
+        (projectile.GetComponent("ProjectileController2") as ProjectileController2).target = target;
         (projectile.GetComponent("ProjectileController2") as ProjectileController2).startLocation = startLocation;
         (projectile.GetComponent("ProjectileController2") as ProjectileController2).startSpeed = startSpeed;
+        (projectile.GetComponent("ProjectileController2") as ProjectileController2).parentTagName = tag;
+
     }
 }
