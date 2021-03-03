@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine;
 using TMPro;
 using Mirror;
+using UnityEngine.PlayerLoop;
 
 public class PlayerInventory2 : NetworkBehaviour
 {
@@ -34,6 +35,8 @@ public class PlayerInventory2 : NetworkBehaviour
         itemSlots[4] = new LinkedList<Item2>();
 
         selectedSlotNumber = 0;
+        selectedSlot = itemSlots[selectedSlotNumber];
+        selectedSlotUI = GameObject.Find("Slot1UI");
 
         gl = GameObject.FindGameObjectWithTag("GameGrid").GetComponent<Tilemap>();
     }
@@ -41,7 +44,6 @@ public class PlayerInventory2 : NetworkBehaviour
     void Update()
     {
         selectedSlot = itemSlots[selectedSlotNumber];
-        selectedSlotUI = GameObject.Find("Slot1UI");
     }
 
     public bool AddItem(Item2 item)
@@ -49,25 +51,31 @@ public class PlayerInventory2 : NetworkBehaviour
         // slotToAdd will remain -1 until end only if inventory is full
         int slotToAdd = -1; 
 
-        // Either find the lowest slot number, or the slot number thats item matches the item if it is stackable
+        // Either find the lowest slot number, or the slot number that's item matches the item if it is stackable
         for (int i = 0; i < itemSlots.Length; i++)
         {
             if ((slotToAdd == -1) && (itemSlots[i].Count == 0))
+                //But keep looking, as there may be a stackable slot later on
                 slotToAdd = i;
+            
             if (item.is_stackable)
             {
                 if ((itemSlots[i].Count > 0) && (item.itemName == itemSlots[i].First.Value.itemName))
+                {
                     slotToAdd = i;
+                    //No matter what add it to the slot of existing items. No need to look further
+                    break;
+                }
+
             }
-            else if (slotToAdd != -1)
-            {
-                break;
-            }
+
         }
 
         if (slotToAdd != -1)
         {
             itemSlots[slotToAdd].AddFirst(item);
+            item.transform.gameObject.GetComponent<SpriteRenderer>().sprite = item.InventorySprite;
+            Destroy(item.transform.gameObject);
             //item.transform.position = new Vector3(-500, 0, 0);
         }
 
@@ -104,14 +112,12 @@ public class PlayerInventory2 : NetworkBehaviour
     public void UpdateUI(string slotName, Item2 item, int slotNumber)
     {
         GameObject.Find(slotName).transform.GetChild(0).GetComponent<Image>().sprite = item.gameObject.GetComponent<SpriteRenderer>().sprite;
-        Debug.Log("Adding to slot " + slotNumber.ToString());
-        Debug.Log("Active Slot: " + selectedSlotNumber.ToString());
 
         //Check if item is being added to active slot. Adjust color appropriately. 
         if (selectedSlotNumber == slotNumber)
         {
-            Debug.Log("Inside");
             Color itemColor = item.gameObject.GetComponent<SpriteRenderer>().color;
+            //Fade out a bit in active slot
             GameObject.Find(slotName).transform.GetChild(0).GetComponent<Image>().color = new Color(itemColor.r, itemColor.g, itemColor.b, 0.5f);
         }
         else
@@ -121,7 +127,7 @@ public class PlayerInventory2 : NetworkBehaviour
 
         if (item.is_stackable)
             GameObject.Find(slotName).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[slotNumber].Count;
-        //WorldData.RemovePlantedLocation(WorldData.diggableLayer.WorldToCell(item.transform.localPosition));
+        //Destroy(item.transform.gameObject);
         item.transform.position = new Vector3(-500, 0, 0);
     }
 
@@ -153,16 +159,26 @@ public class PlayerInventory2 : NetworkBehaviour
             // if item is a seed it adds a tile based on the editor
             if (item.is_seed)
             {
-/*                Vector3Int pos = WorldData.diggableLayer.WorldToCell(location);//PlayerData.player.transform.position);
+                Vector3Int pos = WorldData2.diggableLayer.WorldToCell(location);//PlayerData.player.transform.position);
 
-                if ((WorldData.diggableLayer.GetTile(pos) == null) && (WorldData.plantableLayer.GetTile(pos) != null) && (WorldData.CheckPlantedLocation(pos)))
+
+                if ((WorldData2.diggableLayer.GetTile(pos) == null) && (WorldData2.plantableLayer.GetTile(pos) != null) && (WorldData2.CheckPlantedLocation(pos)))
                 {
-                    // Place item in middle of cell, track planted location
-                    Instantiate(actionPrefab, WorldData.plantableLayer.CellToWorld(pos), Quaternion.identity);
-                    WorldData.AddPlantedLocation(pos);
+                    //Extract vegetable name by taking off last 5 characters (" seed")
+                    string vegetableString = item.itemName.Substring(0, item.itemName.Length - 5);
+                    
+                    // Place item in middle of cell, track planted location. All handled by world data
+                    bool plantAttempt = WorldData2.AddPlantedLocation(pos, vegetableString);
 
-                    return true;
-                }*/
+                    if (plantAttempt)
+                    {
+                        //Tell others to add the plant
+                        CmdPlantSeed(pos, vegetableString);
+                        ItemUsed();
+                    }
+                    
+
+                }
             }
             else
             {
@@ -185,6 +201,7 @@ public class PlayerInventory2 : NetworkBehaviour
                         else
                             CmdSetTile(worldPos);
 
+                        ItemUsed();
                         break;
 
                 }
@@ -196,11 +213,12 @@ public class PlayerInventory2 : NetworkBehaviour
                     {
                         Sellable sellComp = GetComponent<Sellable>();
                         sellComp.SellPlant();
+                        ItemUsed();
                     }
                 }
             }
 
-            ItemUsed(); // should be called after an item is successfully used
+            //ItemUsed(); // should be called after an item is successfully used
         }
     }
 
@@ -211,7 +229,7 @@ public class PlayerInventory2 : NetworkBehaviour
         {
             Item2 consumedItem = selectedSlot.First.Value;
             selectedSlot.Remove(consumedItem);
-            Destroy(consumedItem);
+            //Destroy(consumedItem);
             if (selectedSlot.Count == 0)
             {
                 Image image = selectedSlotUI.transform.GetChild(0).GetComponent<Image>();   // For shorter reference
@@ -239,6 +257,20 @@ public class PlayerInventory2 : NetworkBehaviour
         UpdateMoney moneyText = GameObject.FindObjectOfType<UpdateMoney>();
         moneyText.UpdateMoneyText();
     }
+
+
+    [Command]
+    private void CmdPlantSeed(Vector3Int location, string plantName)
+    {
+        RpcPlantSeed(location, plantName);
+    }
+
+    [ClientRpc]
+    private void RpcPlantSeed(Vector3Int location, string plantName)
+    {
+        WorldData2.AddPlantedLocation(location, plantName);
+    }
+
 
     [Command]
     private void CmdSetTile(Vector3Int v)

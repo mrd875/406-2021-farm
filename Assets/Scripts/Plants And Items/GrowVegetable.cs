@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
-public class GrowVegetable : MonoBehaviour
+public class GrowVegetable : NetworkBehaviour
 {
 
     //Public inspector variables
@@ -17,6 +18,7 @@ public class GrowVegetable : MonoBehaviour
 
 
     //Internal
+    public int ID;
     private int currentStageIndex = 0;
     private int maxStages;
     private float growTimer;
@@ -57,9 +59,26 @@ public class GrowVegetable : MonoBehaviour
         }
 
         //Plant is fully grown! Spawn a pickup and delete self.
-        Instantiate(fullyGrownItem, this.transform.position, this.transform.localRotation);
+        GameObject newPickup = Instantiate(fullyGrownItem, this.transform.position, this.transform.localRotation);
+        newPickup.GetComponent<plantID>().ID = ID;
+
+        CmdSpawnPickup(fullyGrownItem, this.transform.position, this.transform.localRotation);
 
         Destroy(this.gameObject);
     }
 
+
+    [Command]
+    private void CmdSpawnPickup(GameObject fullyGrownItem, Vector3 position, Quaternion rotation)
+    {
+        RpcSpawnPickup(fullyGrownItem, position, rotation);
+    }
+
+    [ClientRpc]
+    private void RpcSpawnPickup(GameObject fullyGrownItem, Vector3 position, Quaternion rotation)
+    {
+        Instantiate(fullyGrownItem, position, rotation);
+        Debug.Log("Spawned pickup");
+        Destroy(this.gameObject);
+    }
 }

@@ -10,6 +10,14 @@ public class WorldData2 : MonoBehaviour
     static public Tilemap plantableLayer;
     static public Tilemap highlighter;
 
+    public struct plantInfo
+    {
+        public GameObject plantObject;
+        public string plantName;
+    }
+
+    public static List<plantInfo> plants;
+
     // Areas on the map belonging to each player
     static public PolygonCollider2D playerOneZone;
     static public PolygonCollider2D playerTwoZone;
@@ -21,7 +29,16 @@ public class WorldData2 : MonoBehaviour
     static public Vector2 playerThreeSpawnLocation;
     static public Vector2 playerFourSpawnLocation;*/
 
-    static public List<Vector3Int> plantedLocations;
+    public struct plantWorldInfo
+    {
+        public GameObject plant;
+        public Vector3Int plantLocation;
+        public int ID;
+    }
+
+    public static int currentID = 0;
+    public static List<plantWorldInfo> plantedLocations;
+
 
     void Awake()
     {
@@ -29,42 +46,130 @@ public class WorldData2 : MonoBehaviour
         plantableLayer = GameObject.Find("PlantableTiles").GetComponent<Tilemap>();
         highlighter = GameObject.Find("Highlighter").GetComponent<Tilemap>();
 
-        // Spawn locations for each player
-        /*playerOneSpawnLocation = GameObject.Find("PlayerOneSpawn").transform.position;
-        playerTwoSpawnLocation = GameObject.Find("PlayerTwoSpawn").transform.position;*/
-
         playerOneZone = GameObject.Find("PlayerOneZone").GetComponent<PolygonCollider2D>();   // left
         playerTwoZone = GameObject.Find("PlayerTwoZone").GetComponent<PolygonCollider2D>(); ;   // right
 
-        //Used to tell if a plant has been planted at location before, so seed isn't consumed
-        plantedLocations = new List<Vector3Int>();
+        //Used to plant
+        plantedLocations = new List<plantWorldInfo>();
+        plants = new List<plantInfo>();
 
     }
 
 
-    static public void AddPlantedLocation(Vector3Int location)
+    //GameObject plant
+    public static bool AddPlantedLocation(Vector3Int location, string plantName)
     {
-        plantedLocations.Add(location);
-    }
-
-    static public void RemovePlantedLocation(Vector3Int location)
-    {
-        if (plantedLocations.Contains(location))
+        if (CheckPlantedLocation(location))
         {
-            plantedLocations.RemoveAt(plantedLocations.IndexOf(location));
-        }
+            plantInfo plantToPlace = new plantInfo();
+            plantWorldInfo worldInfo = new plantWorldInfo();
+            bool foundPlant = false;
+            worldInfo.plantLocation = location;
 
-    }
+            //Find the right plant in the DB
+            foreach (plantInfo plant in plants)
+            {
+                if (plant.plantName.Equals(plantName))
+                {
+                    plantToPlace = plant;
+                    foundPlant = true;
+                }
+            }
 
-    static public bool CheckPlantedLocation(Vector3Int location)
-    {
-        if (plantedLocations.Contains(location))
-        {
+            //If the plant exists in the DB, spawn it
+            if (foundPlant)
+            {
+                worldInfo.plant = Instantiate(plantToPlace.plantObject, WorldData2.plantableLayer.CellToWorld(location), Quaternion.identity);
+                worldInfo.plant.GetComponent<GrowVegetable>().ID = currentID;
+                worldInfo.ID = currentID;
+                currentID += 1;
+                plantedLocations.Add(worldInfo);
+                Debug.Log("Created plant with ID: " + (currentID - 1).ToString());
+                return true;
+            }
+
             return false;
         }
         else
         {
-            return true;
+            return false;
         }
+       
+    }
+
+    //Used by PlantDB to transfer in plant info
+    public static void CreateAndAddPlant(string plantName, GameObject plantObj)
+    {
+        plantInfo newPlant = new plantInfo();
+        newPlant.plantName = plantName;
+        newPlant.plantObject = plantObj;
+
+        plants.Add(newPlant);
+
+    }
+
+    public static void RemoveItemsWithID(int id)
+    {
+        int usableID = id / 256;
+        Debug.Log("Destroying plant of id: " + usableID.ToString());
+        Item2[] allItems = GameObject.FindObjectsOfType<Item2>();
+        foreach (var allItem in allItems)
+        {
+            Debug.Log("Examining: " + allItem.name);
+            plantID thisID;
+            if ( (thisID = allItem.GetComponent<plantID>()) != null)
+            {
+                Debug.Log("This one has an ID of: " + thisID.ID.ToString());
+                if (thisID.ID == usableID)
+                {
+                    Debug.Log("Got a hit, destroying");
+                    RemoveByID(thisID.ID);
+                    Destroy(thisID.gameObject);
+                }
+            }
+        }
+    }
+
+    private static void RemoveByID(int ID)
+    {
+        foreach (var plantWorldInfo in plantedLocations)
+        {
+            if (plantWorldInfo.ID == ID)
+            {
+                plantedLocations.RemoveAt(plantedLocations.IndexOf(plantWorldInfo));
+                return;
+            }
+        }
+    }
+    public static int RemovePlantedLocation(Vector3Int location)
+    {
+        foreach (var plantWorldInfo in plantedLocations)
+        {
+            if (plantWorldInfo.plantLocation == location)
+            {
+                int returnVal = plantWorldInfo.ID;
+                Debug.Log("Got a location hit at ID " + returnVal.ToString());
+                Destroy(plantWorldInfo.plant.gameObject);
+                plantedLocations.RemoveAt(plantedLocations.IndexOf(plantWorldInfo));
+                return returnVal;
+            }
+        }
+
+        return -1;
+
+    }
+
+    public static bool CheckPlantedLocation(Vector3Int location)
+    {
+        foreach (var plantWorldInfo in plantedLocations)
+        {
+            if (plantWorldInfo.plantLocation == location)
+            {
+                return false;
+            }
+        }
+
+        return true;
+
     }
 }

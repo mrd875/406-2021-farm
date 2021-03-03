@@ -47,7 +47,6 @@ public class PlayerClick : NetworkBehaviour
                 SetSlot(slotNames[0], 0);
             }
         }
-
         if (Input.mouseScrollDelta.y < 0)
         {
             if (oldSlotNumber > 0)
@@ -89,21 +88,28 @@ public class PlayerClick : NetworkBehaviour
             inventory.DropItem();
         }
 
+
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 mousePos = Input.mousePosition;
             Vector2 worldPosition2D = Camera.main.ScreenToWorldPoint(mousePos);
             Vector3 worldPosition = new Vector3(worldPosition2D.x, worldPosition2D.y, this.transform.position.z);
-            RaycastHit2D hit = Physics2D.Raycast(worldPosition2D, Vector2.zero, 1.0f, whatIsItem);
-            //Debug.Log("Hit item name: "+hit.collider.gameObject.name);
+            RaycastHit2D hit = Physics2D.Raycast(worldPosition2D, Vector2.zero, 10.0f, whatIsItem);
 
+            //Clicked on item. Add it to inventory
             if (hit.collider != null && hit.collider.gameObject.GetComponent<Item2>() != null)
             {
                 inventory.AddItem(hit.collider.gameObject.GetComponent<Item2>());
-                CmdAddItem(hit.collider.gameObject.GetComponent<Item2>());
+                int removedID = WorldData2.RemovePlantedLocation(WorldData2.diggableLayer.WorldToCell(worldPosition));
+                if (hit.collider.gameObject.GetComponent<plantID>() != null)
+                {
+                    removedID = hit.collider.gameObject.GetComponent<plantID>().ID;
+                }
+                CmdAddItem(hit.collider.gameObject.GetComponent<Item2>(), removedID);
             }
             // The if selectedSlot.First == null, expression will evaluate to null while ignoring anything after the ':'so null exception will not be thrown
-            else if ((inventory.selectedSlot.First == null ? null : inventory.selectedSlot.First.Value) != null)
+            //Use item in slot
+            else if (inventory.selectedSlot.First != null)
             {
                 inventory.UseSelectedItem(worldPosition);
             }
@@ -134,6 +140,7 @@ public class PlayerClick : NetworkBehaviour
     //Changes to the given slot. slotName must match exactly to the scene name of UI element.
     public void SetSlot(string slotName, int slotNumber)
     {
+
         //There is something in the slot you are leaving. Restore opacity
         if (inventory.itemSlots[oldSlotNumber].Count != 0)
         {
@@ -149,7 +156,8 @@ public class PlayerClick : NetworkBehaviour
 
         //Change to new item
         inventory.selectedSlotNumber = slotNumber;
-        inventory.selectedSlotUI = GameObject.Find(slotName);
+        GameObject newSlot = GameObject.Find(slotName);
+        inventory.selectedSlotUI = newSlot;
         inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
     }
 
@@ -161,9 +169,9 @@ public class PlayerClick : NetworkBehaviour
     }
 
     [Command]
-    private void CmdAddItem(Item2 i)
+    private void CmdAddItem(Item2 i, int ID)
     {
-        RpcAddItem(i);
+        RpcAddItem(i, ID);
     }
 
     [Command]
@@ -180,9 +188,15 @@ public class PlayerClick : NetworkBehaviour
     }
 
     [ClientRpc]
-    private void RpcAddItem(Item2 i)
+    private void RpcAddItem(Item2 i, int ID)
     {
-        i.transform.position = new Vector3(-500, 0, 0);
+        WorldData2.RemoveItemsWithID(ID);
+        if (i != null)
+        {
+            Destroy(i.transform.gameObject);
+            //i.transform.position = new Vector3(-500, 0, 0);
+        }
+        
     }
 
     [ClientRpc]

@@ -5,23 +5,12 @@ using UnityEngine;
 public class SeedBin : MonoBehaviour
 {
 
-    public Item seed;
+    public Item2 seed;
+    private GameObject enteredPlayer;
 
     // Bool to check if the player is in the radius of the bin
     public bool hasEntered = false;
 
-    /*
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (hasEntered)
-            {
-                PlayerData.AddItem(seed);
-            }
-        }
-    }
-    */
 
     private void OnMouseDown()
     {
@@ -29,21 +18,21 @@ public class SeedBin : MonoBehaviour
         if (hasEntered)
         {
             //PlayerData.AddItem(seed);
-            PlayerData.itemClicked = seed;
-            Debug.Log("Fired");
+            enteredPlayer.GetComponent<PlayerInventory2>().AddItem(seed);
         }
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "PlayerOne")
+        if (collider.tag == "Player")
         {
+            enteredPlayer = collider.transform.gameObject;
             hasEntered = true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "PlayerOne")
+        if (other.tag == "Player")
         {
             hasEntered = false;
         }
