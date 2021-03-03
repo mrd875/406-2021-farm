@@ -9,11 +9,11 @@ using Mirror;
 
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
-using Vector4 = UnityEngine.Vector4;
 
 public class PlayerClick : NetworkBehaviour
 {
     public Tile highlightTile;
+    public float interactionRange = 2f; // range from player to cursor for which player can interact
     Vector3Int previousTileCoordinate;
 
     private bool canInteract = false;
@@ -30,7 +30,7 @@ public class PlayerClick : NetworkBehaviour
 
     private void Start()
     {
-        highlightTile.color = new Vector4(0.2745098f, 0f, 1f, 0.5f); // rgba
+        highlightTile.color = new Color(0f, 0.5f, 1f, 0.5f); // default color (rgba)
         inventory = gameObject.GetComponent<PlayerInventory2>();
         whatIsItem = LayerMask.GetMask("Item");
     }
@@ -45,28 +45,10 @@ public class PlayerClick : NetworkBehaviour
         Vector2 mousePos = Input.mousePosition;
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector3Int tileCoordinate = WorldData2.highlighter.WorldToCell(mouseWorldPos);
-        if (Vector2.Distance(gameObject.transform.position, WorldData2.highlighter.CellToWorld(tileCoordinate)) > 2f)
-        {
-            highlightTile.color = new Vector4(1f, 0f, 0f, 0.5f); // turn red
-            WorldData2.highlighter.SetTile(tileCoordinate, null);
-            WorldData2.highlighter.SetTile(tileCoordinate, highlightTile);
-            canInteract = false;
-        }
-        else
-        {
-            highlightTile.color = new Vector4(0.0f, 0.5f, 1f, 0.5f);
-            WorldData2.highlighter.SetTile(tileCoordinate, null);
-            WorldData2.highlighter.SetTile(tileCoordinate, highlightTile);
-            canInteract = true;
-        }
 
-        
-        if (tileCoordinate != previousTileCoordinate)
-        {
-            WorldData2.highlighter.SetTile(previousTileCoordinate, null);
-            WorldData2.highlighter.SetTile(tileCoordinate, highlightTile);
-            previousTileCoordinate = tileCoordinate;
-        }
+        // Only select one of the following modes for the tiles to be highlighed
+        // cursorHighlightMode1(tileCoordinate);  // Cursor turns red when out of range
+        cursorHighlightMode2(tileCoordinate);   // Cursor disappears when out of range
 
         //Scroll to change items
         if (Input.mouseScrollDelta.y > 0)
@@ -144,6 +126,59 @@ public class PlayerClick : NetworkBehaviour
                 Debug.Log("false");
             }
 
+        }
+    }
+ 
+    // The tile highlight cursor turns red when out of range
+    // param name=tileCoordinate: Tile coordinate on the grid to be highlighted
+    private void cursorHighlightMode1(Vector3Int tileCoordinate)
+    {
+        if (Vector2.Distance(gameObject.transform.position, WorldData2.highlighter.CellToWorld(tileCoordinate)) > interactionRange)
+        {
+            highlightTile.color = new Color(1f, 0f, 0f, 0.5f); // turn red
+            WorldData2.highlighter.SetTile(tileCoordinate, null);
+            WorldData2.highlighter.SetTile(tileCoordinate, highlightTile);
+            canInteract = false;
+        }
+        else
+        {
+            highlightTile.color = new Color(0.0f, 0.5f, 1f, 0.5f);
+            WorldData2.highlighter.SetTile(tileCoordinate, null);
+            WorldData2.highlighter.SetTile(tileCoordinate, highlightTile);
+            canInteract = true;
+        }
+
+        if (tileCoordinate != previousTileCoordinate)
+        {
+            WorldData2.highlighter.SetTile(previousTileCoordinate, null);
+            WorldData2.highlighter.SetTile(tileCoordinate, highlightTile);
+            previousTileCoordinate = tileCoordinate;
+        }
+    }
+
+    // The tile highlight cursor disappears when out of range
+    // param name=tileCoordinate: Tile coordinate on the grid to be highlighted
+    private void cursorHighlightMode2(Vector3Int tileCoordinate)
+    {
+        // Check if the center of the tile cursor is on is in interaction range
+        if (Vector2.Distance(gameObject.transform.position, WorldData2.highlighter.CellToWorld(tileCoordinate)) < interactionRange)
+        {
+            // Highlight the tile cursor is on
+            if (tileCoordinate != previousTileCoordinate)
+            {
+                WorldData2.highlighter.SetTile(previousTileCoordinate, null);
+                WorldData2.highlighter.SetTile(tileCoordinate, highlightTile);
+                previousTileCoordinate = tileCoordinate;
+            }
+            canInteract = true;
+        }
+        else
+        {
+            if (canInteract)
+            {
+                WorldData2.highlighter.SetTile(previousTileCoordinate, null);
+            }
+            canInteract = false;
         }
     }
 
