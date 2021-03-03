@@ -9,11 +9,14 @@ using Mirror;
 
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
+using Vector4 = UnityEngine.Vector4;
 
 public class PlayerClick : NetworkBehaviour
 {
     public Tile highlightTile;
     Vector3Int previousTileCoordinate;
+
+    private bool canInteract = false;
 
     // Inventory script belonging to this.gameObject
     private PlayerInventory2 inventory;
@@ -23,8 +26,11 @@ public class PlayerClick : NetworkBehaviour
 
     private LayerMask whatIsItem;
 
+    
+
     private void Start()
     {
+        highlightTile.color = new Vector4(0.2745098f, 0f, 1f, 0.5f); // rgba
         inventory = gameObject.GetComponent<PlayerInventory2>();
         whatIsItem = LayerMask.GetMask("Item");
     }
@@ -39,8 +45,22 @@ public class PlayerClick : NetworkBehaviour
         Vector2 mousePos = Input.mousePosition;
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector3Int tileCoordinate = WorldData2.highlighter.WorldToCell(mouseWorldPos);
+        if (Vector2.Distance(gameObject.transform.position, WorldData2.highlighter.CellToWorld(tileCoordinate)) > 2f)
+        {
+            highlightTile.color = new Vector4(1f, 0f, 0f, 0.5f); // turn red
+            WorldData2.highlighter.SetTile(tileCoordinate, null);
+            WorldData2.highlighter.SetTile(tileCoordinate, highlightTile);
+            canInteract = false;
+        }
+        else
+        {
+            highlightTile.color = new Vector4(0.0f, 0.5f, 1f, 0.5f);
+            WorldData2.highlighter.SetTile(tileCoordinate, null);
+            WorldData2.highlighter.SetTile(tileCoordinate, highlightTile);
+            canInteract = true;
+        }
 
-
+        
         if (tileCoordinate != previousTileCoordinate)
         {
             WorldData2.highlighter.SetTile(previousTileCoordinate, null);
@@ -102,7 +122,7 @@ public class PlayerClick : NetworkBehaviour
             inventory.DropItem();
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && canInteract)
         {
             Vector2 worldPosition2D = Camera.main.ScreenToWorldPoint(mousePos);
             Vector3 worldPosition = new Vector3(worldPosition2D.x, worldPosition2D.y, this.transform.position.z);
