@@ -8914,7 +8914,7 @@ GameObject:
   - component: {fileID: 1835478772}
   m_Layer: 0
   m_Name: Highlighter
-  m_TagString: Untagged
+  m_TagString: GameGrid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8970,9 +8970,9 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 1511595707
+  m_SortingLayer: 1
+  m_SortingOrder: 10
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -38064,7 +38064,7 @@ GameObject:
   - component: {fileID: 239313013028619529}
   m_Layer: 0
   m_Name: PlantableTiles
-  m_TagString: Untagged
+  m_TagString: GameGrid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -67028,7 +67028,7 @@ GameObject:
   - component: {fileID: 815046393419911872}
   m_Layer: 0
   m_Name: DiggableTiles
-  m_TagString: Untagged
+  m_TagString: GameGrid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

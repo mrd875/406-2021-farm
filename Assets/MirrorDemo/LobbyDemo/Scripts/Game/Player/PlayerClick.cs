@@ -12,7 +12,8 @@ using Vector3 = UnityEngine.Vector3;
 
 public class PlayerClick : NetworkBehaviour
 {
-    private Tilemap gl;
+    public Tile highlightTile;
+    Vector3Int previousTileCoordinate;
 
     // Inventory script belonging to this.gameObject
     private PlayerInventory2 inventory;
@@ -24,7 +25,6 @@ public class PlayerClick : NetworkBehaviour
 
     private void Start()
     {
-        gl = GameObject.FindGameObjectWithTag("GameGrid").GetComponent<Tilemap>();
         inventory = gameObject.GetComponent<PlayerInventory2>();
         whatIsItem = LayerMask.GetMask("Item");
     }
@@ -34,6 +34,19 @@ public class PlayerClick : NetworkBehaviour
         // only listen for clicks on our own game object.
         if (!hasAuthority)
             return;
+
+        // Get mouse coordinates (for highlight tile)
+        Vector2 mousePos = Input.mousePosition;
+        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector3Int tileCoordinate = WorldData2.highlighter.WorldToCell(mouseWorldPos);
+
+
+        if (tileCoordinate != previousTileCoordinate)
+        {
+            WorldData2.highlighter.SetTile(previousTileCoordinate, null);
+            WorldData2.highlighter.SetTile(tileCoordinate, highlightTile);
+            previousTileCoordinate = tileCoordinate;
+        }
 
         //Scroll to change items
         if (Input.mouseScrollDelta.y > 0)
@@ -91,7 +104,6 @@ public class PlayerClick : NetworkBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Vector2 mousePos = Input.mousePosition;
             Vector2 worldPosition2D = Camera.main.ScreenToWorldPoint(mousePos);
             Vector3 worldPosition = new Vector3(worldPosition2D.x, worldPosition2D.y, this.transform.position.z);
             RaycastHit2D hit = Physics2D.Raycast(worldPosition2D, Vector2.zero, 1.0f, whatIsItem);
@@ -112,22 +124,6 @@ public class PlayerClick : NetworkBehaviour
                 Debug.Log("false");
             }
 
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            // get the position of the click
-
-            Vector2 mousePos = Input.mousePosition;
-            Vector2 worldPosition2D = Camera.main.ScreenToWorldPoint(mousePos);
-            Vector3 worldPosition = new Vector3(worldPosition2D.x, worldPosition2D.y, transform.position.z);
-            Vector3Int worldPos = gl.WorldToCell(worldPosition);
-
-            // locally update our tile
-            gl.SetTile(worldPos, null);
-
-            // tell the server to tell other clients about our click
-            CmdSetTile(worldPos);
         }
     }
 
@@ -153,12 +149,7 @@ public class PlayerClick : NetworkBehaviour
         inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
     }
 
-    [Command]
-    private void CmdSetTile(Vector3Int v)
-    {
-        // tell other clients about our click
-        RpcSetTile(v);
-    }
+
 
     [Command]
     private void CmdAddItem(Item2 i)
@@ -172,12 +163,6 @@ public class PlayerClick : NetworkBehaviour
         RpcDropItem(i, v);
     }
 
-    [ClientRpc]
-    private void RpcSetTile(Vector3Int v)
-    {
-        // update our tile
-        gl.SetTile(v, null);
-    }
 
     [ClientRpc]
     private void RpcAddItem(Item2 i)

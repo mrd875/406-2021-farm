@@ -194,6 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  highlightTile: {fileID: 11400000, guid: 6599ce571662b184ba4cc7041b13d1d1, type: 2}
 --- !u!61 &9000735518018980513
 BoxCollider2D:
   m_ObjectHideFlags: 0
