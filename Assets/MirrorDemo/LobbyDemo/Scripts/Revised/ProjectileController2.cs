@@ -40,7 +40,6 @@ public class ProjectileController2 : MonoBehaviour
             else if (parentTagName == "PlayerThree") { gameObject.tag = "PlayerThreeProjectile"; }
             else if (parentTagName == "PlayerFour") { gameObject.tag = "PlayerFourProjectile"; }
         }
-        Debug.Log(gameObject.tag+"  "+parentTagName);
     }
 
     void OnTriggerEnter2D(Collider2D other)
