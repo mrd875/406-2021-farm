@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class ShopSystem : MonoBehaviour
 {
+    // String used to match against the collided player's tag
+    public string playerTag;
+
     // Bool to check if the player is in the radius of the shop
     private bool hasEntered = false;
 
@@ -40,7 +43,7 @@ public class ShopSystem : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collider) {
-        if(collider.tag == "PlayerOne") {
+        if(collider.tag == playerTag) {
             hasEntered = true;
         }
     }
