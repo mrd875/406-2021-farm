@@ -21,19 +21,15 @@ public class SellingBin : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Player")
-        {
-            enteredPlayer = collider.transform.gameObject;
-            hasEntered = true;
-        }
+
+        enteredPlayer = collider.transform.gameObject;
+        hasEntered = true;
+
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "Player")
-        {
-            hasEntered = false;
-        }
+        hasEntered = false;
     }
 
 }

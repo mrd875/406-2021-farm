@@ -169,7 +169,7 @@ public class PlayerInventory2 : NetworkBehaviour
                     
                     // Place item in middle of cell, track planted location. All handled by world data
                     bool plantAttempt = WorldData2.AddPlantedLocation(pos, vegetableString);
-
+                    
                     //On succesful plant, tell other clients to add a plant at that location as well
                     if (plantAttempt)
                     {

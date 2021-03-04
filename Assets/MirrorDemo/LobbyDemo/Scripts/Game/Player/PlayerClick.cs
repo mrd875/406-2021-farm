@@ -106,8 +106,7 @@ public class PlayerClick : NetworkBehaviour
 
         if (Input.GetMouseButtonDown(0) && canInteract)
         {
-
-            Vector2 mousePos = Input.mousePosition;
+            
             Vector2 worldPosition2D = Camera.main.ScreenToWorldPoint(mousePos);
             Vector3 worldPosition = new Vector3(worldPosition2D.x, worldPosition2D.y, this.transform.position.z);
             RaycastHit2D hit = Physics2D.Raycast(worldPosition2D, Vector2.zero, 10.0f, whatIsItem);
@@ -129,6 +128,7 @@ public class PlayerClick : NetworkBehaviour
             //Use item in slot
             else if (inventory.selectedSlot.First != null)
             {
+                Debug.Log("Using Item");
                 inventory.UseSelectedItem(worldPosition);
             }
             else

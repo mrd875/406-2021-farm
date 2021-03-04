@@ -21,7 +21,8 @@ GameObject:
   - component: {fileID: -3543099866852962456}
   - component: {fileID: 2715932179984281046}
   - component: {fileID: -6796259133874628845}
-  m_Layer: 0
+  - component: {fileID: 2193903696217902983}
+  m_Layer: 2
   m_Name: GameObject_NetworkPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -195,6 +196,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   highlightTile: {fileID: 11400000, guid: 6599ce571662b184ba4cc7041b13d1d1, type: 2}
+  interactionRange: 2
 --- !u!61 &9000735518018980513
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -288,3 +290,29 @@ MonoBehaviour:
   shotCooldown: 1
   canShoot: 1
   isShooting: 0
+--- !u!61 &2193903696217902983
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4769266443965390434}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2}
+  m_EdgeRadius: 0
