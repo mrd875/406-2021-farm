@@ -824,7 +824,10 @@ MonoBehaviour:
   tabHover: {r: 1, g: 1, b: 1, a: 1}
   tabActive: {r: 1, g: 0.78431374, b: 0.39215687, a: 1}
   selectedTab: {fileID: 0}
-  shopPages: []
+  shopPages:
+  - {fileID: 5259434683253627660}
+  - {fileID: 5259434684469504552}
+  - {fileID: 5259434684604252188}
 --- !u!1 &5259434683367206084
 GameObject:
   m_ObjectHideFlags: 0
