@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,9 +8,22 @@ public class PlayerZone : MonoBehaviour
     // The tag of the player that this zone belongs to
     public string zoneOwnerTag = "PlayerOne"; // default value
 
+
+    private static bool IsPlayer(string tagName)
+    {
+        return new List<string>
+            {
+                "PlayerOne",
+                "PlayerTwo",
+                "PlayerThree",
+                "PlayerFour"
+            }
+            .Find(item => tagName == item) != null;
+    }
+
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.tag == "PlayerOne" || other.tag == "PlayerTwo" || other.tag == "PlayerThree" || other.tag == "PlayerFour")
+        if (IsPlayer(other.tag))
         {
             if (other.tag == zoneOwnerTag)
             {
@@ -25,7 +39,7 @@ public class PlayerZone : MonoBehaviour
     }
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "PlayerOne" || other.tag == "PlayerTwo" || other.tag == "PlayerThree" || other.tag == "PlayerFour")
+        if (IsPlayer(other.tag))
         {
             if (other.tag == zoneOwnerTag)
             {
