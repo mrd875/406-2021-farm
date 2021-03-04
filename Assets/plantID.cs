@@ -4,18 +4,8 @@ using UnityEngine;
 
 public class plantID : MonoBehaviour
 {
-
+    
+    //ID reference for WorldData to delete pickup by
     public int ID;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

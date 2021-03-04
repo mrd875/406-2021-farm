@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5978186164527442566
+--- !u!1 &3024109454524412671
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,25 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5978186164527442571}
-  - component: {fileID: 5978186164527442568}
-  - component: {fileID: 5978186164527442569}
-  - component: {fileID: 5978186164527442570}
+  - component: {fileID: 3024109454524412658}
+  - component: {fileID: 3024109454524412657}
+  - component: {fileID: 3024109454524412659}
+  - component: {fileID: 901516610405432337}
+  - component: {fileID: 924273060893634287}
   m_Layer: 0
-  m_Name: Beet Seed
+  m_Name: Beet Seed2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5978186164527442571
+--- !u!4 &3024109454524412658
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5978186164527442566}
+  m_GameObject: {fileID: 3024109454524412671}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -500, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
@@ -33,13 +34,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5978186164527442568
+--- !u!212 &3024109454524412657
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5978186164527442566}
+  m_GameObject: {fileID: 3024109454524412671}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -84,33 +85,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5978186164527442569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5978186164527442566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba16ce24be1a02f44871019c815604e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemName: Beet Seed
-  actionTile: {fileID: 11400000, guid: 5b0adc8719424394b821f5e1e0eff8bb, type: 2}
-  actionPrefab: {fileID: 2654095527611210054, guid: 35407d55af3c6be43801f0a74a508505, type: 3}
-  InventorySprite: {fileID: 5504560165198698044, guid: d18c104fc5f9df342b27bf3512c3137a, type: 3}
-  pickup_allowed: 0
-  is_stackable: 1
-  is_consumable: 1
-  is_seed: 1
---- !u!61 &5978186164527442570
+--- !u!61 &3024109454524412659
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5978186164527442566}
+  m_GameObject: {fileID: 3024109454524412671}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -130,3 +111,41 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.15, y: 0.13}
   m_EdgeRadius: 0
+--- !u!114 &901516610405432337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3024109454524412671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!114 &924273060893634287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3024109454524412671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a666b954c4e4593498bdbff875589ef6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  itemName: Beet Seed
+  actionTile: {fileID: 11400000, guid: 5b0adc8719424394b821f5e1e0eff8bb, type: 2}
+  actionPrefab: {fileID: 2654095527611210054, guid: 35407d55af3c6be43801f0a74a508505, type: 3}
+  InventorySprite: {fileID: 5504560165198698044, guid: d18c104fc5f9df342b27bf3512c3137a, type: 3}
+  pickup_allowed: 0
+  is_stackable: 1
+  is_consumable: 1
+  is_seed: 1

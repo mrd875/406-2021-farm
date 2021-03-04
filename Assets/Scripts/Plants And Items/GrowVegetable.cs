@@ -17,8 +17,10 @@ public class GrowVegetable : NetworkBehaviour
     public GameObject fullyGrownItem;
 
 
-    //Internal
+    //Inherited from seed
     public int ID;
+
+    //Internal
     private int currentStageIndex = 0;
     private int maxStages;
     private float growTimer;
@@ -58,7 +60,7 @@ public class GrowVegetable : NetworkBehaviour
             growTimer = currentStage.growTime;
         }
 
-        //Plant is fully grown! Spawn a pickup and delete self.
+        //Plant is fully grown! Spawn a pickup and delete self. Make sure pickup shares ID
         GameObject newPickup = Instantiate(fullyGrownItem, this.transform.position, this.transform.localRotation);
         newPickup.GetComponent<plantID>().ID = ID;
 
@@ -78,7 +80,6 @@ public class GrowVegetable : NetworkBehaviour
     private void RpcSpawnPickup(GameObject fullyGrownItem, Vector3 position, Quaternion rotation)
     {
         Instantiate(fullyGrownItem, position, rotation);
-        Debug.Log("Spawned pickup");
         Destroy(this.gameObject);
     }
 }

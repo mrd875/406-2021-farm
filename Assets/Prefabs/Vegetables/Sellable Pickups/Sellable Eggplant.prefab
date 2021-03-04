@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7738132580498088516
+--- !u!1 &874494464093700413
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5351449472805110876}
-  - component: {fileID: 6493258913680492043}
-  - component: {fileID: 7738132580498088517}
-  - component: {fileID: 7738132580498088518}
-  - component: {fileID: 1615199073654550063}
-  m_Layer: 0
+  - component: {fileID: 3244175512359069477}
+  - component: {fileID: 4421754274770216306}
+  - component: {fileID: 874494464093700415}
+  - component: {fileID: 8154853985712786774}
+  - component: {fileID: 3360837196309135889}
+  - component: {fileID: 1086400829749611375}
+  - component: {fileID: 8826125642015234646}
+  m_Layer: 8
   m_Name: Sellable Eggplant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5351449472805110876
+--- !u!4 &3244175512359069477
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7738132580498088516}
+  m_GameObject: {fileID: 874494464093700413}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.36, y: -0.72, z: -0.42272693}
+  m_LocalPosition: {x: -2.669709, y: 3.1053882, z: -0.42272693}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &6493258913680492043
+--- !u!212 &4421754274770216306
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7738132580498088516}
+  m_GameObject: {fileID: 874494464093700413}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -85,33 +87,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7738132580498088517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7738132580498088516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba16ce24be1a02f44871019c815604e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemName: Sellable Eggplant
-  actionTile: {fileID: 0}
-  actionPrefab: {fileID: 0}
-  InventorySprite: {fileID: 3200563535392370133, guid: f65023eb0320d14458733861add84426, type: 3}
-  pickup_allowed: 0
-  is_stackable: 1
-  is_consumable: 1
-  is_seed: 0
---- !u!61 &7738132580498088518
+--- !u!61 &874494464093700415
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7738132580498088516}
+  m_GameObject: {fileID: 874494464093700413}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -131,13 +113,13 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.47}
   m_EdgeRadius: 0
---- !u!114 &1615199073654550063
+--- !u!114 &8154853985712786774
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7738132580498088516}
+  m_GameObject: {fileID: 874494464093700413}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1eefe7837c9235646955c993a7456d5e, type: 3}
@@ -145,3 +127,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sellPrice: 18
   orders: {fileID: 0}
+--- !u!114 &3360837196309135889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874494464093700413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!114 &1086400829749611375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874494464093700413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a666b954c4e4593498bdbff875589ef6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  itemName: Sellable Eggplant
+  actionTile: {fileID: 0}
+  actionPrefab: {fileID: 0}
+  InventorySprite: {fileID: 3200563535392370133, guid: f65023eb0320d14458733861add84426, type: 3}
+  pickup_allowed: 0
+  is_stackable: 1
+  is_consumable: 1
+  is_seed: 0
+--- !u!114 &8826125642015234646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874494464093700413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61d865ced10c6e645854eb8147582b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0

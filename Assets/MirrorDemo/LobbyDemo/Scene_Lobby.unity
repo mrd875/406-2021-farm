@@ -210,6 +210,12 @@ MonoBehaviour:
   spawnPrefabs:
   - {fileID: 2654095527611210054, guid: 35407d55af3c6be43801f0a74a508505, type: 3}
   - {fileID: 4182523444506656338, guid: a48aea3152d8d164a870472b6e6d5301, type: 3}
+  - {fileID: 8109386041393869306, guid: 94a03bf595c05c44ab8e2aba537af3fd, type: 3}
+  - {fileID: 874494464093700413, guid: c756e73b51747c64283bd371305d2c59, type: 3}
+  - {fileID: 2506083140379774108, guid: 7ece48404f5eff34bb2aa242000464df, type: 3}
+  - {fileID: 3544034145916668054, guid: 948c71fed4076584e9ffa81d31ddf42e, type: 3}
+  - {fileID: 117832141236150738, guid: aa7c73c2d89626b4982fa303d0882ff6, type: 3}
+  - {fileID: 1163457314481026931, guid: 151fd55795dd78d468e7c5739fc69631, type: 3}
   showRoomGUI: 0
   minPlayers: 1
   roomPlayerPrefab: {fileID: -4462481940759066765, guid: 50fef082b1d4b894d9a3a5487ec30c53, type: 3}

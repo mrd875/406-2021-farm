@@ -10,12 +10,12 @@ public class WorldData2 : MonoBehaviour
     static public Tilemap plantableLayer;
     static public Tilemap highlighter;
 
+    //Used as a database for spawning in plants
     public struct plantInfo
     {
         public GameObject plantObject;
         public string plantName;
     }
-
     public static List<plantInfo> plants;
 
     // Areas on the map belonging to each player
@@ -23,19 +23,13 @@ public class WorldData2 : MonoBehaviour
     static public PolygonCollider2D playerTwoZone;
 
 
-    // Locations where each player spawns after being caught in another's field
-/*    static public Vector2 playerOneSpawnLocation;
-    static public Vector2 playerTwoSpawnLocation;
-    static public Vector2 playerThreeSpawnLocation;
-    static public Vector2 playerFourSpawnLocation;*/
-
+    //Used to delete plants across clients. Tracks spawned plant info.
     public struct plantWorldInfo
     {
         public GameObject plant;
         public Vector3Int plantLocation;
         public int ID;
     }
-
     public static int currentID = 0;
     public static List<plantWorldInfo> plantedLocations;
 
@@ -56,11 +50,12 @@ public class WorldData2 : MonoBehaviour
     }
 
 
-    //GameObject plant
+    //Plants a plant at location with name plantName (matching in the PlantDB)
     public static bool AddPlantedLocation(Vector3Int location, string plantName)
     {
         if (CheckPlantedLocation(location))
         {
+            //Can plant. Find which plant to place, and create a plantWorldInfo for it
             plantInfo plantToPlace = new plantInfo();
             plantWorldInfo worldInfo = new plantWorldInfo();
             bool foundPlant = false;
@@ -76,7 +71,7 @@ public class WorldData2 : MonoBehaviour
                 }
             }
 
-            //If the plant exists in the DB, spawn it
+            //If the plant exists in the DB, spawn it, create and add a plantWorldInfo record for it
             if (foundPlant)
             {
                 worldInfo.plant = Instantiate(plantToPlace.plantObject, WorldData2.plantableLayer.CellToWorld(location), Quaternion.identity);
@@ -88,10 +83,12 @@ public class WorldData2 : MonoBehaviour
                 return true;
             }
 
+            //Couldn't find plant
             return false;
         }
         else
         {
+            //Couldn't place plant (Location already in use)
             return false;
         }
        
@@ -108,28 +105,35 @@ public class WorldData2 : MonoBehaviour
 
     }
 
+    //Removes the plant with the given unique ID. Used by other clients to remove plants (location is unreliable)
     public static void RemoveItemsWithID(int id)
     {
+        //For some reason IDs get multiplied by 256. Extract usable ID
         int usableID = id / 256;
         Debug.Log("Destroying plant of id: " + usableID.ToString());
         Item2[] allItems = GameObject.FindObjectsOfType<Item2>();
+        
+        //For all items...
         foreach (var allItem in allItems)
         {
-            Debug.Log("Examining: " + allItem.name);
             plantID thisID;
             if ( (thisID = allItem.GetComponent<plantID>()) != null)
             {
-                Debug.Log("This one has an ID of: " + thisID.ID.ToString());
+                //If it is a plant pickup...
                 if (thisID.ID == usableID)
                 {
+                    //With a matching ID, destroy it.
                     Debug.Log("Got a hit, destroying");
+                    //(Take out it's planted location first to make it reusable)
                     RemoveByID(thisID.ID);
-                    Destroy(thisID.gameObject);
+                    thisID.transform.position = new Vector3(-500, 0, 0);
+                    //Destroy(thisID.gameObject);
                 }
             }
         }
     }
 
+    //Removes a used planted location by plant ID
     private static void RemoveByID(int ID)
     {
         foreach (var plantWorldInfo in plantedLocations)
@@ -141,6 +145,9 @@ public class WorldData2 : MonoBehaviour
             }
         }
     }
+
+    //Removes a plant pickup at location. Returns the ID of the plant so other clients can
+    //remove it as well
     public static int RemovePlantedLocation(Vector3Int location)
     {
         foreach (var plantWorldInfo in plantedLocations)

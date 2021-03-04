@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5885404027968935906}
   - component: {fileID: 4752913487560005045}
   - component: {fileID: 3457604902791193983}
+  - component: {fileID: 1771830968265135289}
   m_Layer: 0
   m_Name: Eggplant
   m_TagString: Untagged
@@ -95,6 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8492b3c8b04193546b120abbc6378d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   vegetableStages:
   - image: {fileID: -1147167201478084829, guid: 914bcbd557df7664fb3ecae889f031ea, type: 3}
     growTime: 4
@@ -104,4 +107,21 @@ MonoBehaviour:
     growTime: 3
   - image: {fileID: 5175044422211186140, guid: 914bcbd557df7664fb3ecae889f031ea, type: 3}
     growTime: 4
-  fullyGrownItem: {fileID: 7738132580498088516, guid: c756e73b51747c64283bd371305d2c59, type: 3}
+  fullyGrownItem: {fileID: 874494464093700413, guid: c756e73b51747c64283bd371305d2c59, type: 3}
+  ID: 0
+--- !u!114 &1771830968265135289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8109386041393869306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0

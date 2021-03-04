@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2343538464281462730}
   - component: {fileID: 3521095503266088349}
   - component: {fileID: 6832854820786763095}
+  - component: {fileID: 1205270321442772438}
   m_Layer: 0
   m_Name: Potato
   m_TagString: Untagged
@@ -95,6 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8492b3c8b04193546b120abbc6378d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   vegetableStages:
   - image: {fileID: -8370065296850116897, guid: 6f748577cd125d34ba3dd004e8f7931d, type: 3}
     growTime: 3
@@ -104,4 +107,21 @@ MonoBehaviour:
     growTime: 2
   - image: {fileID: -9143129208339112651, guid: 6f748577cd125d34ba3dd004e8f7931d, type: 3}
     growTime: 4
-  fullyGrownItem: {fileID: 2532242013420304206, guid: 151fd55795dd78d468e7c5739fc69631, type: 3}
+  fullyGrownItem: {fileID: 1163457314481026931, guid: 151fd55795dd78d468e7c5739fc69631, type: 3}
+  ID: 0
+--- !u!114 &1205270321442772438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117832141236150738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0

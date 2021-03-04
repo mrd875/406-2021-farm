@@ -91,6 +91,7 @@ public class PlayerClick : NetworkBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            //Get mouse position, raycast to anything under it
             Vector2 mousePos = Input.mousePosition;
             Vector2 worldPosition2D = Camera.main.ScreenToWorldPoint(mousePos);
             Vector3 worldPosition = new Vector3(worldPosition2D.x, worldPosition2D.y, this.transform.position.z);
@@ -100,6 +101,8 @@ public class PlayerClick : NetworkBehaviour
             if (hit.collider != null && hit.collider.gameObject.GetComponent<Item2>() != null)
             {
                 inventory.AddItem(hit.collider.gameObject.GetComponent<Item2>());
+
+                //Remove the pickup and planted location from user and all other clients
                 int removedID = WorldData2.RemovePlantedLocation(WorldData2.diggableLayer.WorldToCell(worldPosition));
                 if (hit.collider.gameObject.GetComponent<plantID>() != null)
                 {
@@ -190,11 +193,14 @@ public class PlayerClick : NetworkBehaviour
     [ClientRpc]
     private void RpcAddItem(Item2 i, int ID)
     {
+        //For plant pickups/ dynamically spawned in stuff
         WorldData2.RemoveItemsWithID(ID);
+        
+        //for everything else
         if (i != null)
         {
-            Destroy(i.transform.gameObject);
-            //i.transform.position = new Vector3(-500, 0, 0);
+            //Destroy(i.transform.gameObject);
+            i.transform.position = new Vector3(-500, 0, 0);
         }
         
     }

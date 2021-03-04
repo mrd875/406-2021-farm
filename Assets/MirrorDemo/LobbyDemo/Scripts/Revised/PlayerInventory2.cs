@@ -75,8 +75,8 @@ public class PlayerInventory2 : NetworkBehaviour
         {
             itemSlots[slotToAdd].AddFirst(item);
             item.transform.gameObject.GetComponent<SpriteRenderer>().sprite = item.InventorySprite;
-            Destroy(item.transform.gameObject);
-            //item.transform.position = new Vector3(-500, 0, 0);
+            //Destroy(item.transform.gameObject);
+            item.transform.position = new Vector3(-500, 0, 0);
         }
 
         // Update inventory GUI on screen
@@ -159,8 +159,8 @@ public class PlayerInventory2 : NetworkBehaviour
             // if item is a seed it adds a tile based on the editor
             if (item.is_seed)
             {
-                Vector3Int pos = WorldData2.diggableLayer.WorldToCell(location);//PlayerData.player.transform.position);
-
+                //Get cell location
+                Vector3Int pos = WorldData2.diggableLayer.WorldToCell(location);
 
                 if ((WorldData2.diggableLayer.GetTile(pos) == null) && (WorldData2.plantableLayer.GetTile(pos) != null) && (WorldData2.CheckPlantedLocation(pos)))
                 {
@@ -170,6 +170,7 @@ public class PlayerInventory2 : NetworkBehaviour
                     // Place item in middle of cell, track planted location. All handled by world data
                     bool plantAttempt = WorldData2.AddPlantedLocation(pos, vegetableString);
 
+                    //On succesful plant, tell other clients to add a plant at that location as well
                     if (plantAttempt)
                     {
                         //Tell others to add the plant
@@ -206,21 +207,27 @@ public class PlayerInventory2 : NetworkBehaviour
 
                 }
 
-                //Vegetables work differently
-                if (item.itemName.Length > 8 && item.itemName.Substring(0, 8) == "Sellable")
-                {
-                    if (PlayerData.inBinRange)
-                    {
-                        Sellable sellComp = GetComponent<Sellable>();
-                        sellComp.SellPlant();
-                        ItemUsed();
-                    }
-                }
+
             }
 
             //ItemUsed(); // should be called after an item is successfully used
         }
     }
+
+    //Called by sell bin on player click when in range
+    public void SellItem()
+    {
+        Item2 item = selectedSlot.First.Value;
+        //Sellables work differently
+        if (item.itemName.Length > 8 && item.itemName.Substring(0, 8) == "Sellable")
+        {
+            Sellable sellComp = item.GetComponent<Sellable>();
+            sellComp.SellPlant();
+            ItemUsed();
+        }
+    }
+
+
 
     public void ItemUsed()
     {
