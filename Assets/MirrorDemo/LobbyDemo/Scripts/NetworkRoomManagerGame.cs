@@ -138,15 +138,8 @@ public class NetworkRoomManagerGame : NetworkRoomManager
     {
         OnRoomServerCreatedGamePlayer?.Invoke(conn, roomPlayer);
 
-        if (roomPlayer.GetComponent<NetworkRoomPlayerGame>().index == 0)
-            roomPlayer.tag = "PlayerOne";
-        if (roomPlayer.GetComponent<NetworkRoomPlayerGame>().index == 1)
-            roomPlayer.tag = "PlayerTwo";
-
-        Debug.Log(roomPlayer.name);
-        Debug.Log(roomPlayer.GetComponent<NetworkRoomPlayerGame>().index);
-
-        return base.OnRoomServerCreateGamePlayer(conn, roomPlayer);
+        GameObject gamePlayer = base.OnRoomServerCreateGamePlayer(conn, roomPlayer);
+        return gamePlayer;
     }
 
     /// <summary>
@@ -177,6 +170,11 @@ public class NetworkRoomManagerGame : NetworkRoomManager
     public override bool OnRoomServerSceneLoadedForPlayer(NetworkConnection conn, GameObject roomPlayer, GameObject gamePlayer)
     {
         OnRoomServerSceneLoadedPlayer?.Invoke(conn, roomPlayer, gamePlayer);
+
+        if (roomPlayer.GetComponent<NetworkRoomPlayerGame>().index == 0)
+            gamePlayer.tag = "PlayerOne";
+        if (roomPlayer.GetComponent<NetworkRoomPlayerGame>().index == 1)
+            gamePlayer.tag = "PlayerTwo";
 
         return base.OnRoomServerSceneLoadedForPlayer(conn, roomPlayer, gamePlayer);
     }
@@ -324,4 +322,5 @@ public class NetworkRoomManagerGame : NetworkRoomManager
     }
 
     #endregion
+
 }

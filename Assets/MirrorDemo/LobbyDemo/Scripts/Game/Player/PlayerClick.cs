@@ -12,7 +12,11 @@ using Vector3 = UnityEngine.Vector3;
 
 public class PlayerClick : NetworkBehaviour
 {
-    private Tilemap gl;
+    public Tile highlightTile;
+    public float interactionRange = 2f; // range from player to cursor for which player can interact
+    Vector3Int previousTileCoordinate;
+
+    private bool canInteract = false;
 
     // Inventory script belonging to this.gameObject
     private PlayerInventory2 inventory;
@@ -22,9 +26,11 @@ public class PlayerClick : NetworkBehaviour
 
     private LayerMask whatIsItem;
 
+    
+
     private void Start()
     {
-        gl = GameObject.FindGameObjectWithTag("GameGrid").GetComponent<Tilemap>();
+        highlightTile.color = new Color(0f, 0.5f, 1f, 0.5f); // default color (rgba)
         inventory = gameObject.GetComponent<PlayerInventory2>();
         whatIsItem = LayerMask.GetMask("Item");
     }
@@ -34,6 +40,15 @@ public class PlayerClick : NetworkBehaviour
         // only listen for clicks on our own game object.
         if (!hasAuthority)
             return;
+
+        // Get mouse coordinates (for highlight tile)
+        Vector2 mousePos = Input.mousePosition;
+        Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector3Int tileCoordinate = WorldData2.highlighter.WorldToCell(mouseWorldPos);
+
+        // Only select one of the following modes for the tiles to be highlighed
+        // cursorHighlightMode1(tileCoordinate);  // Cursor turns red when out of range
+        cursorHighlightMode2(tileCoordinate);   // Cursor disappears when out of range
 
         //Scroll to change items
         if (Input.mouseScrollDelta.y > 0)
@@ -89,9 +104,9 @@ public class PlayerClick : NetworkBehaviour
         }
 
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && canInteract)
         {
-            //Get mouse position, raycast to anything under it
+
             Vector2 mousePos = Input.mousePosition;
             Vector2 worldPosition2D = Camera.main.ScreenToWorldPoint(mousePos);
             Vector3 worldPosition = new Vector3(worldPosition2D.x, worldPosition2D.y, this.transform.position.z);
@@ -122,21 +137,58 @@ public class PlayerClick : NetworkBehaviour
             }
 
         }
-
-        if (Input.GetMouseButtonDown(1))
+    }
+ 
+    // The tile highlight cursor turns red when out of range
+    // param name=tileCoordinate: Tile coordinate on the grid to be highlighted
+    private void cursorHighlightMode1(Vector3Int tileCoordinate)
+    {
+        if (Vector2.Distance(gameObject.transform.position, WorldData2.highlighter.CellToWorld(tileCoordinate)) > interactionRange)
         {
-            // get the position of the click
+            highlightTile.color = new Color(1f, 0f, 0f, 0.5f); // turn red
+            WorldData2.highlighter.SetTile(tileCoordinate, null);
+            WorldData2.highlighter.SetTile(tileCoordinate, highlightTile);
+            canInteract = false;
+        }
+        else
+        {
+            highlightTile.color = new Color(0.0f, 0.5f, 1f, 0.5f);
+            WorldData2.highlighter.SetTile(tileCoordinate, null);
+            WorldData2.highlighter.SetTile(tileCoordinate, highlightTile);
+            canInteract = true;
+        }
 
-            Vector2 mousePos = Input.mousePosition;
-            Vector2 worldPosition2D = Camera.main.ScreenToWorldPoint(mousePos);
-            Vector3 worldPosition = new Vector3(worldPosition2D.x, worldPosition2D.y, transform.position.z);
-            Vector3Int worldPos = gl.WorldToCell(worldPosition);
+        if (tileCoordinate != previousTileCoordinate)
+        {
+            WorldData2.highlighter.SetTile(previousTileCoordinate, null);
+            WorldData2.highlighter.SetTile(tileCoordinate, highlightTile);
+            previousTileCoordinate = tileCoordinate;
+        }
+    }
 
-            // locally update our tile
-            gl.SetTile(worldPos, null);
-
-            // tell the server to tell other clients about our click
-            CmdSetTile(worldPos);
+    // The tile highlight cursor disappears when out of range
+    // param name=tileCoordinate: Tile coordinate on the grid to be highlighted
+    private void cursorHighlightMode2(Vector3Int tileCoordinate)
+    {
+        // Check if the center of the tile cursor is on is in interaction range
+        if (Vector2.Distance(gameObject.transform.position, WorldData2.highlighter.CellToWorld(tileCoordinate)) < interactionRange)
+        {
+            // Highlight the tile cursor is on
+            if (tileCoordinate != previousTileCoordinate)
+            {
+                WorldData2.highlighter.SetTile(previousTileCoordinate, null);
+                WorldData2.highlighter.SetTile(tileCoordinate, highlightTile);
+                previousTileCoordinate = tileCoordinate;
+            }
+            canInteract = true;
+        }
+        else
+        {
+            if (canInteract)
+            {
+                WorldData2.highlighter.SetTile(previousTileCoordinate, null);
+            }
+            canInteract = false;
         }
     }
 
@@ -164,12 +216,7 @@ public class PlayerClick : NetworkBehaviour
         inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
     }
 
-    [Command]
-    private void CmdSetTile(Vector3Int v)
-    {
-        // tell other clients about our click
-        RpcSetTile(v);
-    }
+
 
     [Command]
     private void CmdAddItem(Item2 i, int ID)
@@ -183,12 +230,6 @@ public class PlayerClick : NetworkBehaviour
         RpcDropItem(i, v);
     }
 
-    [ClientRpc]
-    private void RpcSetTile(Vector3Int v)
-    {
-        // update our tile
-        gl.SetTile(v, null);
-    }
 
     [ClientRpc]
     private void RpcAddItem(Item2 i, int ID)

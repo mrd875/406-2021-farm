@@ -23,6 +23,7 @@ public class WorldData2 : MonoBehaviour
     static public PolygonCollider2D playerTwoZone;
 
 
+
     //Used to delete plants across clients. Tracks spawned plant info.
     public struct plantWorldInfo
     {
@@ -33,12 +34,23 @@ public class WorldData2 : MonoBehaviour
     public static int currentID = 0;
     public static List<plantWorldInfo> plantedLocations;
 
+    // Locations where each player spawns after being caught in another's field
+    static public Vector2 playerOneSpawnerLocation;
+    static public Vector2 playerTwoSpawnerLocation;
+    //static public Vector2 playerThreeSpawnLocation;
+    //static public Vector2 playerFourSpawnLocation;
+
 
     void Awake()
     {
         diggableLayer = GameObject.Find("DiggableTiles").GetComponent<Tilemap>();
         plantableLayer = GameObject.Find("PlantableTiles").GetComponent<Tilemap>();
         highlighter = GameObject.Find("Highlighter").GetComponent<Tilemap>();
+
+
+        // Spawn locations for each player
+        playerOneSpawnerLocation = GameObject.Find("PlayerOneSpawner").transform.position;
+        playerTwoSpawnerLocation = GameObject.Find("PlayerTwoSpawner").transform.position;
 
         playerOneZone = GameObject.Find("PlayerOneZone").GetComponent<PolygonCollider2D>();   // left
         playerTwoZone = GameObject.Find("PlayerTwoZone").GetComponent<PolygonCollider2D>(); ;   // right
