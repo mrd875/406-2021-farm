@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
 using UnityEngine;
@@ -48,19 +49,32 @@ public class WorldData : MonoBehaviour
 
 
         playerOne = GameObject.Find("Player One");
-        playerTwo = GameObject.Find("Player Two");
-        playerThree = GameObject.Find("Player Three");
-        playerFour = GameObject.Find("Player Four");
-        
-        playerTwo.transform.position = playerTwoSpawnLocation;
-        playerThree.transform.position = playerThreeSpawnLocation;
-        playerFour.transform.position = playerFourSpawnLocation;
-        
+
+        playerTwo = CreatePlayer(playerOne.transform.parent, playerTwoSpawnLocation.x, playerTwoSpawnLocation.y, "MyPlayer2");
+        playerThree = CreatePlayer(playerOne.transform.parent, playerThreeSpawnLocation.x, playerThreeSpawnLocation.y, "MyPlayer3");
+        playerFour = CreatePlayer(playerOne.transform.parent, playerFourSpawnLocation.x, playerFourSpawnLocation.y, "MyPlayer4");
+
         //Used to tell if a plant has been planted at location before, so seed isn't consumed
         plantedLocations = new List<Vector3Int>();
 
     }
 
+    /// <summary>
+    /// create player GameObject on demand
+    /// </summary>
+    /// <param name="parent"></param>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <param name="name"></param>
+    private static GameObject CreatePlayer(Transform parent, float x, float y, string name)
+    {
+        GameObject go =
+            Instantiate(Resources.Load("Player"), new Vector3(x, y, .0f), Quaternion.identity) as GameObject;
+        if (go == null) throw new NullReferenceException();
+        go.name = name;
+        go.transform.parent = parent;
+        return go;
+    }
 
     static public void AddPlantedLocation(Vector3Int location)
     {
