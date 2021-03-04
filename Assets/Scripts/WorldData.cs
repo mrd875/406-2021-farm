@@ -16,6 +16,11 @@ public class WorldData : MonoBehaviour
     static public PolygonCollider2D playerThreeZone;
     static public PolygonCollider2D playerFourZone;
 
+    static public GameObject playerOne;
+    static public GameObject playerTwo;
+    static public GameObject playerThree;
+    static public GameObject playerFour;
+
     // Locations where each player spawns after being caught in another's field
     static public Vector2 playerOneSpawnLocation;
     static public Vector2 playerTwoSpawnLocation;
@@ -42,6 +47,15 @@ public class WorldData : MonoBehaviour
         playerFourZone = GameObject.Find("PlayerFourZone").GetComponent<PolygonCollider2D>(); ;  // bottom
 
 
+        playerOne = GameObject.Find("Player One");
+        playerTwo = GameObject.Find("Player Two");
+        playerThree = GameObject.Find("Player Three");
+        playerFour = GameObject.Find("Player Four");
+        
+        playerTwo.transform.position = playerTwoSpawnLocation;
+        playerThree.transform.position = playerThreeSpawnLocation;
+        playerFour.transform.position = playerFourSpawnLocation;
+        
         //Used to tell if a plant has been planted at location before, so seed isn't consumed
         plantedLocations = new List<Vector3Int>();
 
