@@ -230,7 +230,7 @@ public class PlayerData : MonoBehaviour
             money = 0;
         }
 
-        // Update money text
+        //Update money text
         UpdateMoney moneyText = GameObject.FindObjectOfType<UpdateMoney>();
         moneyText.UpdateMoneyText();
     }
