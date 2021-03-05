@@ -102,6 +102,7 @@ public class OrderSystem : NetworkBehaviour
             newItem.transform.GetChild(0).GetComponent<Image>().sprite = order.orderSprites[x];
             newItem.transform.GetChild(1).GetComponent<TextMeshProUGUI>().SetText("X " + order.orderAmounts[x]);
         }
+        newTicket.transform.GetChild(3).GetComponent<TextMeshProUGUI>().SetText("$" + order.points * 5 + ".00");
     }
 
 
@@ -113,9 +114,10 @@ public class OrderSystem : NetworkBehaviour
         Destroy(ticketToRemove);
 
         // Remove the order from the active list
+        int points = oneActiveOrders[index].points;
         oneActiveOrders.RemoveAt(index);
 
-        PlayerData.AddMoney(10);
+        PlayerData.AddMoney(points * 5);
     }
 
 
