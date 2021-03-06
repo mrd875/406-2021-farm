@@ -68373,21 +68373,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScoreSystem
       objectReference: {fileID: 0}
-    - target: {fileID: 6152178958809440486, guid: dbdd37c154aff4742b76967b7d6e8414, type: 3}
-      propertyPath: sceneId
-      value: 1876612536
-      objectReference: {fileID: 0}
-    - target: {fileID: 6152178958809440486, guid: dbdd37c154aff4742b76967b7d6e8414, type: 3}
-      propertyPath: m_AssetId
-      value: dbdd37c154aff4742b76967b7d6e8414
-      objectReference: {fileID: 0}
     - target: {fileID: 6152178958809440489, guid: dbdd37c154aff4742b76967b7d6e8414, type: 3}
       propertyPath: sceneId
-      value: 1205745840
+      value: 2209577348
       objectReference: {fileID: 0}
     - target: {fileID: 6152178958809440490, guid: dbdd37c154aff4742b76967b7d6e8414, type: 3}
       propertyPath: sceneId
-      value: 1441050059
+      value: 2902617439
       objectReference: {fileID: 0}
     - target: {fileID: 6905171857744274941, guid: dbdd37c154aff4742b76967b7d6e8414, type: 3}
       propertyPath: m_LocalPosition.x
@@ -68473,8 +68465,7 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4623834220577390824, guid: dbdd37c154aff4742b76967b7d6e8414, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbdd37c154aff4742b76967b7d6e8414, type: 3}
 --- !u!1001 &7888558057341599784
 PrefabInstance:

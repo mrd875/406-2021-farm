@@ -9,16 +9,16 @@ public class PlayerScore : NetworkBehaviour
     public int score = 0;
 
     public void UpdateScore() {
-        Cmds();
+        CmdUpdateScore();
     }
 
     [Command]
-    private void Cmds() {
-        Rpcs();
+    private void CmdUpdateScore() {
+        RpcUpdateScore();
     }
 
     [ClientRpc]
-    private void Rpcs() {
+    private void RpcUpdateScore() {
         score++;
     }
 }

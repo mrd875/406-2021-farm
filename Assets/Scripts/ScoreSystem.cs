@@ -12,12 +12,11 @@ public class ScoreSystem : MonoBehaviour
     public Text playerTwoText;
 
     void Update() {
-        
+        // Update scores
         playerOneScore = GameObject.FindWithTag("PlayerOne").GetComponent<PlayerScore>().score;
         playerTwoScore = GameObject.FindWithTag("PlayerTwo").GetComponent<PlayerScore>().score;
 
-
-
+        // Update text
         playerOneText.text = playerOneScore.ToString();
         playerTwoText.text = playerTwoScore.ToString();
     }
