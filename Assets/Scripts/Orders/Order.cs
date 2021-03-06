@@ -9,6 +9,7 @@ public class Order
     public List<Sprite> orderSprites = new List<Sprite>();
     public List<int> orderAmounts = new List<int>();
     public int items = 0;
+    public int points = 0;
 
     // Add an item to the order
     public void AddItem(string name, Sprite sprite, int amount) {
@@ -16,6 +17,7 @@ public class Order
         orderSprites.Add(sprite);
         orderAmounts.Add(amount);
         items++;
+        points += amount;
     }
 
 
@@ -52,21 +54,4 @@ public class Order
         }
         return 0;
     }
-
-
-    // public void SetProduceName(string newName) {
-    //     produceName = newName;
-    // }
-
-    // public string GetProduceName() {
-    //     return produceName;
-    // }
-
-    // public void SetOrderAmount(int newAmount) {
-    //     orderAmount = newAmount;
-    // }
-
-    // public int GetOrderAmount() {
-    //     return orderAmount;
-    // }
 }

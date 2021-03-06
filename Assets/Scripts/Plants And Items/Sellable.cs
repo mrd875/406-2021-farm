@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Sellable : MonoBehaviour
 {
-    public int sellPrice;
+    // public int sellPrice;
     public OrderSystem orders;
     private Item2 inventoryInfo;
 
@@ -17,14 +17,18 @@ public class Sellable : MonoBehaviour
         itemName = inventoryInfo.itemName.Substring(9);
     }
 
-    public void SellPlant()
+    public bool SellPlant()
     {
-        PlayerData.AddMoney(sellPrice);
+        // PlayerData.AddMoney(sellPrice);
         (bool, int) orderCheck = orders.CheckTickets(itemName);
 
         if (orderCheck.Item1)
         {
             orders.UpdateTicket(itemName, orderCheck.Item2);
+            return true;
+        }
+        else {
+            return false;
         }
     }
 }

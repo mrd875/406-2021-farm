@@ -5,6 +5,7 @@ using Mirror;
 
 public class ServRandom : NetworkBehaviour
 {
+    // Create a random number to be used as the game seed, synced on the server
     [SyncVar(hook = nameof(RandChanged))]
     public int rand = -1;
 

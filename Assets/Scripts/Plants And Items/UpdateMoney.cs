@@ -16,7 +16,7 @@ public class UpdateMoney : MonoBehaviour
 
     public void UpdateMoneyText()
     {
-        moneyText.text = "$" + PlayerData.money.ToString();
+        moneyText.text = "$" + PlayerData.money.ToString() + ".00";
     }
 
 }

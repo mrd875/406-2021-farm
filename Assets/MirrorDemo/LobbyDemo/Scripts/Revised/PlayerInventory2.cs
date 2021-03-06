@@ -222,8 +222,9 @@ public class PlayerInventory2 : NetworkBehaviour
         if (item.itemName.Length > 8 && item.itemName.Substring(0, 8) == "Sellable")
         {
             Sellable sellComp = item.GetComponent<Sellable>();
-            sellComp.SellPlant();
-            ItemUsed();
+            if(sellComp.SellPlant()) {
+                ItemUsed();
+            }
         }
     }
 

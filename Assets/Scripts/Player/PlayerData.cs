@@ -231,8 +231,8 @@ public class PlayerData : MonoBehaviour
         }
 
         //Update money text
-        //UpdateMoney moneyText = GameObject.FindObjectOfType<UpdateMoney>();
-        //moneyText.UpdateMoneyText();
+        UpdateMoney moneyText = GameObject.FindObjectOfType<UpdateMoney>();
+        moneyText.UpdateMoneyText();
     }
 
     public static void SetPlayer(GameObject newPlayer)
