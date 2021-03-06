@@ -81,10 +81,11 @@ public class OrderSystem : NetworkBehaviour
                 timer = timeBetweenOrders;
             }
         }
-        if(Input.GetKeyDown(KeyCode.Period)) {
-            GameObject localplayer = ClientScene.localPlayer.gameObject;
-            localplayer.GetComponent<PlayerScore>().UpdateScore();
-        }
+        // For testing, quick way to add points
+        // if(Input.GetKeyDown(KeyCode.Period)) {
+        //     GameObject localplayer = ClientScene.localPlayer.gameObject;
+        //     localplayer.GetComponent<PlayerScore>().UpdateScore();
+        // }
     }
 
 

@@ -66,17 +66,13 @@ public class ScoreSystem : MonoBehaviour
     private void CalculateWinner() {
         if(playerOneScore > playerTwoScore) {
             winScreen.GetComponent<Text>().text = "Player One Wins!";
-            winScreen.SetActive(true);
         }
         else if(playerTwoScore > playerOneScore) {
             winScreen.GetComponent<Text>().text = "Player Two Wins!";
-            winScreen.SetActive(true);
         }
         else {
             winScreen.GetComponent<Text>().text = "Draw!";
-            winScreen.SetActive(true);
         }
+        winScreen.SetActive(true);
     }
-
-
 }
