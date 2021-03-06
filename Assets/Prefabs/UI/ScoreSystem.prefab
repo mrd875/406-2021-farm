@@ -170,6 +170,10 @@ MonoBehaviour:
   playerTwoScore: 0
   playerOneText: {fileID: 6152178958809440484}
   playerTwoText: {fileID: 6152178958809440483}
+  timeRemaining: 0
+  timerIsRunning: 0
+  timeText: {fileID: 2401443872700348469, guid: 23f0636f61eb99c419a97ac89792fbb0, type: 3}
+  winScreen: {fileID: 3342020601884255307, guid: 0e16c232abb412f4faef21fa1ed3c2df, type: 3}
 --- !u!1 &6152178958809440487
 GameObject:
   m_ObjectHideFlags: 0
