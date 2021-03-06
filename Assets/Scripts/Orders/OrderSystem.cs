@@ -80,6 +80,11 @@ public class OrderSystem : NetworkBehaviour
                 timer = timeBetweenOrders;
             }
         }
+        GameObject localplayer = ClientScene.localPlayer.gameObject;
+
+        if(Input.GetKeyDown(KeyCode.Period)) {
+            localplayer.GetComponent<PlayerScore>().UpdateScore(); 
+        }
     }
 
 
@@ -118,6 +123,8 @@ public class OrderSystem : NetworkBehaviour
         oneActiveOrders.RemoveAt(index);
 
         PlayerData.AddMoney(points * 5);
+        
+        GameObject localplayer = ClientScene.localPlayer.gameObject;
     }
 
 
