@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6576589359271927907}
   - component: {fileID: 6576589359271927906}
   - component: {fileID: 5049577433464662343}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Seed Bin
   m_TagString: Untagged
   m_Icon: {fileID: 0}

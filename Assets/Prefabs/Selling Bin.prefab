@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8048206721430409203}
   - component: {fileID: 8048206721430409204}
   - component: {fileID: 8048206721430409201}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Selling Bin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
