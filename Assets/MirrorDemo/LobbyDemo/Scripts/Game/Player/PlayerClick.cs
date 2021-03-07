@@ -13,6 +13,7 @@ using Vector3 = UnityEngine.Vector3;
 public class PlayerClick : NetworkBehaviour
 {
     public Tile highlightTile;
+
     public float interactionRange = 2f; // range from player to cursor for which player can interact
     Vector3Int previousTileCoordinate;
 
@@ -25,8 +26,7 @@ public class PlayerClick : NetworkBehaviour
     private string[] slotNames = new string[] { "Slot1UI", "Slot2UI", "Slot3UI", "Slot4UI", "Slot5UI" };
 
     private LayerMask whatIsItem;
-
-    
+    private Item2 highlightedItem;
 
     private void Start()
     {
@@ -46,9 +46,10 @@ public class PlayerClick : NetworkBehaviour
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector3Int tileCoordinate = WorldData2.highlighter.WorldToCell(mouseWorldPos);
 
-        // Only select one of the following modes for the tiles to be highlighed
-        // cursorHighlightMode1(tileCoordinate);  // Cursor turns red when out of range
-        cursorHighlightMode2(tileCoordinate);   // Cursor disappears when out of range
+        // Highlight objects at mouseover
+        MouseOverItemCheck(mouseWorldPos); // check mouseover for item
+        // CursorHighlightMode1(tileCoordinate);  // Cursor turns red when out of range
+        CursorHighlightMode2(tileCoordinate);   // Cursor disappears when out of range
 
         //Scroll to change items
         if (Input.mouseScrollDelta.y > 0)
@@ -103,33 +104,35 @@ public class PlayerClick : NetworkBehaviour
             inventory.DropItem();
         }
 
-
         if (Input.GetMouseButtonDown(0) && canInteract)
         {
-            
-            Vector2 worldPosition2D = Camera.main.ScreenToWorldPoint(mousePos);
-            Vector3 worldPosition = new Vector3(worldPosition2D.x, worldPosition2D.y, this.transform.position.z);
-            RaycastHit2D hit = Physics2D.Raycast(worldPosition2D, Vector2.zero, 10.0f, whatIsItem);
+            if (highlightedItem != null)
+                Debug.Log(highlightedItem);
 
             //Clicked on item. Add it to inventory
-            if (hit.collider != null && hit.collider.gameObject.GetComponent<Item2>() != null)
+            if (highlightedItem != null)
             {
-                inventory.AddItem(hit.collider.gameObject.GetComponent<Item2>());
+
+                // remove highlight effect then add to inventory
+                highlightedItem.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                Item2 itemToAdd = highlightedItem;
+                highlightedItem = null;
+                inventory.AddItem(itemToAdd);
 
                 //Remove the pickup and planted location from user and all other clients
-                int removedID = WorldData2.RemovePlantedLocation(WorldData2.diggableLayer.WorldToCell(worldPosition));
-                if (hit.collider.gameObject.GetComponent<plantID>() != null)
+                int removedID = WorldData2.RemovePlantedLocation(WorldData2.diggableLayer.WorldToCell(mouseWorldPos));
+                if (itemToAdd.gameObject.GetComponent<plantID>() != null)
                 {
-                    removedID = hit.collider.gameObject.GetComponent<plantID>().ID;
+                    removedID = itemToAdd.gameObject.GetComponent<plantID>().ID;
                 }
-                CmdAddItem(hit.collider.gameObject.GetComponent<Item2>(), removedID);
+                CmdAddItem(itemToAdd, removedID);
             }
             // The if selectedSlot.First == null, expression will evaluate to null while ignoring anything after the ':'so null exception will not be thrown
             //Use item in slot
             else if (inventory.selectedSlot.First != null)
             {
                 Debug.Log("Using Item");
-                inventory.UseSelectedItem(worldPosition);
+                inventory.UseSelectedItem(mouseWorldPos);
             }
             else
             {
@@ -138,10 +141,62 @@ public class PlayerClick : NetworkBehaviour
 
         }
     }
- 
+
+
+    //Changes to the given slot. slotName must match exactly to the scene name of UI element.
+    public void SetSlot(string slotName, int slotNumber)
+    {
+        //There is something in the slot you are leaving. Restore opacity
+        if (inventory.itemSlots[oldSlotNumber].Count != 0)
+        {
+            inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        }
+        //Leaving an empty slot. Make it invisible
+        else
+        {
+            inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
+        }
+        //Store data to check on next slot change
+        oldSlotNumber = slotNumber;
+
+        //Change to new item
+        inventory.selectedSlotNumber = slotNumber;
+        GameObject newSlot = GameObject.Find(slotName);
+        inventory.selectedSlotUI = newSlot;
+        inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+    }
+
+
+    // Checks mouseover for interactable item to highlight and select for potential pickukp.
+    private void MouseOverItemCheck(Vector2 mouseWorldPos)
+    {
+        if (!canInteract)
+            return;
+        // Check if there is an item at mouseover position
+        RaycastHit2D hitItem = Physics2D.Raycast(mouseWorldPos, Vector2.zero, 10.0f, whatIsItem);
+        if (hitItem.collider != null && hitItem.collider.gameObject.GetComponent<Item2>() != null)
+        {
+            if (highlightedItem != null)
+                highlightedItem.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            
+            highlightedItem = hitItem.collider.gameObject.GetComponent<Item2>();
+            highlightedItem.gameObject.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 1);
+        }
+
+        else
+        {
+            if (highlightedItem != null)
+            {
+                highlightedItem.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                highlightedItem = null;
+            }
+        }
+    }
+
+
     // The tile highlight cursor turns red when out of range
     // param name=tileCoordinate: Tile coordinate on the grid to be highlighted
-    private void cursorHighlightMode1(Vector3Int tileCoordinate)
+    private void CursorHighlightMode1(Vector3Int tileCoordinate)
     {
         if (Vector2.Distance(gameObject.transform.position, WorldData2.highlighter.CellToWorld(tileCoordinate)) > interactionRange)
         {
@@ -168,7 +223,7 @@ public class PlayerClick : NetworkBehaviour
 
     // The tile highlight cursor disappears when out of range
     // param name=tileCoordinate: Tile coordinate on the grid to be highlighted
-    private void cursorHighlightMode2(Vector3Int tileCoordinate)
+    private void CursorHighlightMode2(Vector3Int tileCoordinate)
     {
         // Check if the center of the tile cursor is on is in interaction range
         if (Vector2.Distance(gameObject.transform.position, WorldData2.highlighter.CellToWorld(tileCoordinate)) < interactionRange)
@@ -192,44 +247,12 @@ public class PlayerClick : NetworkBehaviour
         }
     }
 
-    //Changes to the given slot. slotName must match exactly to the scene name of UI element.
-    public void SetSlot(string slotName, int slotNumber)
-    {
-
-        //There is something in the slot you are leaving. Restore opacity
-        if (inventory.itemSlots[oldSlotNumber].Count != 0)
-        {
-            inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-        }
-        //Leaving an empty slot. Make it invisible
-        else
-        {
-            inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
-        }
-        //Store data to check on next slot change
-        oldSlotNumber = slotNumber;
-
-        //Change to new item
-        inventory.selectedSlotNumber = slotNumber;
-        GameObject newSlot = GameObject.Find(slotName);
-        inventory.selectedSlotUI = newSlot;
-        inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
-    }
-
-
 
     [Command]
     private void CmdAddItem(Item2 i, int ID)
     {
         RpcAddItem(i, ID);
     }
-
-    [Command]
-    private void CmdDropItem(Item2 i, Vector2 v)
-    {
-        RpcDropItem(i, v);
-    }
-
 
     [ClientRpc]
     private void RpcAddItem(Item2 i, int ID)
@@ -246,9 +269,20 @@ public class PlayerClick : NetworkBehaviour
         
     }
 
+
+    [Command]
+    private void CmdDropItem(Item2 i, Vector2 v)
+    {
+        RpcDropItem(i, v);
+    }
+
     [ClientRpc]
     private void RpcDropItem(Item2 i, Vector2 v)
     {
         i.transform.position = v;
     }
+
+
+
+
 }
