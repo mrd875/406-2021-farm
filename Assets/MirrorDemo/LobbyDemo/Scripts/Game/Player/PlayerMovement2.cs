@@ -60,16 +60,13 @@ public class PlayerMovement2 : NetworkBehaviour
         }
     }
 
-    // Effects that reduce target movement speeds call this function
     public void ReduceSpeed(float reduction)
     {
-        if (isServer)
-            RpcReduceSpeed(reduction);
-        else
-            CmdReduceSpeed(reduction);
+        moveSpeed = baseMoveSpeed * reduction;
+        appliedReductionEffects += 1;
+        StartCoroutine(RegainSpeed());
     }
 
-    // Changes movement speed back to normal after a certain time. Timer resets when hit by another projectile.
     private IEnumerator RegainSpeed()
     {
         yield return new WaitForSeconds(3f);
@@ -80,19 +77,5 @@ public class PlayerMovement2 : NetworkBehaviour
         {
             Debug.Log("Error: applied speed effects less than 0");
         }
-    }
-
-    [Command]
-    private void CmdReduceSpeed(float reduction)
-    {
-        RpcReduceSpeed(reduction);
-    }
-
-    [ClientRpc]
-    private void RpcReduceSpeed(float reduction)
-    {
-        moveSpeed = baseMoveSpeed * reduction;
-        appliedReductionEffects += 1;
-        StartCoroutine(RegainSpeed());
     }
 }

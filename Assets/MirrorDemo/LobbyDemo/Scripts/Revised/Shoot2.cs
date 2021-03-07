@@ -15,16 +15,6 @@ public class Shoot2 : NetworkBehaviour
     [HideInInspector]
     public bool isShooting = false;
 
-    private string projectileTag;
-
-    void Start()
-    {
-        if (gameObject.tag == "PlayerOne")
-            projectileTag = "PlayerOneProjectile";
-        else if (gameObject.tag == "PlayerTwo")
-            projectileTag = "PlayerTwoProjectile";
-    }
-
     void Update()
     {
         if (!isLocalPlayer)
@@ -34,15 +24,13 @@ public class Shoot2 : NetworkBehaviour
         {
             isShooting = true;
             StartCoroutine(ShotCooldown(shotCooldown));
-
-
             if (isServer)
             {
                 RpcSpawnProjectile(
                     Camera.main.ScreenToWorldPoint(Input.mousePosition),     // target
                     gameObject.transform.position,  // start location
                     gameObject.GetComponent<Rigidbody2D>().velocity,     // start speed
-                    projectileTag  // launcher tag
+                    gameObject.tag  // launcher tag
                     );
             }
             else
@@ -51,7 +39,7 @@ public class Shoot2 : NetworkBehaviour
                     Camera.main.ScreenToWorldPoint(Input.mousePosition),    // target
                     gameObject.transform.position,  // start location
                     gameObject.GetComponent<Rigidbody2D>().velocity,    // start speed
-                    projectileTag  // launcher tag
+                    gameObject.tag  // launcher tag
                     );    
             }
         }
@@ -93,7 +81,7 @@ public class Shoot2 : NetworkBehaviour
         (projectile.GetComponent("ProjectileController2") as ProjectileController2).target = target;
         (projectile.GetComponent("ProjectileController2") as ProjectileController2).startLocation = startLocation;
         (projectile.GetComponent("ProjectileController2") as ProjectileController2).startSpeed = startSpeed;
-        projectile.tag = tag;
+        (projectile.GetComponent("ProjectileController2") as ProjectileController2).parentTagName = tag;
 
     }
 }
