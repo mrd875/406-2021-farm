@@ -24,15 +24,20 @@ public class PlayerClick : NetworkBehaviour
     private int oldSlotNumber = 0;
     private string[] slotNames = new string[] { "Slot1UI", "Slot2UI", "Slot3UI", "Slot4UI", "Slot5UI" };
 
+<<<<<<< Updated upstream
     private LayerMask whatIsItem;
 
     
+=======
+    private LayerMask whatIsInteractable;
+    private GameObject highlightedInteractable;
+>>>>>>> Stashed changes
 
     private void Start()
     {
         highlightTile.color = new Color(0f, 0.5f, 1f, 0.5f); // default color (rgba)
         inventory = gameObject.GetComponent<PlayerInventory2>();
-        whatIsItem = LayerMask.GetMask("Item");
+        whatIsInteractable = LayerMask.GetMask("Interactable");
     }
 
     private void Update()
@@ -106,11 +111,14 @@ public class PlayerClick : NetworkBehaviour
 
         if (Input.GetMouseButtonDown(0) && canInteract)
         {
+<<<<<<< Updated upstream
             
             Vector2 worldPosition2D = Camera.main.ScreenToWorldPoint(mousePos);
             Vector3 worldPosition = new Vector3(worldPosition2D.x, worldPosition2D.y, this.transform.position.z);
             RaycastHit2D hit = Physics2D.Raycast(worldPosition2D, Vector2.zero, 10.0f, whatIsItem);
 
+=======
+>>>>>>> Stashed changes
             //Clicked on item. Add it to inventory
             if (hit.collider != null && hit.collider.gameObject.GetComponent<Item2>() != null)
             {
@@ -138,7 +146,64 @@ public class PlayerClick : NetworkBehaviour
 
         }
     }
+<<<<<<< Updated upstream
  
+=======
+
+
+    //Changes to the given slot. slotName must match exactly to the scene name of UI element.
+    public void SetSlot(string slotName, int slotNumber)
+    {
+        //There is something in the slot you are leaving. Restore opacity
+        if (inventory.itemSlots[oldSlotNumber].Count != 0)
+        {
+            inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+        }
+        //Leaving an empty slot. Make it invisible
+        else
+        {
+            inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
+        }
+        //Store data to check on next slot change
+        oldSlotNumber = slotNumber;
+
+        //Change to new item
+        inventory.selectedSlotNumber = slotNumber;
+        GameObject newSlot = GameObject.Find(slotName);
+        inventory.selectedSlotUI = newSlot;
+        inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+    }
+
+
+    // Checks mouseover for interactable item to highlight and select for potential pickukp.
+    private void MouseOverItemCheck(Vector2 mouseWorldPos)
+    {
+        if (!canInteract)
+            return;
+        // Check if there is an item at mouseover position
+        RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, 10.0f, whatIsItem);
+        if (hit.collider != null && hit.collider.gameObject.GetComponent<Item2>() != null)
+        {
+            if (highlightedItem != null)
+                highlightedItem.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            
+            highlightedItem = hit.collider.gameObject.GetComponent<Item2>();
+            highlightedItem.gameObject.GetComponent<SpriteRenderer>().color = new Color(0, 0, 1, 1);
+        }
+
+        else
+        {
+            if (highlightedItem != null)
+            {
+                highlightedItem.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                highlightedItem = null;
+            }
+        }
+        if (hit.collider != null && hit.collider.gameObject.GetComponent<SellingBin>())
+    }
+
+
+>>>>>>> Stashed changes
     // The tile highlight cursor turns red when out of range
     // param name=tileCoordinate: Tile coordinate on the grid to be highlighted
     private void cursorHighlightMode1(Vector3Int tileCoordinate)
