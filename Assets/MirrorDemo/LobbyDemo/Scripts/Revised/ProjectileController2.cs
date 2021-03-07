@@ -15,17 +15,14 @@ public class ProjectileController2 : MonoBehaviour
     public float lifeTime = 0.5f;   // how long the projectile will remain airborn for
     public float speedReduction = 0.5f; // default reduction in movement speed to target hit
 
-    [HideInInspector]
-    public string parentTagName; // must be set after instantiation
-
     private Vector2 direction; // Direction for projectile to move
 
     // Start is called before the first frame update
     void Start()
     {
         direction = (target - startLocation).normalized;
-      
-        // bullet is destroyed after a given time after not colliding with anything
+
+        // projectile is destroyed after a given time after not colliding with anything
         Destroy(this.gameObject, lifeTime);
     }
 
@@ -33,13 +30,7 @@ public class ProjectileController2 : MonoBehaviour
     {
         // Object moves slightly faster in the direction it is thrown
         transform.Translate((direction * speed + (startSpeed / 2)) * Time.deltaTime);
-        if (gameObject.tag == "Untagged")
-        {
-            if (parentTagName == "PlayerOne") { gameObject.tag = "PlayerOneProjectile"; }
-            else if (parentTagName == "PlayerTwo") { gameObject.tag = "PlayerTwoProjectile"; }
-            else if (parentTagName == "PlayerThree") { gameObject.tag = "PlayerThreeProjectile"; }
-            else if (parentTagName == "PlayerFour") { gameObject.tag = "PlayerFourProjectile"; }
-        }
+
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -56,9 +47,10 @@ public class ProjectileController2 : MonoBehaviour
         else if (gameObject.tag == "PlayerTwoProjectile" && (other.tag == "PlayerOne" || other.tag == "PlayerThree" || other.tag == "PlayerFour"))
         {
             // Don't slow other player if they are in their own field
-            if (other.gameObject.GetComponent<PlayerTouch>().inHomeZone)
+            if (!other.gameObject.GetComponent<PlayerTouch>().inHomeZone)
                 other.GetComponent<PlayerMovement2>().ReduceSpeed(speedReduction);
             Destroy(this.gameObject);
+
         }
 
         // Projectile should not be destroyed when collision occurs with the one who launches it
@@ -67,7 +59,7 @@ public class ProjectileController2 : MonoBehaviour
 
         else
         {
-            // Destroy(this.gameObject);
+            // Destroy on hit with obstacle 
         }
     }
 
