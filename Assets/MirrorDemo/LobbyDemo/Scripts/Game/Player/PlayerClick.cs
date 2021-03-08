@@ -174,8 +174,15 @@ public class PlayerClick : NetworkBehaviour
     {
         // return if cursor is out of interaction range from player
         if (!canInteract)
+        {
+            if (highlightedInteractable != null)
+            {
+                highlightedInteractable.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                highlightedInteractable = null;
+            }
             return;
-
+        }
+            
         RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, 10.0f, whatIsInteractable);
         if (hit.collider != null && hit.collider.gameObject != null)
         {
