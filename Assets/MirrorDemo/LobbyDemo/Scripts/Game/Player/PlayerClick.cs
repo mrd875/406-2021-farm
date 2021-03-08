@@ -113,7 +113,7 @@ public class PlayerClick : NetworkBehaviour
                 //Clicked on item. Add it to inventory
                 if (highlightedInteractable.GetComponent<Item2>() != null)
                 {
-                    highlightedInteractable.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
+                    highlightedInteractable.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
                     Item2 itemToAdd = highlightedInteractable.GetComponent<Item2>();
                     highlightedInteractable = null;
                     inventory.AddItem(itemToAdd);
