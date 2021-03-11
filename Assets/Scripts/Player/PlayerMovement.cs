@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 isMoving = false;
             }
-            
+
             // enable transformation of player's horizontal face direction
             float horizontalDirection = Input.GetAxisRaw("Horizontal");
             if (horizontalDirection != 0)
@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
                 transform.localScale = new Vector3(horizontalDirection * 0.5f, 0.5f, 1);
             }
         }
-        
+
     }
 
     private void FixedUpdate()
@@ -67,12 +67,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void ReduceSpeed(float reduction)
-    {
-        moveSpeed = baseMoveSpeed * reduction;
-        appliedReductionEffects += 1;
-        StartCoroutine(RegainSpeed());
-    }
+    // public void ReduceSpeed(float reduction)
+    // {
+    //     moveSpeed = baseMoveSpeed * reduction;
+    //     appliedReductionEffects += 1;
+    //     StartCoroutine(RegainSpeed());
+    // }
 
     private IEnumerator RegainSpeed()
     {

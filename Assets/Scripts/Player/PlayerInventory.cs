@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -18,9 +17,6 @@ public class PlayerInventory : MonoBehaviour
 
     //Player global funds and money stuff
     public int money = 100;
-    public bool inBinRange = false;
-
-    public Item itemClicked;
 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +41,7 @@ public class PlayerInventory : MonoBehaviour
     public bool AddItem(Item item)
     {
         // slotToAdd will remain -1 until end only if inventory is full
-        int slotToAdd = -1; 
+        int slotToAdd = -1;
 
         // Either find the lowest slot number, or the slot number thats item matches the item if it is stackable
         for (int i = 0; i < itemSlots.Length; i++)
@@ -66,7 +62,6 @@ public class PlayerInventory : MonoBehaviour
         if (slotToAdd != -1)
         {
             itemSlots[slotToAdd].AddFirst(item);
-            //item.transform.position = new Vector3(-500, 0, 0);
         }
 
         // Update inventory GUI on screen
@@ -102,10 +97,10 @@ public class PlayerInventory : MonoBehaviour
     public void UpdateUI(string slotName, Item item, int slotNumber)
     {
         GameObject.Find(slotName).transform.GetChild(0).GetComponent<Image>().sprite = item.gameObject.GetComponent<SpriteRenderer>().sprite;
-        Debug.Log("Adding to slot " + slotNumber.ToString());
-        Debug.Log("Active Slot: " + selectedSlotNumber.ToString());
+        Debug.Log("Adding to slot " + slotNumber);
+        Debug.Log("Active Slot: " + selectedSlotNumber);
 
-        //Check if item is being added to active slot. Adjust color appropriately. 
+        //Check if item is being added to active slot. Adjust color appropriately.
         if (selectedSlotNumber == slotNumber)
         {
             Debug.Log("Inside");
@@ -186,7 +181,7 @@ public class PlayerInventory : MonoBehaviour
         }
 
         //Update money text
-        UpdateMoney moneyText = GameObject.FindObjectOfType<UpdateMoney>();
+        UpdateMoney moneyText = FindObjectOfType<UpdateMoney>();
         moneyText.UpdateMoneyText();
     }
 }

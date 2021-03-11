@@ -1,22 +1,14 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
+﻿using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine;
 using UnityEngine.UI;
-using Vector2 = UnityEngine.Vector2;
-using Vector3 = UnityEngine.Vector3;
 
 public class PlayerInteraction : MonoBehaviour
 {
     // Item use key
     public KeyCode itemKey = KeyCode.E;
 
-    //private bool inBinRange = false;
-
-    private int oldSlotNumber = 0;
-    private string[] slotNames = new string[]{"Slot1UI", "Slot2UI","Slot3UI", "Slot4UI", "Slot5UI"};
+    private int oldSlotNumber;
+    private string[] slotNames = {"Slot1UI", "Slot2UI","Slot3UI", "Slot4UI", "Slot5UI"};
 
     public Tile highlightTile;
     Vector3Int previousTileCoordinate;
@@ -146,7 +138,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         Vector2 mousePos = Input.mousePosition;
         Vector2 worldPosition2D = Camera.main.ScreenToWorldPoint(mousePos);
-        Vector3 worldPosition = new Vector3(worldPosition2D.x, worldPosition2D.y, this.transform.position.z);
+        Vector3 worldPosition = new Vector3(worldPosition2D.x, worldPosition2D.y, transform.position.z);
         if (PlayerData.itemClicked != null)
         {
             Debug.Log("adding item " + PlayerData.itemClicked.itemName);
@@ -161,7 +153,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             Debug.Log("false");
         }
-        
+
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -178,12 +170,12 @@ public class PlayerInteraction : MonoBehaviour
             {
                 other.transform.position = WorldData.playerTwoSpawnLocation;
             }
-                
+
             if (other.transform.tag == "PlayerThree")
             {
                 other.transform.position = WorldData.playerThreeSpawnLocation;
             }
-                
+
             if (other.transform.tag == "PlayerFour")
             {
                 other.transform.position = WorldData.playerFourSpawnLocation;

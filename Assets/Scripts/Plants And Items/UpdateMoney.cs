@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Net.Mime;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class UpdateMoney : MonoBehaviour
@@ -9,14 +6,14 @@ public class UpdateMoney : MonoBehaviour
     private Text moneyText;
     void Start()
     {
-        moneyText = this.GetComponent<Text>();
+        moneyText = GetComponent<Text>();
         UpdateMoneyText();
     }
 
 
     public void UpdateMoneyText()
     {
-        moneyText.text = "$" + PlayerData.money.ToString() + ".00";
+        moneyText.text = "$" + PlayerData.money + ".00";
     }
 
 }
