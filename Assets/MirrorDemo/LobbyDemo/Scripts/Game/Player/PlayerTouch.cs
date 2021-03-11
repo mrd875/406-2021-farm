@@ -20,17 +20,23 @@ public class PlayerTouch : NetworkBehaviour
         {
             if (collision.transform.tag == "PlayerOne")
             {
-                if (isServer)
-                    RpcSetLocation(collision.gameObject, WorldData2.playerOneSpawnerLocation);
-                else
-                    CmdSetLocation(collision.gameObject, WorldData2.playerOneSpawnerLocation);
+                if (!collision.gameObject.GetComponent<PlayerTouch>().inHomeZone)
+                {
+                    if (isServer)
+                        RpcSetLocation(collision.gameObject, WorldData2.playerOneSpawnerLocation);
+                    else
+                        CmdSetLocation(collision.gameObject, WorldData2.playerOneSpawnerLocation);
+                }
             }
             if (collision.transform.tag == "PlayerTwo")
             {
-                if (isServer)
-                    RpcSetLocation(collision.gameObject, WorldData2.playerTwoSpawnerLocation);
-                else
-                    CmdSetLocation(collision.gameObject, WorldData2.playerTwoSpawnerLocation);
+                if (!collision.gameObject.GetComponent<PlayerTouch>().inHomeZone)
+                {
+                    if (isServer)
+                        RpcSetLocation(collision.gameObject, WorldData2.playerTwoSpawnerLocation);
+                    else
+                        CmdSetLocation(collision.gameObject, WorldData2.playerTwoSpawnerLocation);
+                }
             }
         }
 
