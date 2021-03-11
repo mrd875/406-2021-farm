@@ -116,15 +116,19 @@ public class PlayerClick : NetworkBehaviour
                     highlightedInteractable.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
                     Item2 itemToAdd = highlightedInteractable.GetComponent<Item2>();
                     highlightedInteractable = null;
-                    inventory.AddItem(itemToAdd);
+                    bool couldAdd = inventory.AddItem(itemToAdd);
 
-                    //Remove the pickup and planted location from user and all other clients
-                    int removedID = WorldData2.RemovePlantedLocation(WorldData2.diggableLayer.WorldToCell(mouseWorldPos));
-                    if (itemToAdd.gameObject.GetComponent<plantID>() != null)
+                    if (couldAdd)
                     {
-                        removedID = itemToAdd.gameObject.GetComponent<plantID>().ID;
+                        //Remove the pickup and planted location from user and all other clients
+                        int removedID = WorldData2.RemovePlantedLocation(WorldData2.diggableLayer.WorldToCell(mouseWorldPos));
+                        if (itemToAdd.gameObject.GetComponent<plantID>() != null)
+                        {
+                            removedID = itemToAdd.gameObject.GetComponent<plantID>().ID;
+                        }
+                        CmdAddItem(itemToAdd, removedID);
                     }
-                    CmdAddItem(itemToAdd, removedID);
+                    
                 }
                 else if (highlightedInteractable.GetComponent<SeedBin>() != null) {  } // handled in seedbin script as an on-click event
                 else if (highlightedInteractable.GetComponent<SellingBin>() != null) {  } // handled in sellingbin script as an on-click event
