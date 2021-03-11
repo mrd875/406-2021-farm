@@ -100,13 +100,13 @@ MonoBehaviour:
   syncInterval: 0.1
   vegetableStages:
   - image: {fileID: 1730867896854437283, guid: daa10cf4bda0d9a4694cf1b931cc982a, type: 3}
-    growTime: 2
+    growTime: 5
   - image: {fileID: 2033076350440468999, guid: daa10cf4bda0d9a4694cf1b931cc982a, type: 3}
-    growTime: 2
+    growTime: 5
   - image: {fileID: 3543999295466229728, guid: daa10cf4bda0d9a4694cf1b931cc982a, type: 3}
-    growTime: 3
+    growTime: 5
   - image: {fileID: -393419010168150447, guid: daa10cf4bda0d9a4694cf1b931cc982a, type: 3}
-    growTime: 4
+    growTime: 5
   fullyGrownItem: {fileID: 3544034145916668054, guid: 948c71fed4076584e9ffa81d31ddf42e, type: 3}
   ID: 0
 --- !u!114 &435268514526309979

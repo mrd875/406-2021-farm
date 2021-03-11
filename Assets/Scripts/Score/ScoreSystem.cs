@@ -145,9 +145,6 @@ public class ScoreSystem : MonoBehaviour
     }
 
 
-
-
-
     [Server]
     private void RestartScene()
     {

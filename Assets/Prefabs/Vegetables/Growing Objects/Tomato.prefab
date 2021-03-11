@@ -95,13 +95,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8492b3c8b04193546b120abbc6378d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   vegetableStages:
   - image: {fileID: -2871247897655764631, guid: e784633ed704ff1458cc3bbcb3b89c8b, type: 3}
-    growTime: 1
+    growTime: 5
   - image: {fileID: -822702538976262500, guid: e784633ed704ff1458cc3bbcb3b89c8b, type: 3}
-    growTime: 2
+    growTime: 5
   - image: {fileID: 3714832998402535079, guid: e784633ed704ff1458cc3bbcb3b89c8b, type: 3}
-    growTime: 6
+    growTime: 5
   - image: {fileID: 8107340150858552300, guid: e784633ed704ff1458cc3bbcb3b89c8b, type: 3}
-    growTime: 4
+    growTime: 5
   fullyGrownItem: {fileID: 80835363069589032, guid: bb2e729dde8db19448f6b6fa56b993d5, type: 3}
+  ID: 0

@@ -31,5 +31,34 @@ public class PersistentRoundInfo : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    void Update()
+    {
+        PersistentRoundInfo otherInfo = FindObjectOfType<PersistentRoundInfo>();
+        if (otherInfo.gameObject != this.gameObject)
+        {
+            Debug.Log("We in the update now");
+            if (otherInfo.currentRound > this.currentRound)
+            {
+                currentRound = otherInfo.currentRound;
+            }
+            else
+            {
+                currentRound += 1;
+            }
+
+            if (otherInfo.playerOneScore > this.playerOneScore)
+            {
+                playerOneScore = otherInfo.playerOneScore;
+            }
+
+            if (otherInfo.playerTwoScore > this.playerTwoScore)
+            {
+                playerTwoScore = otherInfo.playerTwoScore;
+            }
+            
+            Destroy(otherInfo.gameObject);
+        }
+
+    }
 
 }
