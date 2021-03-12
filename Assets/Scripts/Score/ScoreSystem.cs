@@ -21,9 +21,26 @@ public class ScoreSystem : MonoBehaviour
 
     public GameObject winScreen;
 
+    private string playerOneName;
+    private string playerTwoName;
+
     // Start is called before the first frame update
     void Start()
     {
+        NetworkRoomPlayerGame[] players = FindObjectsOfType<NetworkRoomPlayerGame>();
+
+        foreach (var networkRoomPlayerGame in players)
+        {
+            if (networkRoomPlayerGame.index == 0)
+            {
+                playerOneName = networkRoomPlayerGame.displayName;
+            } 
+            else if (networkRoomPlayerGame.index == 1)
+            {
+                playerTwoName = networkRoomPlayerGame.displayName;
+            }
+        }
+
         // Starts the timer automatically
         timerIsRunning = true;
     }
@@ -78,17 +95,23 @@ public class ScoreSystem : MonoBehaviour
         {
             if (playerOneScore > playerTwoScore)
             {
-                winScreen.GetComponent<Text>().text = "Player One Wins!";
+                winScreen.GetComponent<Text>().color = new Color(0, 255, 255);
+                winScreen.GetComponent<Text>().text = playerOneName + " Wins!";
                 thisRoundInfo.playerOneScore += 1;
+                thisRoundInfo.currentRound += 1;
             }
             else if (playerTwoScore > playerOneScore)
             {
-                winScreen.GetComponent<Text>().text = "Player Two Wins!";
+                winScreen.GetComponent<Text>().color = new Color(0.92f, 0.5f, 0.04f, 1);
+                winScreen.GetComponent<Text>().text = playerTwoName + " Wins!";
                 thisRoundInfo.playerTwoScore += 1;
+                thisRoundInfo.currentRound += 1;
             }
             else
             {
+                winScreen.GetComponent<Text>().color = new Color(255, 255, 255);
                 winScreen.GetComponent<Text>().text = "Draw!";
+                thisRoundInfo.currentRound += 1;
             }
             winScreen.SetActive(true);
             StartCoroutine(NextRound());
@@ -107,15 +130,18 @@ public class ScoreSystem : MonoBehaviour
 
             if (thisRoundInfo.playerOneScore > thisRoundInfo.playerTwoScore)
             {
-                winScreen.GetComponent<Text>().text = "Game Over! \n Player One Wins!";
+                winScreen.GetComponent<Text>().color = new Color(0,255,255);
+                winScreen.GetComponent<Text>().text = "Game Over! \n" + playerOneName + " Wins!";
             }
             else if (thisRoundInfo.playerTwoScore > thisRoundInfo.playerOneScore)
             {
-                winScreen.GetComponent<Text>().text = "Game Over! \n Player Two Wins!";
+                winScreen.GetComponent<Text>().color = new Color(0.92f, 0.5f, 0.04f, 1);
+                winScreen.GetComponent<Text>().text = "Game Over! \n" + playerTwoName + " Wins!";
             }
 
             else
             {
+                winScreen.GetComponent<Text>().color = new Color(255, 255, 255);
                 winScreen.GetComponent<Text>().text = "Game Over! \n Draw!";
             }
 
@@ -149,7 +175,7 @@ public class ScoreSystem : MonoBehaviour
     private void RestartScene()
     {
         NetworkManager thisManager = GameObject.FindObjectOfType<NetworkManager>();
-        thisManager.ServerChangeScene("Scene_Game");
+        thisManager.ServerChangeScene("Scene_Game2");
         Debug.Log("Switched Scene");
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class PersistentRoundInfo : MonoBehaviour
@@ -12,52 +13,52 @@ public class PersistentRoundInfo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PersistentRoundInfo otherInfo = FindObjectOfType<PersistentRoundInfo>();
+        PersistentRoundInfo[] otherInfo = FindObjectsOfType<PersistentRoundInfo>();
 
-        if (otherInfo.gameObject != this.gameObject)
+
+        if (otherInfo.Length == 1)
         {
-            currentRound = otherInfo.currentRound;
-            playerOneScore = otherInfo.playerOneScore;
-            playerTwoScore = otherInfo.playerTwoScore;
-            currentRound += 1;
-            Destroy(otherInfo.gameObject);
+            //There is no one but me
+                currentRound = 1;
+                playerOneScore = 0;
+                playerTwoScore = 0;
         }
         else
         {
-            currentRound = 1;
-            playerOneScore = 0;
-            playerTwoScore = 0;
+            foreach (var persistentRoundInfo in otherInfo)
+            {
+                if (persistentRoundInfo.gameObject != this.gameObject)
+                {
+
+                    if (persistentRoundInfo.currentRound > this.currentRound)
+                    {
+                        Destroy(this.gameObject);
+                    }
+
+                }
+            }
         }
+
         DontDestroyOnLoad(this.gameObject);
     }
 
     void Update()
     {
-        PersistentRoundInfo otherInfo = FindObjectOfType<PersistentRoundInfo>();
-        if (otherInfo.gameObject != this.gameObject)
+        PersistentRoundInfo[] otherInfo = FindObjectsOfType<PersistentRoundInfo>();
+        
+        foreach (var persistentRoundInfo in otherInfo)
         {
-            Debug.Log("We in the update now");
-            if (otherInfo.currentRound > this.currentRound)
+            if (persistentRoundInfo.gameObject != this.gameObject)
             {
-                currentRound = otherInfo.currentRound;
-            }
-            else
-            {
-                currentRound += 1;
-            }
 
-            if (otherInfo.playerOneScore > this.playerOneScore)
-            {
-                playerOneScore = otherInfo.playerOneScore;
-            }
+                if (persistentRoundInfo.currentRound > this.currentRound)
+                {
+                    Destroy(this.gameObject);
+                }
 
-            if (otherInfo.playerTwoScore > this.playerTwoScore)
-            {
-                playerTwoScore = otherInfo.playerTwoScore;
             }
-            
-            Destroy(otherInfo.gameObject);
         }
+        
 
     }
 
