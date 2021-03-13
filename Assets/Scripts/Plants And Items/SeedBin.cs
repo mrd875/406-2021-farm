@@ -24,16 +24,16 @@ public class SeedBin : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         PlayerData2.localPlayer.GetComponent<PlayerClick>().highlightedInteractable = null;
     }
 
-
-    private void OnMouseDown()
+    // This is now done in PlayerClick
+/*    private void OnMouseDown()
     {
         if (hasEntered)
         {
             //PlayerData.AddItem(seed);
             enteredPlayer.GetComponent<PlayerInventory2>().AddItem(seed);
         }
-    }
-    private void OnTriggerEnter2D(Collider2D collider)
+    }*/
+/*    private void OnTriggerEnter2D(Collider2D collider)
     {
         enteredPlayer = collider.transform.gameObject;
         hasEntered = true;
@@ -42,7 +42,7 @@ public class SeedBin : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private void OnTriggerExit2D(Collider2D other)
     {
         hasEntered = false;
-    }
+    }*/
 
 
 }

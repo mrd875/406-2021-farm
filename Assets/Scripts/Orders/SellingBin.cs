@@ -23,8 +23,8 @@ public class SellingBin : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         PlayerData2.localPlayer.GetComponent<PlayerClick>().highlightedInteractable = null;
     }
 
-
-    private void OnMouseDown()
+    // This is now done in PlayerClick
+/*    private void OnMouseDown()
     {
         Debug.Log("Clicked");
         if (hasEntered)
@@ -44,6 +44,6 @@ public class SellingBin : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     private void OnTriggerExit2D(Collider2D other)
     {
         hasEntered = false;
-    }
+    }*/
 
 }

@@ -138,8 +138,14 @@ public class PlayerClick : NetworkBehaviour
                     }
                     
                 }
-                else if (highlightedInteractable.GetComponent<SeedBin>() != null) {  } // handled in seedbin script as an on-click event
-                else if (highlightedInteractable.GetComponent<SellingBin>() != null) {  } // handled in sellingbin script as an on-click event
+                else if (highlightedInteractable.GetComponent<SeedBin>() != null) 
+                {
+                    inventory.AddItem(highlightedInteractable.GetComponent<SeedBin>().seed);
+                } 
+                else if (highlightedInteractable.GetComponent<SellingBin>() != null) 
+                {
+                    inventory.SellItem();
+                } 
             }
             // The if selectedSlot.First == null, expression will evaluate to null while ignoring anything after the ':'so null exception will not be thrown
             //Use item in slot
