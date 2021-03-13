@@ -18,6 +18,8 @@ TagManager:
   - Zone
   - GameSpawn
   - Item
+  - PlayerOneZoneCheck
+  - PlayerTwoZoneCheck
   layers:
   - Default
   - TransparentFX
