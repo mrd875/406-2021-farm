@@ -1,22 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class PlayerData2 : MonoBehaviour
 {
     static public GameObject playerOne;
     static public GameObject playerTwo;
+    static public GameObject localPlayer;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerOne = GameObject.Find("GameObject_NetworkPlayer(Clone)");
-        playerOne = GameObject.Find("GameObject_NetworkPlayer(Clone)(1)");
+        // Wait for network stuff to be ready
+        StartCoroutine(LateStart(0.05f));
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator LateStart(float waitTime)
     {
-        
+        yield return new WaitForSeconds(waitTime);
+        localPlayer = GameObject.Find("LocalPlayer");
     }
 }

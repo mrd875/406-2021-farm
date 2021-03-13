@@ -10,6 +10,7 @@ public class PlayerAuthority : NetworkBehaviour
     public override void OnStartAuthority()
     {
         GameObject.FindGameObjectWithTag("GameSpawner").GetComponent<GameSpawner>().localPlayer = gameObject;
+        name = "LocalPlayer";
     }
 
     private void Start()

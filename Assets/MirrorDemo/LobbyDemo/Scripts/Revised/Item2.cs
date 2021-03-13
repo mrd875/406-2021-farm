@@ -5,9 +5,10 @@ using System.Linq;
 using UnityEngine.Tilemaps;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using Mirror;
 
-public class Item2 : NetworkBehaviour
+public class Item2 : NetworkBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public string itemName;
     public Tile actionTile;
@@ -23,6 +24,18 @@ public class Item2 : NetworkBehaviour
     private bool canSwap;
 
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        PlayerData2.localPlayer.GetComponent<PlayerClick>().highlightedInteractable = gameObject;
+    }
+
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        PlayerData2.localPlayer.GetComponent<PlayerClick>().highlightedInteractable.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+        PlayerData2.localPlayer.GetComponent<PlayerClick>().highlightedInteractable = null;
+    }
+
 
     //Allows item pickup if player is in range
     private void OnTriggerEnter2D(Collider2D collision)
@@ -34,6 +47,8 @@ public class Item2 : NetworkBehaviour
             Debug.Log("pick me up");
         }
     }
+    
+    
     //Does not allow item pickup if player is not in range
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -42,7 +57,6 @@ public class Item2 : NetworkBehaviour
         {
             pickup_allowed = false;
         }
-        
     }
 
     /*
