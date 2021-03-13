@@ -11,7 +11,7 @@ public class PlayerTouch : NetworkBehaviour
     // PlayerZone2 script attached to area where the player's home zone is
     public bool inHomeZone = false;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (!hasAuthority || Time.timeSinceLevelLoad < 1.0f)
             return;
