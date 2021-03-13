@@ -32,7 +32,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/MirrorDemo/ChatDemo/Scene.unity
     guid: a1f5475e47b8bbb46bd7ae7ee9fb1f11
-  - enabled: 1
+  - enabled: 0
     path: Assets/MirrorDemo/LobbyDemo/Scene_Game2.unity
     guid: d4f23100ba7fdc84dbb663992172728f
+  - enabled: 1
+    path: Assets/MirrorDemo/LobbyDemo/Scene_Game3.unity
+    guid: 126593a555e806649b2cbc6c614be471
   m_configObjects: {}
