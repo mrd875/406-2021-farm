@@ -37,6 +37,8 @@ public class OrderSystem : NetworkBehaviour
 
     void Start()
     {
+        gameObject.GetComponent<RectTransform>().anchoredPosition= new Vector2(0,0);
+
         // Game seed to synchronize player orders
         Random.seed = servRandom.rand;
 
