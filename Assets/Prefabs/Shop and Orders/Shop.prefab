@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: -1712183815
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e0df95e8ce8172145afb5967040ac7c5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cfb7544be80284a898395fda104ac21a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -112,6 +112,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16a57f8c79ba8a242937efba0c606ed3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTag: 
   shopWindow: {fileID: 0}
-  totalMoney: 500
   moneyText: {fileID: 0}
