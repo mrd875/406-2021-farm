@@ -10,7 +10,8 @@ public class PlayerMovement2 : NetworkBehaviour
     private float baseMoveSpeed;
     private bool isMoving = false;
     private int appliedReductionEffects; // amount of slow effects applied (for duration purpose)
-    public Vector2 movement;
+    public Vector3 movement;
+    public Animator animator;
 
 
     // Player Rigidbody component to add movement to
@@ -28,12 +29,17 @@ public class PlayerMovement2 : NetworkBehaviour
         if (hasAuthority)
         {
             // Get input for movement from WASD or Arrow keys
-            movement = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-            if (movement != new Vector2(0, 0) && isMoving == false)
+            movement = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            
+            animator.SetFloat("Horizontal", movement.x);
+            animator.SetFloat("Vertical", movement.y);
+            animator.SetFloat("Magnitude", movement.magnitude);
+
+            if (movement != new Vector3(0, 0) && isMoving == false)
             {
                 isMoving = true;
             }
-            else if (movement == new Vector2(0, 0) && isMoving == true)
+            else if (movement == new Vector3(0, 0) && isMoving == true)
             {
                 isMoving = false;
             }
@@ -45,6 +51,10 @@ public class PlayerMovement2 : NetworkBehaviour
         {
             transform.localScale = new Vector3(horizontalDirection * 1f, 1f, 1);
         }
+
+
+
+
     }
 
     private void FixedUpdate()
