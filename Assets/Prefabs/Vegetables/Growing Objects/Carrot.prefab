@@ -95,17 +95,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8492b3c8b04193546b120abbc6378d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   vegetableStages:
   - image: {fileID: 58760669538723708, guid: 1139dfc5c47d3874096b57280ad45fa9, type: 3}
-    growTime: 1
+    growTime: 5
   - image: {fileID: 7998817467079404546, guid: 1139dfc5c47d3874096b57280ad45fa9, type: 3}
-    growTime: 3
+    growTime: 5
   - image: {fileID: -21116464061336059, guid: 1139dfc5c47d3874096b57280ad45fa9, type: 3}
-    growTime: 3
+    growTime: 5
   - image: {fileID: 1913353360200041775, guid: 1139dfc5c47d3874096b57280ad45fa9, type: 3}
-    growTime: 4
+    growTime: 5
   - image: {fileID: 21300000, guid: 8a110505fe8e7f047918d23fb7ded2cf, type: 3}
     growTime: 5
   - image: {fileID: 21300000, guid: ada6c5bdb7001d8408f35df7e016b28a, type: 3}
     growTime: 0
   fullyGrownItem: {fileID: 0}
+  ID: 0

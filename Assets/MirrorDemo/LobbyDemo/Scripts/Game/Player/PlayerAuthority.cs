@@ -10,10 +10,20 @@ public class PlayerAuthority : NetworkBehaviour
     public override void OnStartAuthority()
     {
         GameObject.FindGameObjectWithTag("GameSpawner").GetComponent<GameSpawner>().localPlayer = gameObject;
+        name = "LocalPlayer";
     }
 
     private void Start()
     {
+        if (gameObject.transform.position.y > 5)
+        {
+            gameObject.tag = "PlayerTwo";
+        }
+        else
+        {
+            gameObject.tag = "PlayerOne";
+        }
+
         var zones = GameObject.FindGameObjectsWithTag("Zone");
         foreach (var zone in zones)
         {
@@ -23,4 +33,42 @@ public class PlayerAuthority : NetworkBehaviour
                 ownZone = spawn.transform.parent.gameObject;
         }
     }
+
+    public void DisconnectPlayer()
+    {
+        CmdShutdownSetup();
+        ShutDownServer();
+    }
+
+    [Command]
+    private void CmdShutdownSetup()
+    {
+        RpcShutdownSetup();
+        PersistentRoundInfo[] cleanUp = FindObjectsOfType<PersistentRoundInfo>();
+        foreach (var persistentRoundInfo in cleanUp)
+        {
+            Destroy(persistentRoundInfo.gameObject);
+        }
+    }
+
+    [ClientRpc]
+    private void RpcShutdownSetup()
+    {
+        PersistentRoundInfo[] cleanUp = FindObjectsOfType<PersistentRoundInfo>();
+        foreach (var persistentRoundInfo in cleanUp)
+        {
+            Destroy(persistentRoundInfo.gameObject);
+        }
+    }
+
+    [Server]
+    void ShutDownServer()
+    {
+        NetworkManager thisManager = GameObject.FindObjectOfType<NetworkManager>();
+        thisManager.ServerChangeScene("Scene_Lobby");
+
+        NetworkServer.Shutdown();
+    }
+
+
 }

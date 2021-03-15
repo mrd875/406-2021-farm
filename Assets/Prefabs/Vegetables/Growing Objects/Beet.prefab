@@ -96,16 +96,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8492b3c8b04193546b120abbc6378d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   vegetableStages:
   - image: {fileID: -237801368767826332, guid: d18c104fc5f9df342b27bf3512c3137a, type: 3}
-    growTime: 1
+    growTime: 5
   - image: {fileID: 7052367575643719591, guid: d18c104fc5f9df342b27bf3512c3137a, type: 3}
-    growTime: 2
+    growTime: 5
   - image: {fileID: 2688983894701876582, guid: d18c104fc5f9df342b27bf3512c3137a, type: 3}
-    growTime: 3
+    growTime: 5
   - image: {fileID: 5504560165198698044, guid: d18c104fc5f9df342b27bf3512c3137a, type: 3}
-    growTime: 4
+    growTime: 5
   fullyGrownItem: {fileID: 4182523444506656338, guid: a48aea3152d8d164a870472b6e6d5301, type: 3}
+  ID: 0
 --- !u!114 &5775301594211730668
 MonoBehaviour:
   m_ObjectHideFlags: 0

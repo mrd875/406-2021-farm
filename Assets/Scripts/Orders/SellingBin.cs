@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SeedBin : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class SellingBin : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public Item2 seed;
     private GameObject enteredPlayer;
 
     // Bool to check if the player is in the radius of the bin
@@ -27,22 +26,24 @@ public class SeedBin : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     // This is now done in PlayerClick
 /*    private void OnMouseDown()
     {
+        Debug.Log("Clicked");
         if (hasEntered)
         {
             //PlayerData.AddItem(seed);
-            enteredPlayer.GetComponent<PlayerInventory2>().AddItem(seed);
+            enteredPlayer.GetComponent<PlayerInventory2>().SellItem();
         }
-    }*/
-/*    private void OnTriggerEnter2D(Collider2D collider)
+    }
+    private void OnTriggerEnter2D(Collider2D collider)
     {
+
         enteredPlayer = collider.transform.gameObject;
         hasEntered = true;
+
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         hasEntered = false;
     }*/
-
 
 }

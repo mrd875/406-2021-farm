@@ -21,12 +21,11 @@ GameObject:
   - component: {fileID: -3543099866852962456}
   - component: {fileID: 2715932179984281046}
   - component: {fileID: -6796259133874628845}
-  - component: {fileID: 2193903696217902983}
   - component: {fileID: 4339153905235148860}
   - component: {fileID: -3166991735439898652}
   m_Layer: 2
   m_Name: GameObject_NetworkPlayer
-  m_TagString: Player
+  m_TagString: PlayerOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -199,6 +198,8 @@ MonoBehaviour:
   syncInterval: 0.1
   highlightTile: {fileID: 11400000, guid: 6599ce571662b184ba4cc7041b13d1d1, type: 2}
   interactionRange: 2
+  canInteract: 0
+  highlightedInteractable: {fileID: 0}
 --- !u!61 &9000735518018980513
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -240,7 +241,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   inZone: {fileID: 0}
-  inHomeZone: 0
+  inHomeZone: 1
 --- !u!114 &-3543099866852962456
 MonoBehaviour:
   m_ObjectHideFlags: 0

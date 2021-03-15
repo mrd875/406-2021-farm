@@ -17,7 +17,7 @@ public class PlayerClick : NetworkBehaviour
     public float interactionRange = 2f; // range from player to cursor for which player can interact
     Vector3Int previousTileCoordinate;
 
-    private bool canInteract = false;
+    public bool canInteract = false;
 
     // Inventory script belonging to this.gameObject
     private PlayerInventory2 inventory;
@@ -26,7 +26,7 @@ public class PlayerClick : NetworkBehaviour
     private string[] slotNames = new string[] { "Slot1UI", "Slot2UI", "Slot3UI", "Slot4UI", "Slot5UI" };
 
     private LayerMask whatIsInteractable;
-    private GameObject highlightedInteractable;
+    public GameObject highlightedInteractable;
 
     private void Start()
     {
@@ -41,13 +41,21 @@ public class PlayerClick : NetworkBehaviour
         if (!hasAuthority)
             return;
 
+        // highlight interactable at mouseover if in range to grab
+        if (highlightedInteractable != null)
+            if (canInteract)
+                highlightedInteractable.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
+            else
+                highlightedInteractable.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+        
+            
+
         // Get mouse coordinates (for highlight tile)
         Vector2 mousePos = Input.mousePosition;
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector3Int tileCoordinate = WorldData2.highlighter.WorldToCell(mouseWorldPos);
 
-        // Highlight objects at mouseover
-        MouseOverInteractableCheck(mouseWorldPos); // check mouseover for item
+        // Highlight tile at mouseover
         // CursorHighlightMode1(tileCoordinate);  // Cursor turns red when out of range
         CursorHighlightMode2(tileCoordinate);   // Cursor disappears when out of range
 
@@ -116,18 +124,28 @@ public class PlayerClick : NetworkBehaviour
                     highlightedInteractable.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
                     Item2 itemToAdd = highlightedInteractable.GetComponent<Item2>();
                     highlightedInteractable = null;
-                    inventory.AddItem(itemToAdd);
+                    bool couldAdd = inventory.AddItem(itemToAdd);
 
-                    //Remove the pickup and planted location from user and all other clients
-                    int removedID = WorldData2.RemovePlantedLocation(WorldData2.diggableLayer.WorldToCell(mouseWorldPos));
-                    if (itemToAdd.gameObject.GetComponent<plantID>() != null)
+                    if (couldAdd)
                     {
-                        removedID = itemToAdd.gameObject.GetComponent<plantID>().ID;
+                        //Remove the pickup and planted location from user and all other clients
+                        int removedID = WorldData2.RemovePlantedLocation(WorldData2.diggableLayer.WorldToCell(mouseWorldPos));
+                        if (itemToAdd.gameObject.GetComponent<plantID>() != null)
+                        {
+                            removedID = itemToAdd.gameObject.GetComponent<plantID>().ID;
+                        }
+                        CmdAddItem(itemToAdd, removedID);
                     }
-                    CmdAddItem(itemToAdd, removedID);
+                    
                 }
-                else if (highlightedInteractable.GetComponent<SeedBin>() != null) {  } // handled in seedbin script as an on-click event
-                else if (highlightedInteractable.GetComponent<SellingBin>() != null) {  } // handled in sellingbin script as an on-click event
+                else if (highlightedInteractable.GetComponent<SeedBin>() != null) 
+                {
+                    inventory.AddItem(highlightedInteractable.GetComponent<SeedBin>().seed);
+                } 
+                else if (highlightedInteractable.GetComponent<SellingBin>() != null) 
+                {
+                    inventory.SellItem();
+                } 
             }
             // The if selectedSlot.First == null, expression will evaluate to null while ignoring anything after the ':'so null exception will not be thrown
             //Use item in slot
@@ -166,42 +184,6 @@ public class PlayerClick : NetworkBehaviour
         GameObject newSlot = GameObject.Find(slotName);
         inventory.selectedSlotUI = newSlot;
         inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
-    }
-
-
-    // Checks mouseover for interactable object to highlight and select for potential controller action.
-    private void MouseOverInteractableCheck(Vector2 mouseWorldPos)
-    {
-        // return if cursor is out of interaction range from player
-        if (!canInteract)
-        {
-            if (highlightedInteractable != null)
-            {
-                highlightedInteractable.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
-                highlightedInteractable = null;
-            }
-            return;
-        }
-            
-        RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, Vector2.zero, 10.0f, whatIsInteractable);
-        if (hit.collider != null && hit.collider.gameObject != null)
-        {
-            if (highlightedInteractable != null)
-                highlightedInteractable.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
-
-            highlightedInteractable = hit.collider.gameObject;
-            highlightedInteractable.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
-        }
-
-        else
-        {
-            // deselect highlightedInteractable if 
-            if (highlightedInteractable != null)
-            {
-                highlightedInteractable.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
-                highlightedInteractable = null;
-            }
-        }
     }
 
 

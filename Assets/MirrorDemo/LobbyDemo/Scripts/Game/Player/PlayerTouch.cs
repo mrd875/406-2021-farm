@@ -9,11 +9,12 @@ public class PlayerTouch : NetworkBehaviour
 
     // variable set to true when player is in their territory. variable is set to true in the
     // PlayerZone2 script attached to area where the player's home zone is
-    public bool inHomeZone = false;
+    public bool inHomeZone = true;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        if (!hasAuthority || Time.timeSinceLevelLoad < 1.0f)
+        //if (!hasAuthority || Time.timeSinceLevelLoad < 1.0f)
+        if (!hasAuthority)
             return;
 
         if (inHomeZone)

@@ -9,22 +9,24 @@ public class PlayerZone2 : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.tag == "PlayerOne" || other.tag == "PlayerTwo" || other.tag == "PlayerThree" || other.tag == "PlayerFour")
+        if (other.tag == "PlayerOne" || other.tag == "PlayerTwo")
         {
-            if (other.tag == zoneOwnerTag)
+            if (other.tag != zoneOwnerTag)
             {
-                other.gameObject.GetComponent<PlayerTouch>().inHomeZone = true;
+                if (other.gameObject.GetComponent<PlayerTouch>().inHomeZone)
+                    Debug.Log(other.tag + " left their zone");
+                other.gameObject.GetComponent<PlayerTouch>().inHomeZone = false;
             }
         }
     }
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "PlayerOne" || other.tag == "PlayerTwo" || other.tag == "PlayerThree" || other.tag == "PlayerFour")
+        if (other.tag == "PlayerOne" || other.tag == "PlayerTwo")
         {
-            if (other.tag == zoneOwnerTag)
+            if (other.tag != zoneOwnerTag)
             {
-                other.gameObject.GetComponent<PlayerTouch>().inHomeZone = false;
-                Debug.Log(zoneOwnerTag + " left their zone");
+                other.gameObject.GetComponent<PlayerTouch>().inHomeZone = true;
+                
             }
         }
     }
