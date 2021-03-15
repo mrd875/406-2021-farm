@@ -198,7 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  highlightTile: {fileID: 11400000, guid: 6599ce571662b184ba4cc7041b13d1d1, type: 2}
+  highlightTile: {fileID: 11400000, guid: 36d4c8eba51293949995e8957050c2df, type: 2}
   interactionRange: 2
   canInteract: 0
   highlightedInteractable: {fileID: 0}
