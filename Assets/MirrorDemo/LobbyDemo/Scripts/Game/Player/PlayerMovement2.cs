@@ -44,17 +44,6 @@ public class PlayerMovement2 : NetworkBehaviour
                 isMoving = false;
             }
         }
-
-        // enable transformation of player's horizontal face direction
-        float horizontalDirection = Input.GetAxisRaw("Horizontal");
-        if (horizontalDirection != 0)
-        {
-            transform.localScale = new Vector3(horizontalDirection * 2f, 2f, 1);
-        }
-
-
-
-
     }
 
     private void FixedUpdate()
