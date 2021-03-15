@@ -49,7 +49,7 @@ public class PlayerMovement2 : NetworkBehaviour
         float horizontalDirection = Input.GetAxisRaw("Horizontal");
         if (horizontalDirection != 0)
         {
-            transform.localScale = new Vector3(horizontalDirection * 1f, 1f, 1);
+            transform.localScale = new Vector3(horizontalDirection * 2f, 2f, 1);
         }
 
 

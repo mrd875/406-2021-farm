@@ -77,7 +77,7 @@ MonoBehaviour:
   syncInterval: 0.1
   moveSpeed: 200
   movement: {x: 0, y: 0, z: 0}
-  animator: {fileID: 0}
+  animator: {fileID: -3166991735439898652}
   rb: {fileID: 0}
 --- !u!114 &7628861057500186354
 MonoBehaviour:
