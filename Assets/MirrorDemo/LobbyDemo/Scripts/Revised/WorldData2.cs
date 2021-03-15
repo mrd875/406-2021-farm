@@ -86,7 +86,7 @@ public class WorldData2 : MonoBehaviour
             //If the plant exists in the DB, spawn it, create and add a plantWorldInfo record for it
             if (foundPlant)
             {
-                worldInfo.plant = Instantiate(plantToPlace.plantObject, WorldData2.plantableLayer.CellToWorld(location), Quaternion.identity);
+                worldInfo.plant = Instantiate(plantToPlace.plantObject, WorldData2.plantableLayer.GetCellCenterWorld(location), Quaternion.identity);
                 worldInfo.plant.GetComponent<GrowVegetable>().ID = currentID;
                 worldInfo.ID = currentID;
                 currentID += 1;

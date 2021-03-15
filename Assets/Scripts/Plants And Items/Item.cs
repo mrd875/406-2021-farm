@@ -85,20 +85,20 @@ public class Item : MonoBehaviour
         
     }
 
-    public bool UseItem(Vector2 location)
+    public bool UseItem(Vector2 worldPos)
     {
         // if item is a seed it adds a tile based on the editor
         if (is_seed)
         {
-            Vector3Int pos = WorldData.diggableLayer.WorldToCell(location);//PlayerData.player.transform.position);
+            Vector3Int cellPos = WorldData.diggableLayer.WorldToCell(worldPos);//PlayerData.player.transform.position);
             if (actionTile == null)
                 Debug.Log("Error: actionTile is not set for given seed");
 
-            if ((WorldData.diggableLayer.GetTile(pos) == null) && (WorldData.plantableLayer.GetTile(pos) != null) && (WorldData.CheckPlantedLocation(pos)))
+            if ((WorldData.diggableLayer.GetTile(cellPos) == null) && (WorldData.plantableLayer.GetTile(cellPos) != null) && (WorldData.CheckPlantedLocation(cellPos)))
             {
                 // Place item in middle of cell, track planted location
-                Instantiate(actionPrefab, WorldData.plantableLayer.CellToWorld(pos), Quaternion.identity);
-                WorldData.AddPlantedLocation(pos);
+                Instantiate(actionPrefab, WorldData.plantableLayer.GetCellCenterWorld(cellPos), Quaternion.identity);
+                WorldData.AddPlantedLocation(cellPos);
 
                 return true;
             }
@@ -113,8 +113,8 @@ public class Item : MonoBehaviour
                     // Shovel removes a tile off the top layer of the grid, tile should be flagged as diggable; for example, a shovel shouldn't be allowd to dig through concrete
                     // This can be changed so that it adds a dirt tile on top instead, or it replaces a grass tile with a dirt one with relative ease
 
-                    Vector3Int tileCoordinate = WorldData.diggableLayer.WorldToCell(location);//PlayerData.player.transform.position);
-                    if (PlayerData.userArea.OverlapPoint(location))
+                    Vector3Int tileCoordinate = WorldData.diggableLayer.WorldToCell(worldPos);//PlayerData.player.transform.position);
+                    if (PlayerData.userArea.OverlapPoint(worldPos))
                     {
                         if (WorldData.diggableLayer.GetTile(tileCoordinate) != null)
                         {
