@@ -107,18 +107,16 @@ public class PlayerClick : NetworkBehaviour
 
         // Drop Item
         if (Input.GetKeyDown(KeyCode.R))
-        {
-            CmdDropItem(inventory.selectedSlot.First.Value.GetComponent<Item2>(), gameObject.transform.position);
-            inventory.DropItem();
-        }
-
+            if (inventory.DropItem())
+                CmdDropItem(inventory.selectedSlot.First.Value.GetComponent<Item2>(), gameObject.transform.position);
+        
+        // Interact
         if (Input.GetMouseButtonDown(0) && canInteract)
         {
-            
+            // Check if interactable object was clicked
             if (highlightedInteractable != null)
             {
-
-                //Clicked on item. Add it to inventory
+                // Check if interactable object is an item
                 if (highlightedInteractable.GetComponent<Item2>() != null)
                 {
                     highlightedInteractable.gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
@@ -136,29 +134,29 @@ public class PlayerClick : NetworkBehaviour
                         }
                         CmdAddItem(itemToAdd, removedID);
                     }
-                    
                 }
+                // Check if interactable object was a seed bin
                 else if (highlightedInteractable.GetComponent<SeedBin>() != null) 
                 {
                     inventory.AddItem(highlightedInteractable.GetComponent<SeedBin>().seed);
                 } 
+                // Check if interactable object was a sell bin
                 else if (highlightedInteractable.GetComponent<SellingBin>() != null) 
                 {
                     inventory.SellItem();
                 } 
             }
-            // The if selectedSlot.First == null, expression will evaluate to null while ignoring anything after the ':'so null exception will not be thrown
-            //Use item in slot
+            // Use item
             else if (inventory.selectedSlot.First != null)
             {
                 Debug.Log("Using Item");
                 inventory.UseSelectedItem(mouseWorldPos);
             }
+            // No actions
             else
             {
                 Debug.Log("false");
             }
-
         }
     }
 

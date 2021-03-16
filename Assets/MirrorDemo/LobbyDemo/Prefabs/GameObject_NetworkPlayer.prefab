@@ -262,6 +262,7 @@ MonoBehaviour:
   selectedSlotUI: {fileID: 0}
   money: 100
   inBinRange: 0
+  shovelPrefab: {fileID: 1618075013237995541, guid: f53f1ac7d364cbb45a96ff437f0c65a6, type: 3}
 --- !u!114 &2715932179984281046
 MonoBehaviour:
   m_ObjectHideFlags: 0

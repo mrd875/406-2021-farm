@@ -22,8 +22,8 @@ public class PlayerInventory2 : NetworkBehaviour
     //Player global funds and money stuff
     public int money = 100;
     public bool inBinRange = false;
-    
-    private Tilemap gl;
+
+    public GameObject shovelPrefab;
 
     void Start()
     {
@@ -38,7 +38,10 @@ public class PlayerInventory2 : NetworkBehaviour
         selectedSlot = itemSlots[selectedSlotNumber];
         selectedSlotUI = GameObject.Find("Slot1UI");
 
-        gl = GameObject.FindGameObjectWithTag("GameGrid").GetComponent<Tilemap>();
+        // Add shovel from start
+        GameObject shovel = Instantiate(shovelPrefab, Vector2.zero, Quaternion.identity);
+        AddItem(shovel.GetComponent<Item2>());
+        
     }
 
     void Update()
@@ -75,11 +78,10 @@ public class PlayerInventory2 : NetworkBehaviour
         {
             itemSlots[slotToAdd].AddFirst(item);
             item.transform.gameObject.GetComponent<SpriteRenderer>().sprite = item.InventorySprite;
-            //Destroy(item.transform.gameObject);
             item.transform.position = new Vector3(-500, 0, 0);
         }
 
-        // Update inventory GUI on screen
+        // Update inventory UI on screen
         switch (slotToAdd)
         {
             case 0:
@@ -131,11 +133,15 @@ public class PlayerInventory2 : NetworkBehaviour
         item.transform.position = new Vector3(-500, 0, 0);
     }
 
-    public void DropItem()
+    public bool DropItem()
     {
         Debug.Log("Attempting to drop");
         if (selectedSlot.Count > 0)
         {
+            // Do not allow player to drop their shovel
+            if (selectedSlot.First.Value != null && selectedSlot.First.Value.itemName == "Shovel")
+                return false;
+
             Item2 droppedItem = selectedSlot.First.Value;
             droppedItem.GetComponent<SpriteRenderer>().enabled = true;
             //droppedItem.transform.position = gameObject.transform.position;   Done in command script
@@ -148,7 +154,9 @@ public class PlayerInventory2 : NetworkBehaviour
             }
             else
                 selectedSlotUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[selectedSlotNumber].Count;
+            return true;
         }
+        return false;
     }
 
     public void UseSelectedItem(Vector2 location)
@@ -191,7 +199,7 @@ public class PlayerInventory2 : NetworkBehaviour
                         Vector2 mousePos = Input.mousePosition;
                         Vector2 worldPosition2D = Camera.main.ScreenToWorldPoint(mousePos);
                         Vector3 worldPosition = new Vector3(worldPosition2D.x, worldPosition2D.y, transform.position.z);
-                        Vector3Int worldPos = gl.WorldToCell(worldPosition);
+                        Vector3Int worldPos = WorldData2.diggableLayer.WorldToCell(worldPosition);
 
                         // locally update our tile
                         WorldData2.diggableLayer.SetTile(worldPos, null);
