@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     // Loads the game scene
     public void StartGame()
     {
-        SceneManager.LoadScene("InventoryTestScene");
+        SceneManager.LoadScene("Scene_Lobby");
     }
 
     // Loads settings scene
