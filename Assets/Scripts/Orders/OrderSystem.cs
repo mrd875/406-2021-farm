@@ -155,7 +155,7 @@ public class OrderSystem : NetworkBehaviour
         // Get the "Quantity object of "Order Item" and it's TMP component, update the text to relfect the new total
         activeTicketObjects[index].transform.GetChild(1).GetChild(itemIndex).GetChild(1).GetComponent<TextMeshProUGUI>().SetText("X " + activeOrders[index].OrderItems[itemIndex].Amount);
 
-        if(activeOrders[index].CheckOrder()) {
+        if(!activeOrders[index].CheckOrder()) {
             CompleteTicket(index);
         }
     }
