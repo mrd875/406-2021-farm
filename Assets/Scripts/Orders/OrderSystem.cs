@@ -103,14 +103,14 @@ public class OrderSystem : NetworkBehaviour
         newTicket.transform.SetParent(this.transform);
 
         // Set sprites and amounts for each item in the order
-        for(int x = 0; x < order.OrderItems.Count; x++) {
+        for(int x = 0; x < order.items; x++) {
             GameObject newItem = (GameObject)Instantiate(orderItemPrefab, Vector3.zero, Quaternion.identity);
             newItem.transform.SetParent(newTicket.transform.GetChild(1));
 
-            newItem.transform.GetChild(0).GetComponent<Image>().sprite = order.OrderItems[x].Sprite;
-            newItem.transform.GetChild(1).GetComponent<TextMeshProUGUI>().SetText("X " + order.OrderItems[x].Amount);
+            newItem.transform.GetChild(0).GetComponent<Image>().sprite = order.orderSprites[x];
+            newItem.transform.GetChild(1).GetComponent<TextMeshProUGUI>().SetText("X " + order.orderAmounts[x]);
         }
-        newTicket.transform.GetChild(3).GetComponent<TextMeshProUGUI>().SetText("$" + order.Points * 5 + ".00");
+        newTicket.transform.GetChild(3).GetComponent<TextMeshProUGUI>().SetText("$" + order.points * 5 + ".00");
     }
 
 
@@ -122,12 +122,12 @@ public class OrderSystem : NetworkBehaviour
         Destroy(ticketToRemove);
 
         // Remove the order from the active list
-        int points = activeOrders[index].Points;
+        int points = activeOrders[index].points;
         activeOrders.RemoveAt(index);
 
         // Add money to the players total
         PlayerData.AddMoney(points * 5);
-
+        
         // Increase the players score
         GameObject localplayer = ClientScene.localPlayer.gameObject;
         localplayer.GetComponent<PlayerScore>().UpdateScore();
@@ -153,7 +153,7 @@ public class OrderSystem : NetworkBehaviour
 
         // Get the ticket object at the given index, get it's child "Order List", get the "Order Item" at the itemIndex within "Order List"
         // Get the "Quantity object of "Order Item" and it's TMP component, update the text to relfect the new total
-        activeTicketObjects[index].transform.GetChild(1).GetChild(itemIndex).GetChild(1).GetComponent<TextMeshProUGUI>().SetText("X " + activeOrders[index].OrderItems[itemIndex].Amount);
+        activeTicketObjects[index].transform.GetChild(1).GetChild(itemIndex).GetChild(1).GetComponent<TextMeshProUGUI>().SetText("X " + activeOrders[index].orderAmounts[itemIndex]);
 
         if(activeOrders[index].CheckOrder()) {
             CompleteTicket(index);
