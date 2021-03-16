@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ScoreSystem : MonoBehaviour
@@ -24,6 +25,8 @@ public class ScoreSystem : MonoBehaviour
     private string playerOneName;
     private string playerTwoName;
 
+    private string sceneName;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +46,7 @@ public class ScoreSystem : MonoBehaviour
 
         // Starts the timer automatically
         timerIsRunning = true;
+        sceneName = this.gameObject.scene.name;
     }
 
 
@@ -175,7 +179,7 @@ public class ScoreSystem : MonoBehaviour
     private void RestartScene()
     {
         NetworkManager thisManager = GameObject.FindObjectOfType<NetworkManager>();
-        thisManager.ServerChangeScene("Scene_Game2");
+        thisManager.ServerChangeScene(sceneName);
         Debug.Log("Switched Scene");
     }
 }
