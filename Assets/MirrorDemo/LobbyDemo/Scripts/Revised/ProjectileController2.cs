@@ -39,16 +39,16 @@ public class ProjectileController2 : MonoBehaviour
         if (gameObject.tag == "PlayerOneProjectile" && (other.tag == "PlayerTwo" || other.tag == "PlayerThree" || other.tag == "PlayerFour"))
         {
             // Don't slow other player if they are in their own field
-            if (!other.gameObject.GetComponent<PlayerTouch>().inHomeZone)
-                other.GetComponent<PlayerMovement2>().ReduceSpeed(speedReduction);
+            //if (!other.gameObject.GetComponent<PlayerTouch>().inHomeZone)
+            other.GetComponent<PlayerMovement2>().ReduceSpeed(speedReduction);
             Destroy(this.gameObject);
 
         }
         else if (gameObject.tag == "PlayerTwoProjectile" && (other.tag == "PlayerOne" || other.tag == "PlayerThree" || other.tag == "PlayerFour"))
         {
             // Don't slow other player if they are in their own field
-            if (!other.gameObject.GetComponent<PlayerTouch>().inHomeZone)
-                other.GetComponent<PlayerMovement2>().ReduceSpeed(speedReduction);
+            //if (!other.gameObject.GetComponent<PlayerTouch>().inHomeZone)
+            other.GetComponent<PlayerMovement2>().ReduceSpeed(speedReduction);
             Destroy(this.gameObject);
 
         }
