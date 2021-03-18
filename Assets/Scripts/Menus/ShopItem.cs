@@ -11,6 +11,7 @@ public class ShopItem : MonoBehaviour
 
     public bool playerMoveUpgrade;
     public bool plantGrowthUpgrade;
+    public bool roundPoint;
 
 
     // Update player's total money count
@@ -21,14 +22,21 @@ public class ShopItem : MonoBehaviour
             if (playerMoveUpgrade)
             {
                 PlayerMoveUpgrade.Activate();
+                Destroy(this.gameObject);
             }
 
             if (plantGrowthUpgrade)
             {
                 PlantGrowthUpgrade.Activate();
+                Destroy(this.gameObject);
             }
 
-            Destroy(this.gameObject);
+            if (roundPoint)
+            {
+                RoundPoint.Activate();
+            }
+
+            
         }
         
 

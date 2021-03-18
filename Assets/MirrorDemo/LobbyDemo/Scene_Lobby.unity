@@ -342,6 +342,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 965cc1229ffbfff438b4f4502eade269, type: 3}
+--- !u!1 &779366715 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3616774984594993580, guid: 449cb29550f3aa2459e3bee7784ca9e5, type: 3}
+  m_PrefabInstance: {fileID: 3616774985005702614}
+  m_PrefabAsset: {fileID: 0}
+--- !u!222 &779366720
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779366715}
+  m_CullTransparentMesh: 0
 --- !u!1 &1323266549
 GameObject:
   m_ObjectHideFlags: 0
@@ -1076,6 +1089,10 @@ PrefabInstance:
     - target: {fileID: 3616774984511876247, guid: 449cb29550f3aa2459e3bee7784ca9e5, type: 3}
       propertyPath: m_fontColor.a
       value: 0.5882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 3616774984594993576, guid: 449cb29550f3aa2459e3bee7784ca9e5, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 3616774984594993579, guid: 449cb29550f3aa2459e3bee7784ca9e5, type: 3}
       propertyPath: m_UiScaleMode

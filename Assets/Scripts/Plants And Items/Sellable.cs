@@ -7,6 +7,7 @@ public class Sellable : MonoBehaviour
     // public int sellPrice;
     public OrderSystem orders;
     private Item2 inventoryInfo;
+    public int sellPrice;
 
     private string itemName;
 
@@ -19,7 +20,7 @@ public class Sellable : MonoBehaviour
 
     public bool SellPlant()
     {
-        // PlayerData.AddMoney(sellPrice);
+        PlayerData.AddMoney(sellPrice);
         (bool, int) orderCheck = orders.CheckTickets(itemName);
 
         if (orderCheck.Item1)
@@ -28,7 +29,7 @@ public class Sellable : MonoBehaviour
             return true;
         }
         else {
-            return false;
+            return true;
         }
     }
 }
