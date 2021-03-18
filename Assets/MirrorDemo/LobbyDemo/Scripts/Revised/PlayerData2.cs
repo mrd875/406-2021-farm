@@ -14,7 +14,7 @@ public class PlayerData2 : NetworkBehaviour
     void Start()
     {
         // Wait for network stuff to be ready
-        StartCoroutine(LateStart(0.05f));
+        StartCoroutine(LateStart(0.5f));
     }
 
     IEnumerator LateStart(float waitTime)
