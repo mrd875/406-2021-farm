@@ -9,6 +9,8 @@ public class ProjectileController2 : MonoBehaviour
     public Vector2 startLocation; // where the projectile is launched
     public Vector2 startSpeed;  // The speed of the launcher slightly affects the speed of the projectile
     public float speed = 10;    // Speed of the projectile
+    public Quaternion rotation;
+    public Quaternion parentRotation;
 
     public GameObject shovelPrefab;
 
@@ -21,6 +23,7 @@ public class ProjectileController2 : MonoBehaviour
     void Start()
     {
         direction = (target - startLocation).normalized;
+        parentRotation = transform.rotation;
 
         // projectile is destroyed after a given time after not colliding with anything
         Destroy(this.gameObject, lifeTime);
@@ -29,7 +32,10 @@ public class ProjectileController2 : MonoBehaviour
     private void Update()
     {
         // Object moves slightly faster in the direction it is thrown
+        transform.rotation = parentRotation;
         transform.Translate((direction * speed + (startSpeed / 2)) * Time.deltaTime);
+        transform.rotation = rotation;
+        
 
     }
 
