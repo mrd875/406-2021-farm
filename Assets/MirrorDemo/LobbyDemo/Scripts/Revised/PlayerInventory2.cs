@@ -172,17 +172,20 @@ public class PlayerInventory2 : NetworkBehaviour
 
                 if ((WorldData2.diggableLayer.GetTile(pos) == null) && (WorldData2.plantableLayer.GetTile(pos) != null) && (WorldData2.CheckPlantedLocation(pos)))
                 {
+                    float growthRate = PlayerData2.localGrowSpeed;
+
                     //Extract vegetable name by taking off last 5 characters (" seed")
                     string vegetableString = item.itemName.Substring(0, item.itemName.Length - 5);
                     
                     // Place item in middle of cell, track planted location. All handled by world data
-                    bool plantAttempt = WorldData2.AddPlantedLocation(pos, vegetableString);
+                    bool plantAttempt = WorldData2.AddPlantedLocation(pos, vegetableString, growthRate);
                     
                     //On succesful plant, tell other clients to add a plant at that location as well
                     if (plantAttempt)
                     {
                         //Tell others to add the plant
-                        CmdPlantSeed(pos, vegetableString);
+                        Debug.Log("Sending through growth rate of " + growthRate.ToString());
+                        CmdPlantSeed(pos, vegetableString, growthRate);
                         ItemUsed();
                     }
                     
@@ -276,15 +279,17 @@ public class PlayerInventory2 : NetworkBehaviour
 
 
     [Command]
-    private void CmdPlantSeed(Vector3Int location, string plantName)
+    private void CmdPlantSeed(Vector3Int location, string plantName, float growthRate)
     {
-        RpcPlantSeed(location, plantName);
+        Debug.Log("Still have growth rate of " + growthRate.ToString());
+        RpcPlantSeed(location, plantName, growthRate);
     }
 
     [ClientRpc]
-    private void RpcPlantSeed(Vector3Int location, string plantName)
+    private void RpcPlantSeed(Vector3Int location, string plantName, float growthRate)
     {
-        WorldData2.AddPlantedLocation(location, plantName);
+        Debug.Log("Have plant growth of: " + growthRate);
+        WorldData2.AddPlantedLocation(location, plantName, growthRate);
     }
 
 

@@ -13,11 +13,14 @@ public class Order
 
         public int Amount { get; set; }
 
+        public int StartAmount { get; }
+
         public OrderItem(string name, Sprite sprite, int amount)
         {
             Name = name;
             Sprite = sprite;
             Amount = amount;
+            StartAmount = amount;
         }
     }
 
@@ -25,7 +28,7 @@ public class Order
 
     public int Points
     {
-        get { return OrderItems.Sum(ele => ele.Amount); }
+        get { return OrderItems.Sum(ele => ele.StartAmount); }
     }
 
     // Add an item to the order
