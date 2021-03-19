@@ -164,13 +164,11 @@ public class PlayerInventory2 : NetworkBehaviour
         if (selectedSlot.Count != 0)
         {
             Item2 item = selectedSlot.First.Value;
+            Vector3Int tileCoord = WorldData2.diggableLayer.WorldToCell(location);  //Get cell location
             // if item is a seed it adds a tile based on the editor
             if (item.is_seed)
             {
-                //Get cell location
-                Vector3Int pos = WorldData2.diggableLayer.WorldToCell(location);
-
-                if ((WorldData2.diggableLayer.GetTile(pos) == null) && (WorldData2.plantableLayer.GetTile(pos) != null) && (WorldData2.CheckPlantedLocation(pos)))
+                if ((WorldData2.diggableLayer.GetTile(tileCoord) == null) && (WorldData2.plantableLayer.GetTile(tileCoord) != null) && (WorldData2.CheckPlantedLocation(tileCoord)))
                 {
                     float growthRate = PlayerData2.localGrowSpeed;
 
@@ -178,18 +176,16 @@ public class PlayerInventory2 : NetworkBehaviour
                     string vegetableString = item.itemName.Substring(0, item.itemName.Length - 5);
                     
                     // Place item in middle of cell, track planted location. All handled by world data
-                    bool plantAttempt = WorldData2.AddPlantedLocation(pos, vegetableString, growthRate);
+                    bool plantAttempt = WorldData2.AddPlantedLocation(tileCoord, vegetableString, growthRate);
                     
                     //On succesful plant, tell other clients to add a plant at that location as well
                     if (plantAttempt)
                     {
                         //Tell others to add the plant
                         Debug.Log("Sending through growth rate of " + growthRate.ToString());
-                        CmdPlantSeed(pos, vegetableString, growthRate);
+                        CmdPlantSeed(tileCoord, vegetableString, growthRate);
                         ItemUsed();
                     }
-                    
-
                 }
             }
             else
@@ -197,31 +193,24 @@ public class PlayerInventory2 : NetworkBehaviour
                 switch (item.itemName)
                 {
                     case "Shovel":
-                        // get the position of the click
-
-                        Vector2 mousePos = Input.mousePosition;
-                        Vector2 worldPosition2D = Camera.main.ScreenToWorldPoint(mousePos);
-                        Vector3 worldPosition = new Vector3(worldPosition2D.x, worldPosition2D.y, transform.position.z);
-                        Vector3Int worldPos = WorldData2.diggableLayer.WorldToCell(worldPosition);
-
                         // locally update our tile
-                        WorldData2.diggableLayer.SetTile(worldPos, null);
-
+                        WorldData2.diggableLayer.SetTile(tileCoord, null);
                         // tell the server to tell other clients about our click
                         if (isServer)
-                            RpcSetTile(worldPos);
+                            RpcSetTile(tileCoord);
                         else
-                            CmdSetTile(worldPos);
-
-                        ItemUsed();
+                            CmdSetTile(tileCoord);
                         break;
 
+                    case "BearTrap":
+                        if (isServer)
+                            RpcSetBearTrap(item, location);
+                        else
+                            CmdSetBearTrap(item, location);
+                        ItemUsed();
+                        break;
                 }
-
-
             }
-
-            //ItemUsed(); // should be called after an item is successfully used
         }
     }
 
@@ -305,6 +294,20 @@ public class PlayerInventory2 : NetworkBehaviour
     {
         // update our tile
         WorldData2.diggableLayer.SetTile(v, null);
+    }
+
+
+    [Command]
+    private void CmdSetBearTrap(Item2 item, Vector2 location)
+    {
+        RpcSetBearTrap(item, location);
+    }
+
+    [ClientRpc]
+    private void RpcSetBearTrap(Item2 item, Vector2 location)
+    {
+        GameObject bearTrap = Instantiate(item.actionPrefab, location, Quaternion.identity);
+        bearTrap.GetComponent<BearTrap>().trapOwnerTag = gameObject.tag;
     }
 
 }
