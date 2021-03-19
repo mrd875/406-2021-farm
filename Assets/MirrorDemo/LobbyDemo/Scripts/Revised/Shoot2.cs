@@ -89,15 +89,11 @@ public class Shoot2 : NetworkBehaviour
     [ClientRpc]
     private void RpcSpawnProjectile(Vector2 target, Vector2 startLocation, Vector2 startSpeed, string tag)
     {
-        Vector2 dir = (Vector3)target - transform.position;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + 90f;
-        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         GameObject projectile = Instantiate(projectilePrefab, startLocation, transform.rotation);
         (projectile.GetComponent("ProjectileController2") as ProjectileController2).target = target;
         (projectile.GetComponent("ProjectileController2") as ProjectileController2).startLocation = startLocation;
         (projectile.GetComponent("ProjectileController2") as ProjectileController2).startSpeed = startSpeed;
-        (projectile.GetComponent("ProjectileController2") as ProjectileController2).rotation = rotation;
         projectile.tag = tag;
 
     }
