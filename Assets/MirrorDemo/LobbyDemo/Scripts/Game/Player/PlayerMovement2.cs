@@ -6,8 +6,10 @@ using Mirror;
 public class PlayerMovement2 : NetworkBehaviour
 {
     // basic movement variables
-    public float moveSpeed = 200.0f;
-    private float baseMoveSpeed;
+    public float maxMoveSpeed = 200.0f;
+    private float activeMoveSpeed;
+    public float speedUpgradeMagnitude = 1.2f;
+    public int speedUpgradeCount = 0;
     private bool isMoving = false;
     private int appliedReductionEffects; // amount of slow effects applied (for duration purpose)
     public Vector3 movement;
@@ -21,8 +23,9 @@ public class PlayerMovement2 : NetworkBehaviour
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
-        baseMoveSpeed = moveSpeed;
+        activeMoveSpeed = maxMoveSpeed;
     }
+
 
     void Update()
     {
@@ -46,18 +49,27 @@ public class PlayerMovement2 : NetworkBehaviour
         }
     }
 
+
     private void FixedUpdate()
     {
         if (hasAuthority)
         {
             //Move in response to input from WASD or Arrow Keys
-            rb.velocity = movement.normalized * moveSpeed * Time.fixedDeltaTime;
+            rb.velocity = movement.normalized * activeMoveSpeed * Time.fixedDeltaTime;
         }
         else
         {
             rb.velocity = Vector3.zero;
         }
     }
+
+
+    public void SpeedUpgrade()
+    {
+        maxMoveSpeed *= speedUpgradeMagnitude;
+        speedUpgradeCount += 1;
+    }
+
 
     // Effects that reduce target movement speeds call this function
     public void ReduceSpeed(float reduction)
@@ -68,18 +80,29 @@ public class PlayerMovement2 : NetworkBehaviour
             CmdReduceSpeed(reduction);
     }
 
+
     // Changes movement speed back to normal after a certain time. Timer resets when hit by another projectile.
     private IEnumerator RegainSpeed()
     {
         yield return new WaitForSeconds(3f);
         appliedReductionEffects -= 1;
         if (appliedReductionEffects == 0)
-            moveSpeed = baseMoveSpeed;
+            activeMoveSpeed = maxMoveSpeed;
         if (appliedReductionEffects < 0)
         {
             Debug.Log("Error: applied speed effects less than 0");
         }
     }
+
+
+    public IEnumerator Trapped(GameObject trap, float trapTime)
+    {
+        activeMoveSpeed = 0.0f;
+        yield return new WaitForSeconds(trapTime);
+        activeMoveSpeed = maxMoveSpeed;
+        Destroy(trap);
+    }
+
 
     [Command]
     private void CmdReduceSpeed(float reduction)
@@ -90,7 +113,7 @@ public class PlayerMovement2 : NetworkBehaviour
     [ClientRpc]
     private void RpcReduceSpeed(float reduction)
     {
-        moveSpeed = baseMoveSpeed * reduction;
+        activeMoveSpeed = maxMoveSpeed * reduction;
         appliedReductionEffects += 1;
         StartCoroutine(RegainSpeed());
     }

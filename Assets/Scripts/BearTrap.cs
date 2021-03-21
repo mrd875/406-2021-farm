@@ -42,17 +42,17 @@ public class BearTrap : MonoBehaviour
                 triggered = true;
                 other.transform.position = gameObject.transform.position + new Vector3(0, 0.7f, 0);
                 PlayerMovement2 playerMovement = other.GetComponent<PlayerMovement2>();
-                StartCoroutine(Trapped(playerMovement));
+                StartCoroutine(playerMovement.Trapped(this.gameObject, trapTime));
             }
         }
     }
 
-    private IEnumerator Trapped(PlayerMovement2 playerMovement)
+/*    private IEnumerator Trapped(PlayerMovement2 playerMovement)
     {
-        float baseMovementSpeed = playerMovement.moveSpeed;
+        float baseMovementSpeed = playerMovement.baseMoveSpeed;
         playerMovement.moveSpeed = 0.0f;
         yield return new WaitForSeconds(trapTime);
         playerMovement.moveSpeed = baseMovementSpeed;
         Destroy(this.gameObject);
-    }
+    }*/
 }
