@@ -41,7 +41,6 @@ public class PlayerInventory2 : NetworkBehaviour
         // Add shovel from start
         GameObject shovel = Instantiate(shovelPrefab, Vector2.zero, Quaternion.identity);
         AddItem(shovel.GetComponent<Item2>());
-        
     }
 
     void Update()
@@ -69,44 +68,35 @@ public class PlayerInventory2 : NetworkBehaviour
                     //No matter what add it to the slot of existing items. No need to look further
                     break;
                 }
-
             }
-
         }
-
         if (slotToAdd != -1)
         {
             itemSlots[slotToAdd].AddFirst(item);
             item.transform.gameObject.GetComponent<SpriteRenderer>().sprite = item.InventorySprite;
             item.transform.position = new Vector3(-500, 0, 0);
         }
-
         // Update inventory UI on screen
         switch (slotToAdd)
         {
             case 0:
                 UpdateUI("Slot1UI", item, 0);
                 return true;
-
             case 1:
                 UpdateUI("Slot2UI", item, 1);
                 return true;
-
             case 2:
                 UpdateUI("Slot3UI", item, 2);
                 return true;
-
             case 3:
                 UpdateUI("Slot4UI", item, 3);
                 return true;
-
             case 4:
                 UpdateUI("Slot5UI", item, 4);
                 return true;
             case -1:
                 // inventory full
                 return false;
-
         }
         return false;
     }
@@ -206,11 +196,11 @@ public class PlayerInventory2 : NetworkBehaviour
                         break;
 
                     case "BearTrap":
+                        //selectedItemObject = selectedItem.actionPrefab;
                         if (isServer)
-                            RpcSetBearTrap(item, location);
+                            RpcSetBearTrap(location, gameObject.tag);
                         else
-                            CmdSetBearTrap(item, location);
-                        ItemUsed();
+                            CmdSetBearTrap(location, gameObject.tag);
                         break;
                 }
             }
@@ -297,25 +287,23 @@ public class PlayerInventory2 : NetworkBehaviour
     {
         // update our tile
         WorldData2.p1DiggableLayer.SetTile(v, null);
-        WorldData2.p2DiggableLayer.SetTile(v, null);
+        WorldData2.p2DiggableLayer.SetTile(v, null);      
     }
 
 
     [Command]
-    private void CmdSetBearTrap(Item2 item, Vector2 location)
+    private void CmdSetBearTrap(Vector2 location, string userTag)
     {
-        RpcSetBearTrap(item, location);
+        RpcSetBearTrap(location, tag);
     }
 
     [ClientRpc]
-    private void RpcSetBearTrap(Item2 item, Vector2 location)
+    private void RpcSetBearTrap(Vector2 location, string userTag)
     {
-        if (item == null)
-        {
-            Debug.Log("DKFJKDJFKLDJKFJD");
-        }
-        GameObject bearTrap = Instantiate(item.actionPrefab, location, Quaternion.identity);
+        GameObject bearTrap = Instantiate(ObjectData.bearTrapPrefab, location, Quaternion.identity);
         bearTrap.GetComponent<BearTrap>().trapOwnerTag = gameObject.tag;
+        if (userTag == PlayerData2.localPlayer.tag)
+            ItemUsed();
     }
 
 }

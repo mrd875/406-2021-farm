@@ -205,9 +205,7 @@ MonoBehaviour:
   interactionRange: 2
   canInteract: 0
   highlightedInteractable: {fileID: 0}
-  area:
-    m_Position: {x: 0, y: 0, z: 0}
-    m_Size: {x: 15, y: 20, z: 1}
+  testPrefab: {fileID: 7001324532284686200, guid: ed0be70ed4bfa4c42b3723ec7790164d, type: 3}
 --- !u!61 &9000735518018980513
 BoxCollider2D:
   m_ObjectHideFlags: 0

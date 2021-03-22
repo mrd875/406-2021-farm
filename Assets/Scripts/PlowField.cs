@@ -12,27 +12,27 @@ public class PlowField : NetworkBehaviour
     public void Activate()
     {
         if (isServer)
-            RpcDigAllTiles();
+            RpcDigAllTiles(PlayerData2.localPlayer.tag);
         else
-            CmdDigAllTiles();
+            CmdDigAllTiles(PlayerData2.localPlayer.tag);
     }
 
-    [Command]
-    private void CmdDigAllTiles()
+    [Command(ignoreAuthority = true)]
+    private void CmdDigAllTiles(string userTag)
     {
-        RpcDigAllTiles();
+        RpcDigAllTiles(userTag);
     }
 
     [ClientRpc]
-    private void RpcDigAllTiles()
+    private void RpcDigAllTiles(string userTag)
     {
         Tilemap diggableLayer = new Tilemap();
-        if (PlayerData2.localPlayer.tag == "PlayerOne")
+        if (userTag == "PlayerOne")
             diggableLayer = WorldData2.p1DiggableLayer;
-        else if (PlayerData2.localPlayer.tag == "PlayerTwo")
+        else if (userTag == "PlayerTwo")
             diggableLayer = WorldData2.p2DiggableLayer;
-        else
-            diggableLayer = WorldData2.p1DiggableLayer;
+/*        else
+            diggableLayer = WorldData2.p1DiggableLayer;*/
 
         BoundsInt area = diggableLayer.cellBounds;
         TileBase[] allTiles = diggableLayer.GetTilesBlock(area);

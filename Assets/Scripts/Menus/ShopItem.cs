@@ -13,6 +13,7 @@ public class ShopItem : MonoBehaviour
     public bool plantGrowthUpgrade;
     public bool roundPoint;
     public bool plowField;
+    public bool bearTrap;
 
     public GameObject itemPrefab;
 
@@ -42,7 +43,14 @@ public class ShopItem : MonoBehaviour
             if (plowField)
             {
                 GetComponent<PlowField>().Activate();
-            }  
+            }
+
+            if (bearTrap)
+            {
+                GameObject bearTrapItemClone = Instantiate(ObjectData.bearTrapItemPrefab, Vector2.zero, Quaternion.identity);
+                PlayerData2.localPlayer.GetComponent<PlayerInventory2>().AddItem(bearTrapItemClone.GetComponent<Item2>());
+            }
+
         }
         GameObject.Find("Shop").GetComponent<ShopSystem>().UpdateText();
     }

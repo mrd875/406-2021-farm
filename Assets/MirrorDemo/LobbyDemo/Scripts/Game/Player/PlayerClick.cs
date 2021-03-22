@@ -9,6 +9,7 @@ using Mirror;
 
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
+using Quaternion = UnityEngine.Quaternion;
 
 public class PlayerClick : NetworkBehaviour
 {
@@ -27,6 +28,8 @@ public class PlayerClick : NetworkBehaviour
 
     private LayerMask whatIsInteractable;
     public GameObject highlightedInteractable;
+
+    public GameObject testPrefab;
 
 
     private void Start()
@@ -158,6 +161,14 @@ public class PlayerClick : NetworkBehaviour
             {
                 // Can test new functions here, Activates when empty item slot is selected when click in radius occurs
                 Debug.Log("false");
+
+
+                if (isServer)
+                    RpcSpawnPrefab(mouseWorldPos);
+                else
+                    CmdSpawnPrefab(mouseWorldPos);
+
+
             }
         }
     }
@@ -273,5 +284,17 @@ public class PlayerClick : NetworkBehaviour
     private void RpcDropItem(Item2 i, Vector2 v)
     {
         i.transform.position = v;
+    }
+
+
+    [Command]
+    private void CmdSpawnPrefab(Vector2 location)
+    {
+        RpcSpawnPrefab(location);
+    }
+    [ClientRpc]
+    private void RpcSpawnPrefab(Vector2 location)
+    {
+        GameObject testClone = Instantiate(testPrefab, location, Quaternion.identity);
     }
 }
