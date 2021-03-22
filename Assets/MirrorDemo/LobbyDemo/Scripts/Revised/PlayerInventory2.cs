@@ -164,11 +164,12 @@ public class PlayerInventory2 : NetworkBehaviour
         if (selectedSlot.Count != 0)
         {
             Item2 item = selectedSlot.First.Value;
-            Vector3Int tileCoord = WorldData2.diggableLayer.WorldToCell(location);  //Get cell location
+            Vector3Int tileCoord = WorldData2.p1DiggableLayer.WorldToCell(location);  //Get cell location
             // if item is a seed it adds a tile based on the editor
             if (item.is_seed)
             {
-                if ((WorldData2.diggableLayer.GetTile(tileCoord) == null) && (WorldData2.plantableLayer.GetTile(tileCoord) != null) && (WorldData2.CheckPlantedLocation(tileCoord)))
+                if ((WorldData2.p1DiggableLayer.GetTile(tileCoord) == null && WorldData2.p2DiggableLayer.GetTile(tileCoord) == null)
+                    && (WorldData2.plantableLayer.GetTile(tileCoord) != null) && (WorldData2.CheckPlantedLocation(tileCoord)))
                 {
                     float growthRate = PlayerData2.localGrowSpeed;
 
@@ -181,6 +182,7 @@ public class PlayerInventory2 : NetworkBehaviour
                     //On succesful plant, tell other clients to add a plant at that location as well
                     if (plantAttempt)
                     {
+                        Debug.Log("here");
                         //Tell others to add the plant
                         Debug.Log("Sending through growth rate of " + growthRate.ToString());
                         CmdPlantSeed(tileCoord, vegetableString, growthRate);
@@ -194,7 +196,8 @@ public class PlayerInventory2 : NetworkBehaviour
                 {
                     case "Shovel":
                         // locally update our tile
-                        WorldData2.diggableLayer.SetTile(tileCoord, null);
+                        WorldData2.p1DiggableLayer.SetTile(tileCoord, null);
+                        WorldData2.p2DiggableLayer.SetTile(tileCoord, null);
                         // tell the server to tell other clients about our click
                         if (isServer)
                             RpcSetTile(tileCoord);
@@ -293,7 +296,8 @@ public class PlayerInventory2 : NetworkBehaviour
     private void RpcSetTile(Vector3Int v)
     {
         // update our tile
-        WorldData2.diggableLayer.SetTile(v, null);
+        WorldData2.p1DiggableLayer.SetTile(v, null);
+        WorldData2.p2DiggableLayer.SetTile(v, null);
     }
 
 
@@ -306,6 +310,10 @@ public class PlayerInventory2 : NetworkBehaviour
     [ClientRpc]
     private void RpcSetBearTrap(Item2 item, Vector2 location)
     {
+        if (item == null)
+        {
+            Debug.Log("DKFJKDJFKLDJKFJD");
+        }
         GameObject bearTrap = Instantiate(item.actionPrefab, location, Quaternion.identity);
         bearTrap.GetComponent<BearTrap>().trapOwnerTag = gameObject.tag;
     }

@@ -6,7 +6,8 @@ using UnityEngine;
 public class WorldData2 : MonoBehaviour
 {
     // Interactable tilemaps
-    static public Tilemap diggableLayer;
+    static public Tilemap p1DiggableLayer;
+    static public Tilemap p2DiggableLayer;
     static public Tilemap plantableLayer;
     static public Tilemap highlighter;
 
@@ -43,7 +44,8 @@ public class WorldData2 : MonoBehaviour
 
     void Awake()
     {
-        diggableLayer = GameObject.Find("DiggableTiles").GetComponent<Tilemap>();
+        p1DiggableLayer = GameObject.Find("P1DiggableTiles").GetComponent<Tilemap>();
+        p2DiggableLayer = GameObject.Find("P2DiggableTiles").GetComponent<Tilemap>();
         plantableLayer = GameObject.Find("PlantableTiles").GetComponent<Tilemap>();
         highlighter = GameObject.Find("Highlighter").GetComponent<Tilemap>();
 
@@ -97,6 +99,7 @@ public class WorldData2 : MonoBehaviour
             }
 
             //Couldn't find plant
+            Debug.Log("here");
             return false;
         }
         else

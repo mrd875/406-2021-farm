@@ -28,6 +28,7 @@ public class PlayerClick : NetworkBehaviour
     private LayerMask whatIsInteractable;
     public GameObject highlightedInteractable;
 
+
     private void Start()
     {
         highlightTile.color = new Color(0f, 0.5f, 1f, 0.5f); // default color (rgba)
@@ -47,8 +48,8 @@ public class PlayerClick : NetworkBehaviour
                 highlightedInteractable.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
             else
                 highlightedInteractable.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
-        
-            
+
+
 
         // Get mouse coordinates (for highlight tile)
         Vector2 mousePos = Input.mousePosition;
@@ -109,7 +110,7 @@ public class PlayerClick : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.R))
             if (inventory.DropItem())
                 CmdDropItem(inventory.selectedSlot.First.Value.GetComponent<Item2>(), gameObject.transform.position);
-        
+
         // Interact
         if (Input.GetMouseButtonDown(0) && canInteract)
         {
@@ -127,7 +128,7 @@ public class PlayerClick : NetworkBehaviour
                     if (couldAdd)
                     {
                         //Remove the pickup and planted location from user and all other clients
-                        int removedID = WorldData2.RemovePlantedLocation(WorldData2.diggableLayer.WorldToCell(mouseWorldPos));
+                        int removedID = WorldData2.RemovePlantedLocation(WorldData2.p1DiggableLayer.WorldToCell(mouseWorldPos));
                         if (itemToAdd.gameObject.GetComponent<plantID>() != null)
                         {
                             removedID = itemToAdd.gameObject.GetComponent<plantID>().ID;
@@ -136,15 +137,15 @@ public class PlayerClick : NetworkBehaviour
                     }
                 }
                 // Check if interactable object was a seed bin
-                else if (highlightedInteractable.GetComponent<SeedBin>() != null) 
+                else if (highlightedInteractable.GetComponent<SeedBin>() != null)
                 {
                     inventory.AddItem(highlightedInteractable.GetComponent<SeedBin>().seed);
-                } 
+                }
                 // Check if interactable object was a sell bin
-                else if (highlightedInteractable.GetComponent<SellingBin>() != null) 
+                else if (highlightedInteractable.GetComponent<SellingBin>() != null)
                 {
                     inventory.SellItem();
-                } 
+                }
             }
             // Use item
             else if (inventory.selectedSlot.First != null)
@@ -155,6 +156,7 @@ public class PlayerClick : NetworkBehaviour
             // No actions
             else
             {
+                // Can test new functions here, Activates when empty item slot is selected when click in radius occurs
                 Debug.Log("false");
             }
         }
@@ -250,14 +252,14 @@ public class PlayerClick : NetworkBehaviour
     {
         //For plant pickups/ dynamically spawned in stuff
         WorldData2.RemoveItemsWithID(ID);
-        
+
         //for everything else
         if (i != null)
         {
             //Destroy(i.transform.gameObject);
             i.transform.position = new Vector3(-500, 0, 0);
         }
-        
+
     }
 
 
@@ -272,8 +274,4 @@ public class PlayerClick : NetworkBehaviour
     {
         i.transform.position = v;
     }
-
-
-
-
 }

@@ -12,6 +12,9 @@ public class ShopItem : MonoBehaviour
     public bool playerMoveUpgrade;
     public bool plantGrowthUpgrade;
     public bool roundPoint;
+    public bool plowField;
+
+    public GameObject itemPrefab;
 
 
     // Update player's total money count
@@ -36,13 +39,11 @@ public class ShopItem : MonoBehaviour
                 RoundPoint.Activate();
             }
 
-            
+            if (plowField)
+            {
+                GetComponent<PlowField>().Activate();
+            }  
         }
-        
-
-
-        
         GameObject.Find("Shop").GetComponent<ShopSystem>().UpdateText();
-
     }
 }

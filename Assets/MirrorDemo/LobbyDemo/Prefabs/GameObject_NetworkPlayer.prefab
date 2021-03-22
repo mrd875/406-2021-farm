@@ -76,7 +76,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  moveSpeed: 200
+  maxMoveSpeed: 200
+  speedUpgradeMagnitude: 1.2
+  speedUpgradeCount: 0
   movement: {x: 0, y: 0, z: 0}
   animator: {fileID: -3166991735439898652}
   rb: {fileID: 0}
@@ -203,6 +205,9 @@ MonoBehaviour:
   interactionRange: 2
   canInteract: 0
   highlightedInteractable: {fileID: 0}
+  area:
+    m_Position: {x: 0, y: 0, z: 0}
+    m_Size: {x: 15, y: 20, z: 1}
 --- !u!61 &9000735518018980513
 BoxCollider2D:
   m_ObjectHideFlags: 0
