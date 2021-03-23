@@ -109,7 +109,7 @@ public class PlayerClick : NetworkBehaviour
         // Drop Item
         if (Input.GetKeyDown(KeyCode.R))
             if (inventory.DropItem())
-                CmdDropItem(inventory.SelectedSlot.First.Value.GetComponent<Item2>(), gameObject.transform.position);
+                CmdDropItem(inventory.selectedSlot.First.Value.GetComponent<Item2>(), gameObject.transform.position);
 
         // Interact
         if (Input.GetMouseButtonDown(0) && canInteract)
@@ -148,7 +148,7 @@ public class PlayerClick : NetworkBehaviour
                 }
             }
             // Use item
-            else if (inventory.SelectedSlot.First != null)
+            else if (inventory.selectedSlot.First != null)
             {
                 Debug.Log("Using Item");
                 inventory.UseSelectedItem(mouseWorldPos);
@@ -167,21 +167,23 @@ public class PlayerClick : NetworkBehaviour
     public void SetSlot(string slotName, int slotNumber)
     {
         //There is something in the slot you are leaving. Restore opacity
-        if (inventory.ItemSlots[oldSlotNumber].Count != 0)
+        if (inventory.itemSlots[oldSlotNumber].Count != 0)
         {
-            inventory.SelectedSlotUi.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
         }
         //Leaving an empty slot. Make it invisible
         else
         {
-            inventory.SelectedSlotUi.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
+            inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
         }
         //Store data to check on next slot change
         oldSlotNumber = slotNumber;
 
         //Change to new item
-        inventory.SelectedSlotNumber = slotNumber;
-        inventory.SelectedSlotUi.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+        inventory.selectedSlotNumber = slotNumber;
+        GameObject newSlot = GameObject.Find(slotName);
+        inventory.selectedSlotUI = newSlot;
+        inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
     }
 
 

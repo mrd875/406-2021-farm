@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
@@ -10,174 +9,148 @@ using UnityEngine.PlayerLoop;
 
 public class PlayerInventory2 : NetworkBehaviour
 {
-    // some constants
-    private const int SlotCount = 5;
-    private const int PosX = 30;
-    private const int DefaultSlotWidth = 105;
-    private const int DefaultPosY = -40;
-    private const string InventoryGameObjectName = "Inventory";
-    private const string SlotUiPrefabPath = "Prefabs/SlotUI";
+    // ToDo: Move player inventory elements from player data to here. static?
 
     // Array of linked lists, each indice contains an item slot
-    public readonly LinkedList<Item2>[] ItemSlots = CreateItemSlots(SlotCount);
+    public LinkedList<Item2>[] itemSlots;
 
     // A pointer to the slot the player has control over
-    public int SelectedSlotNumber = 0;
-    public LinkedList<Item2> SelectedSlot => ItemSlots[SelectedSlotNumber];
-    public GameObject SelectedSlotUi => GameObject.Find(GetSlotName(SelectedSlotNumber));
+    public LinkedList<Item2> selectedSlot;
+    public int selectedSlotNumber;
+    public GameObject selectedSlotUI;
 
     //Player global funds and money stuff
-    private int _money = 100;
-
+    public int money = 100;
     public bool inBinRange = false;
 
     public GameObject shovelPrefab;
 
-    private static bool hasCreatedUi = false;
-
     void Start()
     {
-        // create slot UI in scene
-        CreateSlotUi(SlotCount);
+        itemSlots = new LinkedList<Item2>[5];
+        itemSlots[0] = new LinkedList<Item2>();
+        itemSlots[1] = new LinkedList<Item2>();
+        itemSlots[2] = new LinkedList<Item2>();
+        itemSlots[3] = new LinkedList<Item2>();
+        itemSlots[4] = new LinkedList<Item2>();
+
+        selectedSlotNumber = 0;
+        selectedSlot = itemSlots[selectedSlotNumber];
+        selectedSlotUI = GameObject.Find("Slot1UI");
 
         // Add shovel from start
         GameObject shovel = Instantiate(shovelPrefab, Vector2.zero, Quaternion.identity);
         AddItem(shovel.GetComponent<Item2>());
     }
 
-    private static void CreateSlotUi(int slotCount)
-    {
-        if (hasCreatedUi) return;
-
-        var inventory = GameObject.Find(InventoryGameObjectName);
-        var posX = PosX;
-        var slot = (GameObject) Resources.Load(SlotUiPrefabPath);
-
-        for (var i = 0; i < slotCount; i++)
-        {
-            var go = Instantiate(slot, new Vector3(posX, DefaultPosY, .0f), Quaternion.identity);
-            if (go == null) throw new NullReferenceException();
-            go.name = GetSlotName(i);
-            go.transform.SetParent(inventory.transform);
-            posX += DefaultSlotWidth;
-        }
-
-        hasCreatedUi = true;
-    }
-
-    private static string GetSlotName(int slotNumber)
-    {
-        return "Slot" + (slotNumber + 1) + "UI";
-    }
-
-    private static LinkedList<Item2>[] CreateItemSlots(int slotCount)
-    {
-        var slots = new LinkedList<Item2>[slotCount];
-        for (var i = 0; i < slotCount; i++)
-        {
-            slots[i] = new LinkedList<Item2>();
-        }
-
-        return slots;
-    }
-
     void Update()
     {
+        selectedSlot = itemSlots[selectedSlotNumber];
     }
 
     public bool AddItem(Item2 item)
     {
         // slotToAdd will remain -1 until end only if inventory is full
-        var slotToAdd = -1;
+        int slotToAdd = -1;
 
         // Either find the lowest slot number, or the slot number that's item matches the item if it is stackable
-        for (var i = 0; i < ItemSlots.Length; i++)
+        for (int i = 0; i < itemSlots.Length; i++)
         {
-            if (slotToAdd == -1 && ItemSlots[i].Count == 0)
+            if ((slotToAdd == -1) && (itemSlots[i].Count == 0))
                 //But keep looking, as there may be a stackable slot later on
                 slotToAdd = i;
 
-            if (!item.is_stackable) continue;
-            if (ItemSlots[i].Count <= 0 || item.itemName != ItemSlots[i].First.Value.itemName) continue;
-            slotToAdd = i;
-            //No matter what add it to the slot of existing items. No need to look further
-            break;
+            if (item.is_stackable)
+            {
+                if ((itemSlots[i].Count > 0) && (item.itemName == itemSlots[i].First.Value.itemName))
+                {
+                    slotToAdd = i;
+                    //No matter what add it to the slot of existing items. No need to look further
+                    break;
+                }
+            }
         }
-
-        if (slotToAdd == -1) return false;
-
-        ItemSlots[slotToAdd].AddFirst(item);
-        item.transform.gameObject.GetComponent<SpriteRenderer>().sprite = item.InventorySprite;
-        item.transform.position = new Vector3(-500, 0, 0);
-        // Update inventory GUI on screen
-        UpdateUi(GetSlotName(slotToAdd), item, slotToAdd);
-        return true;
+        if (slotToAdd != -1)
+        {
+            itemSlots[slotToAdd].AddFirst(item);
+            item.transform.gameObject.GetComponent<SpriteRenderer>().sprite = item.InventorySprite;
+            item.transform.position = new Vector3(-500, 0, 0);
+        }
+        // Update inventory UI on screen
+        switch (slotToAdd)
+        {
+            case 0:
+                UpdateUI("Slot1UI", item, 0);
+                return true;
+            case 1:
+                UpdateUI("Slot2UI", item, 1);
+                return true;
+            case 2:
+                UpdateUI("Slot3UI", item, 2);
+                return true;
+            case 3:
+                UpdateUI("Slot4UI", item, 3);
+                return true;
+            case 4:
+                UpdateUI("Slot5UI", item, 4);
+                return true;
+            case -1:
+                // inventory full
+                return false;
+        }
+        return false;
     }
 
-    private void UpdateUi(string slotName, Item2 item, int slotNumber)
+    public void UpdateUI(string slotName, Item2 item, int slotNumber)
     {
-        if (slotName == null)
-        {
-            return;
-        }
+        GameObject.Find(slotName).transform.GetChild(0).GetComponent<Image>().sprite = item.gameObject.GetComponent<SpriteRenderer>().sprite;
 
-        GameObject.Find(slotName).transform.GetChild(0).GetComponent<Image>().sprite =
-            item.gameObject.GetComponent<SpriteRenderer>().sprite;
-
-        // Check if item is being added to active slot. Adjust color appropriately.
-        if (SelectedSlotNumber == slotNumber)
+        //Check if item is being added to active slot. Adjust color appropriately. 
+        if (selectedSlotNumber == slotNumber)
         {
             Color itemColor = item.gameObject.GetComponent<SpriteRenderer>().color;
-            // Fade out a bit in active slot
-            GameObject.Find(slotName).transform.GetChild(0).GetComponent<Image>().color =
-                new Color(itemColor.r, itemColor.g, itemColor.b, 0.5f);
+            //Fade out a bit in active slot
+            GameObject.Find(slotName).transform.GetChild(0).GetComponent<Image>().color = new Color(itemColor.r, itemColor.g, itemColor.b, 0.5f);
         }
         else
         {
-            GameObject.Find(slotName).transform.GetChild(0).GetComponent<Image>().color =
-                item.gameObject.GetComponent<SpriteRenderer>().color;
+            GameObject.Find(slotName).transform.GetChild(0).GetComponent<Image>().color = item.gameObject.GetComponent<SpriteRenderer>().color;
         }
 
         if (item.is_stackable)
-            GameObject.Find(slotName).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text =
-                "" + ItemSlots[slotNumber].Count;
+            GameObject.Find(slotName).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[slotNumber].Count;
+        //Destroy(item.transform.gameObject);
         item.transform.position = new Vector3(-500, 0, 0);
     }
 
     public bool DropItem()
     {
-        var selectedSlot = ItemSlots[SelectedSlotNumber];
         Debug.Log("Attempting to drop");
-        if (selectedSlot.Count <= 0) return false;
-        // Do not allow player to drop their shovel
-        if (selectedSlot.First.Value != null && selectedSlot.First.Value.itemName == "Shovel")
-            return false;
-
-        Item2 droppedItem = selectedSlot.First.Value;
-        // TODO: droppedItem can be null?
-        droppedItem.GetComponent<SpriteRenderer>().enabled = true;
-        //droppedItem.transform.position = gameObject.transform.position;   Done in command script
-        selectedSlot.Remove(droppedItem);
-        if (selectedSlot.Count == 0)
+        if (selectedSlot.Count > 0)
         {
-            Image image = SelectedSlotUi.transform.GetChild(0).GetComponent<Image>(); // For shorter reference
-            image.color =
-                new Color(image.color.r, image.color.g, image.color.b,
-                    0f); // Remove visibility of item icon by setting alpha to 0
-            SelectedSlotUi.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = ""; // clear text
-        }
-        else
-        {
-            SelectedSlotUi.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text =
-                "" + ItemSlots[SelectedSlotNumber].Count;
-        }
+            // Do not allow player to drop their shovel
+            if (selectedSlot.First.Value != null && selectedSlot.First.Value.itemName == "Shovel")
+                return false;
 
-        return true;
+            Item2 droppedItem = selectedSlot.First.Value;
+            droppedItem.GetComponent<SpriteRenderer>().enabled = true;
+            //droppedItem.transform.position = gameObject.transform.position;   Done in command script
+            selectedSlot.Remove(droppedItem);
+            if (selectedSlot.Count == 0)
+            {
+                Image image = selectedSlotUI.transform.GetChild(0).GetComponent<Image>();   // For shorter reference
+                image.color = new Color(image.color.r, image.color.g, image.color.b, 0f);   // Remove visibility of item icon by setting alpha to 0
+                selectedSlotUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = ""; // clear text
+            }
+            else
+                selectedSlotUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[selectedSlotNumber].Count;
+            return true;
+        }
+        return false;
     }
 
     public void UseSelectedItem(Vector2 location)
     {
-        var selectedSlot = ItemSlots[SelectedSlotNumber];
         if (selectedSlot.Count != 0)
         {
             Item2 item = selectedSlot.First.Value;
@@ -195,6 +168,7 @@ public class PlayerInventory2 : NetworkBehaviour
 
                     // Place item in middle of cell, track planted location. All handled by world data
                     bool plantAttempt = WorldData2.AddPlantedLocation(tileCoord, vegetableString, growthRate);
+
                     //On succesful plant, tell other clients to add a plant at that location as well
                     if (plantAttempt)
                     {
@@ -236,7 +210,7 @@ public class PlayerInventory2 : NetworkBehaviour
     //Called by sell bin on player click when in range
     public void SellItem()
     {
-        Item2 item = SelectedSlot.First.Value;
+        Item2 item = selectedSlot.First.Value;
         //Sellables work differently
         if (item.itemName.Length > 8 && item.itemName.Substring(0, 8) == "Sellable")
         {
@@ -249,41 +223,40 @@ public class PlayerInventory2 : NetworkBehaviour
     }
 
 
+
     public void ItemUsed()
     {
         // Consumption
-        if (SelectedSlot.First.Value.is_consumable)
+        if (selectedSlot.First.Value.is_consumable)
         {
-            Item2 consumedItem = SelectedSlot.First.Value;
-            SelectedSlot.Remove(consumedItem);
-            if (SelectedSlot.Count == 0)
+            Item2 consumedItem = selectedSlot.First.Value;
+            selectedSlot.Remove(consumedItem);
+            //Destroy(consumedItem);
+            if (selectedSlot.Count == 0)
             {
-                Image image = SelectedSlotUi.transform.GetChild(0).GetComponent<Image>(); // For shorter reference
+                Image image = selectedSlotUI.transform.GetChild(0).GetComponent<Image>();   // For shorter reference
                 image.sprite = null;
                 image.color = new Color(1, 1, 1, 0.5f);
-                SelectedSlotUi.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = ""; // clear text
+                selectedSlotUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = ""; // clear text
             }
             else
-            {
-                SelectedSlotUi.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text =
-                    "" + ItemSlots[SelectedSlotNumber].Count;
-            }
+                selectedSlotUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[selectedSlotNumber].Count;
         }
     }
 
     public void AddMoney(int value)
     {
-        if (_money + value > 0)
+        if (money + value > 0)
         {
-            _money += value;
+            money += value;
         }
         else
         {
-            _money = 0;
+            money = 0;
         }
 
         //Update money text
-        UpdateMoney moneyText = FindObjectOfType<UpdateMoney>();
+        UpdateMoney moneyText = GameObject.FindObjectOfType<UpdateMoney>();
         moneyText.UpdateMoneyText();
     }
 
@@ -291,7 +264,7 @@ public class PlayerInventory2 : NetworkBehaviour
     [Command]
     private void CmdPlantSeed(Vector3Int location, string plantName, float growthRate)
     {
-        Debug.Log("Still have growth rate of " + growthRate);
+        Debug.Log("Still have growth rate of " + growthRate.ToString());
         RpcPlantSeed(location, plantName, growthRate);
     }
 
@@ -333,4 +306,5 @@ public class PlayerInventory2 : NetworkBehaviour
         if (userTag == PlayerData2.localPlayer.tag)
             ItemUsed();
     }
+
 }

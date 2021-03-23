@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,11 +6,6 @@ using UnityEngine.UI;
 // Static variables for player one
 public class PlayerData : MonoBehaviour
 {
-    const int POS_X = 30;
-    const int DEFAULT_SLOT_WIDTH = 105;
-
-    const int DEFAULT_POS_Y = -40;
-
     // Reference to player object
     static public GameObject playerOne;
     static public Rigidbody2D playerOneRb;
@@ -54,39 +48,15 @@ public class PlayerData : MonoBehaviour
         userArea = WorldData.playerOneZone;
 
         const int len = 5;
-        itemSlots = CreateItemSlots(len);
-        CreateSlotUI(len);
+        itemSlots = new LinkedList<Item>[len];
+        for (var i = 0; i < len; i++)
+        {
+            itemSlots[i] = new LinkedList<Item>();
+        }
 
         selectedSlotNumber = 0;
         selectedSlotUI = GameObject.Find("Slot1UI");
-    }
 
-    private void CreateSlotUI(int slotCount)
-    {
-        var inventory = GameObject.Find("Inventory");
-        var posX = POS_X;
-        var slot = (GameObject) Resources.Load("Prefabs/SlotUI");
-
-        for (var i = 0; i < slotCount; i++)
-        {
-            var go = Instantiate(slot, new Vector3(posX, DEFAULT_POS_Y, .0f), Quaternion.identity);
-            if (go == null) throw new NullReferenceException();
-            // go.transform.position = new Vector3(0, 0, .0f);
-            go.name = "Slot" + (i + 1) + "UI";
-            go.transform.parent = inventory.transform;
-            posX += DEFAULT_SLOT_WIDTH;
-        }
-    }
-
-    private static LinkedList<Item>[] CreateItemSlots(int slotCount)
-    {
-        var slots = new LinkedList<Item>[slotCount];
-        for (var i = 0; i < slotCount; i++)
-        {
-            slots[i] = new LinkedList<Item>();
-        }
-
-        return slots;
     }
 
     private static string GetSlotName(int slotNumber)
