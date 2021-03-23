@@ -8,6 +8,8 @@ public class PlayerData2 : NetworkBehaviour
     static public GameObject playerOne;
     static public GameObject playerTwo;
     static public GameObject localPlayer;
+    static public PlayerClick playerClick;
+
     static public float localGrowSpeed = 1;
 
     // Start is called before the first frame update
@@ -26,6 +28,7 @@ public class PlayerData2 : NetworkBehaviour
             if (playerAuthority.hasAuthority)
             {
                 localPlayer = playerAuthority.gameObject;
+                playerClick = localPlayer.GetComponent<PlayerClick>();
             }
         }
         //localPlayer = GameObject.Find("LocalPlayer");
