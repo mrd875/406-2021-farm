@@ -81,18 +81,23 @@ public class PlayerInventory2 : NetworkBehaviour
         {
             case 0:
                 UpdateUI("Slot1UI", item, 0);
+                SoundControl.PlayButtonSound();
                 return true;
             case 1:
                 UpdateUI("Slot2UI", item, 1);
+                SoundControl.PlayButtonSound();
                 return true;
             case 2:
                 UpdateUI("Slot3UI", item, 2);
+                SoundControl.PlayButtonSound();
                 return true;
             case 3:
                 UpdateUI("Slot4UI", item, 3);
+                SoundControl.PlayButtonSound();
                 return true;
             case 4:
                 UpdateUI("Slot5UI", item, 4);
+                SoundControl.PlayButtonSound();
                 return true;
             case -1:
                 // inventory full
@@ -172,6 +177,7 @@ public class PlayerInventory2 : NetworkBehaviour
                     //On succesful plant, tell other clients to add a plant at that location as well
                     if (plantAttempt)
                     {
+                        SoundControl.PlayPlantSound();
                         Debug.Log("here");
                         //Tell others to add the plant
                         Debug.Log("Sending through growth rate of " + growthRate.ToString());
@@ -188,6 +194,7 @@ public class PlayerInventory2 : NetworkBehaviour
                         // locally update our tile
                         WorldData2.p1DiggableLayer.SetTile(tileCoord, null);
                         WorldData2.p2DiggableLayer.SetTile(tileCoord, null);
+                        SoundControl.PlayShovelSound();
                         // tell the server to tell other clients about our click
                         if (isServer)
                             RpcSetTile(tileCoord);
@@ -217,6 +224,7 @@ public class PlayerInventory2 : NetworkBehaviour
             Sellable sellComp = item.GetComponent<Sellable>();
             if (sellComp.SellPlant())
             {
+                SoundControl.PlayMoneySound();
                 ItemUsed();
             }
         }

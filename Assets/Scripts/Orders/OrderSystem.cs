@@ -79,6 +79,7 @@ public class OrderSystem : NetworkBehaviour
         if(activeOrders.Count < 3) {
             timer -= Time.deltaTime;
             if(timer <= 0.0f) {
+                SoundControl.PlayOrderSound();
                 newTicket(orders[0]);
                 timer = timeBetweenOrders;
             }

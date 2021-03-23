@@ -59,6 +59,7 @@ public class ShopSystem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OpenShopWindow()
     {
+        SoundControl.PlayShopSound();
         if (shopWindow.activeInHierarchy)
         {
             shopWindow.SetActive(false);

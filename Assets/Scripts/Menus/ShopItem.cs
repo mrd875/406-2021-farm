@@ -22,6 +22,7 @@ public class ShopItem : MonoBehaviour
     public void PurchaseItem() {
         if (PlayerData.money >= cost)
         {
+            SoundControl.PlayPurchaseSound();
             PlayerData.AddMoney(-cost);
             if (playerMoveUpgrade)
             {

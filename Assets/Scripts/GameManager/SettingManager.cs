@@ -99,11 +99,13 @@ public class SettingManager : MonoBehaviour
 
     public void OnMusicVolumeChange()
     {
+        SoundControl.musicVolume = musicVolumeSlider.value;
         gameSettings.musicVolume = musicSource.volume = musicVolumeSlider.value;
     }
 
     public void OnSoundEffectsVolumeChange()
     {
+        SoundControl.soundEffectVolume = soundEffectsVolumeSlider.value;
         gameSettings.soundEffectsVolume = soundEffectsSource.volume = soundEffectsVolumeSlider.value;
     }
 
