@@ -61,7 +61,7 @@ public class PlayerClick : NetworkBehaviour
         CursorHighlightMode2(tileCoordinate);   // Cursor disappears when out of range
 
         //Scroll to change items
-        if (Input.mouseScrollDelta.y > 0)
+        if (Input.mouseScrollDelta.y < 0)
         {
             if (oldSlotNumber < 4)
             {
@@ -72,7 +72,7 @@ public class PlayerClick : NetworkBehaviour
                 SetSlot(slotNames[0], 0);
             }
         }
-        if (Input.mouseScrollDelta.y < 0)
+        if (Input.mouseScrollDelta.y > 0)
         {
             if (oldSlotNumber > 0)
             {
