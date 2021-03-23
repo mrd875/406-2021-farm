@@ -24,7 +24,7 @@ public class ShopSystem : MonoBehaviour
 
     private void Update() {
         // Check if the player is in the radius of the shop and has pressed the shop button
-        if(hasEntered && Input.GetKeyDown(KeyCode.P)) {
+        if(hasEntered && Input.GetKeyDown(KeyCode.F)) {
             if(shopWindow.activeInHierarchy) {
                 shopWindow.SetActive(false);
             }
