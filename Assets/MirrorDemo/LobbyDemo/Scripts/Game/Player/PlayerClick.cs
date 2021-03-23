@@ -114,6 +114,8 @@ public class PlayerClick : NetworkBehaviour
         // Interact
         if (Input.GetMouseButtonDown(0) && canInteract)
         {
+            ShopSystem shop;    // used to store shop script if exists on interactable    
+
             // Check if interactable object was clicked
             if (highlightedInteractable != null)
             {
@@ -136,15 +138,20 @@ public class PlayerClick : NetworkBehaviour
                         CmdAddItem(itemToAdd, removedID);
                     }
                 }
-                // Check if interactable object was a seed bin
+                // Check if interactable object is a seed bin
                 else if (highlightedInteractable.GetComponent<SeedBin>() != null)
                 {
                     inventory.AddItem(highlightedInteractable.GetComponent<SeedBin>().seed);
                 }
-                // Check if interactable object was a sell bin
+                // Check if interactable object is a sell bin
                 else if (highlightedInteractable.GetComponent<SellingBin>() != null)
                 {
                     inventory.SellItem();
+                }
+                // Check if interactable object is the shop
+                else if ((shop = highlightedInteractable.GetComponent<ShopSystem>()) != null)
+                {
+                    shop.OpenShopWindow();
                 }
             }
             // Use item
