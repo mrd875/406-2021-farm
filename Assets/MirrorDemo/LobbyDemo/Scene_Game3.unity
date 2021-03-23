@@ -3727,6 +3727,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 814383540}
+  - component: {fileID: 814383539}
   m_Layer: 0
   m_Name: PlantDB
   m_TagString: Untagged
@@ -3734,6 +3735,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &814383539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 814383538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6fef520bcde12e42bd5b0ad217d3231, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plants:
+  - plantObject: {fileID: 2654095527611210054, guid: 35407d55af3c6be43801f0a74a508505, type: 3}
+    plantName: Beet
+  - plantObject: {fileID: 8109386041393869306, guid: 94a03bf595c05c44ab8e2aba537af3fd, type: 3}
+    plantName: Eggplant
+  - plantObject: {fileID: 2506083140379774108, guid: 7ece48404f5eff34bb2aa242000464df, type: 3}
+    plantName: Pepper
+  - plantObject: {fileID: 117832141236150738, guid: aa7c73c2d89626b4982fa303d0882ff6, type: 3}
+    plantName: Potato
 --- !u!4 &814383540
 Transform:
   m_ObjectHideFlags: 0
