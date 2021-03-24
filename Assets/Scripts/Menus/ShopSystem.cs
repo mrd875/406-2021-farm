@@ -37,7 +37,7 @@ public class ShopSystem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
         // If player is out of range, make sure the shop is closed
         // This is in case that PlayerClick's interaction range is greater than radius of collider 
-        if (PlayerData2.localPlayer.tag == playerTag && hasEntered == false)
+        if (hasEntered == false)
         {
             shopWindow.SetActive(false);
         }
