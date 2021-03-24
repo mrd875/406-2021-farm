@@ -24,6 +24,14 @@ public class ShopSystem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
 
     private void Update() {
+        // local player isn't defined right away. This is to prevent errors
+        if (PlayerData2.localPlayer == null)
+            return;
+
+        if (Vector2.Distance(PlayerData2.localPlayer.transform.position, gameObject.transform.position) < 3.0f)
+            hasEntered = true;
+        else
+            hasEntered = false;
 
         // If player is out of range, make sure the shop is closed
         // This is in case that PlayerClick's interaction range is greater than radius of collider 
@@ -80,7 +88,7 @@ public class ShopSystem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         moneyText.text = "$" + PlayerData.money + ".00";
     }
 
-    private void OnTriggerEnter2D(Collider2D collider)
+/*    private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.tag == playerTag)
         {
@@ -92,5 +100,5 @@ public class ShopSystem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         shopWindow.SetActive(false);
         hasEntered = false;
-    }
+    }*/
 }
