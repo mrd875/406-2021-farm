@@ -1022,13 +1022,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boots
       objectReference: {fileID: 0}
+    - target: {fileID: 4230225629072915552, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 80a22f4dcd160b541ac27dde6897cfe8, type: 3}
+    - target: {fileID: 4230225629180332097, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4230225629185582927, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
       propertyPath: m_Text
       value: Mother Nature
       objectReference: {fileID: 0}
+    - target: {fileID: 4230225629192452786, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230225629275061890, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230225629417930479, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 83b9904c54dbe4b8ba227406b0a259c3, type: 3}
+    - target: {fileID: 4230225629605074904, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4230225629608143196, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
       propertyPath: m_Text
       value: Outsource Order
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230225629697577889, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4230225629769675959, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
       propertyPath: bearTrap
@@ -1040,7 +1068,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4230225629769675980, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
       propertyPath: m_Name
-      value: Trap
+      value: Bear Trap
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230225629837809671, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4230225629837925122, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
       propertyPath: roundPoint
@@ -1058,6 +1090,26 @@ PrefabInstance:
       propertyPath: m_Text
       value: Fertilizer
       objectReference: {fileID: 0}
+    - target: {fileID: 4230225630034864368, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
+      propertyPath: cost
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230225630034864368, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
+      propertyPath: plowField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230225630034864370, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
+      propertyPath: m_Name
+      value: Plow Field
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230225630167111724, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 292a3e40e063f8844bfe23fef9eb78f2, type: 3}
+    - target: {fileID: 4230225630308037990, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 36c055740b2b29547a57bc471c92db9f, type: 3}
     - target: {fileID: 4230225630332538358, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
       propertyPath: m_Text
       value: Boots
@@ -1076,21 +1128,41 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4230225630524866234, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
       propertyPath: m_Text
-      value: 'Trap
+      value: 'Bear Trap
 
 '
       objectReference: {fileID: 0}
+    - target: {fileID: 4230225630646620026, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4230225630793540221, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
       propertyPath: plowField
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4230225630793540221, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
       propertyPath: cost
       value: 175
       objectReference: {fileID: 0}
+    - target: {fileID: 4230225630793540221, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
+      propertyPath: roundPoint
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4230225630793540223, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
       propertyPath: m_Name
       value: Mother Nature
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230225630809219767, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230225630867756273, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230225630992553013, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
+      propertyPath: m_Text
+      value: Plow Field
       objectReference: {fileID: 0}
     - target: {fileID: 5765527623399605083, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
       propertyPath: m_AnchorMin.y
@@ -1299,6 +1371,10 @@ PrefabInstance:
     - target: {fileID: 8235258764190052987, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
       propertyPath: sceneId
       value: 2385305307
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288373321633605294, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
+      propertyPath: timeRemaining
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 8665914958533813278, guid: c807d2815e4a2f945ba0b533df85dc96, type: 3}
       propertyPath: sceneId

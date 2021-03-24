@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Mirror;
 
+// Must be on object that has authority
 public class PlowField : NetworkBehaviour
 {
     // Start is called before the first frame update
@@ -17,7 +18,7 @@ public class PlowField : NetworkBehaviour
             CmdDigAllTiles(PlayerData2.localPlayer.tag);
     }
 
-    [Command(ignoreAuthority = true)]
+    [Command]
     private void CmdDigAllTiles(string userTag)
     {
         RpcDigAllTiles(userTag);

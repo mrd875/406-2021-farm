@@ -43,7 +43,7 @@ public class ShopItem : MonoBehaviour
 
             if (plowField)
             {
-                GetComponent<PlowField>().Activate();
+                PlayerData2.localPlayer.GetComponent<PlowField>().Activate();
             }
 
             if (bearTrap)
