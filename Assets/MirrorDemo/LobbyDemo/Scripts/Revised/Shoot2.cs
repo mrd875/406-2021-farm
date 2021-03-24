@@ -30,7 +30,7 @@ public class Shoot2 : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
-        if (Input.GetKeyDown(KeyCode.Q)  && canShoot)
+        if (Input.GetMouseButton(1)  && canShoot)
         {
             isShooting = true;
             StartCoroutine(ShotCooldown(shotCooldown));
