@@ -125,8 +125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eefe7837c9235646955c993a7456d5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sellPrice: 18
   orders: {fileID: 0}
+  sellPrice: 10
 --- !u!114 &5425198524334168776
 MonoBehaviour:
   m_ObjectHideFlags: 0

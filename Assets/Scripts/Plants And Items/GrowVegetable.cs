@@ -26,6 +26,9 @@ public class GrowVegetable : NetworkBehaviour
     private float growTimer;
     private SpriteRenderer spriteController;
     private stages currentStage;
+    public float growthModifier;
+
+    private bool canGrow = false;
 
     // Start is called before the first frame update
     void Start()
@@ -36,37 +39,41 @@ public class GrowVegetable : NetworkBehaviour
         
         //Set vegetable and vegetable parameters to first vegetable
         currentStage = vegetableStages[currentStageIndex];
-        growTimer = currentStage.growTime;
         spriteController.sprite = currentStage.image;
 
-
-        StartCoroutine(VegetableTimer());
     }
 
 
-    private IEnumerator VegetableTimer()
+    public void StartGrowing(float growthRate)
     {
-        //While there are more vegetable stages....
-        while (currentStageIndex < maxStages - 1)
-        {
-            //Wait for stage timer
-            yield return new WaitForSeconds(growTimer);
+        growthModifier = growthRate;
+        Debug.Log("Starting to Grow with " + growthModifier.ToString() + " growth rate");
+        growTimer = Time.time + currentStage.growTime * growthModifier;
+        canGrow = true;
+    }
 
+    void Update()
+    {
+        if (canGrow && Time.time >= growTimer && (currentStageIndex < maxStages - 1))
+        {
             //Advance to next vegetable
             currentStageIndex += 1;
             currentStage = vegetableStages[currentStageIndex];
-            
+
             spriteController.sprite = currentStage.image;
-            growTimer = currentStage.growTime;
+            growTimer = Time.time + currentStage.growTime * growthModifier;
+
         }
+        else if (canGrow && currentStageIndex >= maxStages - 1)
+        {
+            //Plant is fully grown! Spawn a pickup and delete self. Make sure pickup shares ID
+            GameObject newPickup = Instantiate(fullyGrownItem, this.transform.position, this.transform.localRotation);
+            newPickup.GetComponent<plantID>().ID = ID;
 
-        //Plant is fully grown! Spawn a pickup and delete self. Make sure pickup shares ID
-        GameObject newPickup = Instantiate(fullyGrownItem, this.transform.position, this.transform.localRotation);
-        newPickup.GetComponent<plantID>().ID = ID;
+            CmdSpawnPickup(fullyGrownItem, this.transform.position, this.transform.localRotation);
 
-        CmdSpawnPickup(fullyGrownItem, this.transform.position, this.transform.localRotation);
-
-        Destroy(this.gameObject);
+            Destroy(this.gameObject);
+        }
     }
 
 

@@ -13,6 +13,7 @@ public class UpdateMoney : MonoBehaviour
 
     public void UpdateMoneyText()
     {
+        Debug.Log("Updating Money Text");
         moneyText.text = "$" + PlayerData.money + ".00";
     }
 

@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     // Loads the game scene
     public void StartGame()
     {
-        SceneManager.LoadScene("InventoryTestScene");
+        SceneManager.LoadScene("Scene_Lobby");
     }
 
     // Loads settings scene
@@ -22,6 +22,11 @@ public class GameManager : MonoBehaviour
     public void OpenMenu()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void OpenLobby()
+    {
+        SceneManager.LoadScene("Scene_Lobby");
     }
 
     // Exits the game

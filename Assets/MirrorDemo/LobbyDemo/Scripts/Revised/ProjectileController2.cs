@@ -9,6 +9,8 @@ public class ProjectileController2 : MonoBehaviour
     public Vector2 startLocation; // where the projectile is launched
     public Vector2 startSpeed;  // The speed of the launcher slightly affects the speed of the projectile
     public float speed = 10;    // Speed of the projectile
+    public Quaternion rotation; // desired rotation as the projectile will appear 
+    public Quaternion parentRotation;   // Original rotation, used for calculations
 
     public GameObject shovelPrefab;
 
@@ -20,7 +22,14 @@ public class ProjectileController2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        parentRotation = transform.rotation;
+        Vector2 dir = (Vector3)target - transform.position;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + 90f;
+        rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+
         direction = (target - startLocation).normalized;
+        parentRotation = transform.rotation;
 
         // projectile is destroyed after a given time after not colliding with anything
         Destroy(this.gameObject, lifeTime);
@@ -28,9 +37,9 @@ public class ProjectileController2 : MonoBehaviour
 
     private void Update()
     {
-        // Object moves slightly faster in the direction it is thrown
-        transform.Translate((direction * speed + (startSpeed / 2)) * Time.deltaTime);
-
+        transform.rotation = parentRotation;    // Temporarily reset rotation that translate works properly
+        transform.Translate((direction * speed + (startSpeed / 2)) * Time.deltaTime);   // Object moves slightly faster in the direction it is thrown
+        transform.rotation = rotation;
     }
 
     void OnTriggerEnter2D(Collider2D other)

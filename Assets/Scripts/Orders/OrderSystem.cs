@@ -79,6 +79,7 @@ public class OrderSystem : NetworkBehaviour
         if(activeOrders.Count < 3) {
             timer -= Time.deltaTime;
             if(timer <= 0.0f) {
+                SoundControl.PlayOrderSound();
                 newTicket(orders[0]);
                 timer = timeBetweenOrders;
             }
@@ -155,7 +156,7 @@ public class OrderSystem : NetworkBehaviour
         // Get the "Quantity object of "Order Item" and it's TMP component, update the text to relfect the new total
         activeTicketObjects[index].transform.GetChild(1).GetChild(itemIndex).GetChild(1).GetComponent<TextMeshProUGUI>().SetText("X " + activeOrders[index].orderAmounts[itemIndex]);
 
-        if(activeOrders[index].CheckOrder()) {
+        if(!activeOrders[index].CheckOrder()) {
             CompleteTicket(index);
         }
     }

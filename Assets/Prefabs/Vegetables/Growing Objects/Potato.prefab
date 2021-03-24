@@ -99,6 +99,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   vegetableStages:
+  - image: {fileID: 0}
+    growTime: 5
   - image: {fileID: -8370065296850116897, guid: 6f748577cd125d34ba3dd004e8f7931d, type: 3}
     growTime: 5
   - image: {fileID: -1036599351183086991, guid: 6f748577cd125d34ba3dd004e8f7931d, type: 3}
@@ -109,6 +111,7 @@ MonoBehaviour:
     growTime: 5
   fullyGrownItem: {fileID: 1163457314481026931, guid: 151fd55795dd78d468e7c5739fc69631, type: 3}
   ID: 0
+  growthModifier: 0
 --- !u!114 &1205270321442772438
 MonoBehaviour:
   m_ObjectHideFlags: 0

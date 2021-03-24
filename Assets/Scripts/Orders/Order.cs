@@ -1,57 +1,66 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class Order
 {
-    public List<string> orderNames = new List<string>();
-    public List<Sprite> orderSprites = new List<Sprite>();
-    public List<int> orderAmounts = new List<int>();
-    public int items = 0;
-    public int points = 0;
+    public class OrderItem
+    {
+        public string Name { get; }
 
-    // Add an item to the order
-    public void AddItem(string name, Sprite sprite, int amount) {
-        orderNames.Add(name);
-        orderSprites.Add(sprite);
-        orderAmounts.Add(amount);
-        items++;
-        points += amount;
+        public Sprite Sprite { get; }
+
+        public int Amount { get; set; }
+
+        public int StartAmount { get; }
+
+        public OrderItem(string name, Sprite sprite, int amount)
+        {
+            Name = name;
+            Sprite = sprite;
+            Amount = amount;
+            StartAmount = amount;
+        }
     }
 
+    public List<OrderItem> OrderItems { get; } = new List<OrderItem>();
+
+    public int Points
+    {
+        get { return OrderItems.Sum(ele => ele.StartAmount); }
+    }
+
+    // Add an item to the order
+    public void AddItem(string name, Sprite sprite, int amount)
+    {
+        OrderItems.Add(new OrderItem(name, sprite, amount));
+    }
 
     // Check if the order is complete
     // True if complete, false otherwise
-    public bool CheckOrder() {
-        foreach(int amount in orderAmounts) {
-            if(amount > 0) {
-                return false;
-            }
-        }
-        return true;
+    public bool CheckOrder()
+    {
+        return OrderItems.Any(ele => ele.Amount > 0);
     }
-
 
     // Check if the order contains the given produce and it's value is not 0
-    public bool OrderContains(string name) {
-        for(int x = 0; x < items; x++) {
-            if((name.Equals(orderNames[x])) && (orderAmounts[x] > 0)) {
-                return true;
-            }
-        }
-        return false;
+    public bool OrderContains(string name)
+    {
+        return OrderItems.Any(ele => ele.Name.Equals(name) && ele.Amount > 0);
     }
 
-
     // Updates the total on the order and return the index of the item that was updated
-    public int UpdateOrder(string name) {
-        for(int x = 0; x < items; x++) {
-            if(name.Equals(orderNames[x]) && (orderAmounts[x] > 0)) {
-                orderAmounts[x]--;
-                return x;
-            }
+    public int UpdateOrder(string name)
+    {
+        for (var x = 0; x < OrderItems.Count; x++)
+        {
+            var item = OrderItems[x];
+            if (!name.Equals(item.Name) || item.Amount <= 0) continue;
+            item.Amount--;
+            return x;
         }
+
         return 0;
     }
 }
