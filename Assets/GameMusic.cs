@@ -17,7 +17,7 @@ public class GameMusic : MonoBehaviour
         }
         //DontDestroyOnLoad(this.gameObject);
 
-        GetComponent<AudioSource>().volume = SoundControl.musicVolume * 0.1f;
+        GetComponent<AudioSource>().volume = SoundControl.musicVolume;
 
 
 
@@ -25,7 +25,7 @@ public class GameMusic : MonoBehaviour
 
     void Update()
     {
-        GetComponent<AudioSource>().volume = SoundControl.musicVolume * 0.1f;
+        GetComponent<AudioSource>().volume = SoundControl.musicVolume;
         if (SceneManager.GetActiveScene().name != gameSceneName)
         {
             //Make sure game music goes away when game ends

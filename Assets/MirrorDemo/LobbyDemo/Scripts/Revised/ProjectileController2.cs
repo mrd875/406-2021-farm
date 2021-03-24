@@ -47,6 +47,7 @@ public class ProjectileController2 : MonoBehaviour
         // Player one projectile hits player two
         if (gameObject.tag == "PlayerOneProjectile" && (other.tag == "PlayerTwo" || other.tag == "PlayerThree" || other.tag == "PlayerFour"))
         {
+            SoundControl.PlayWaterSound();
             // Don't slow other player if they are in their own field
             //if (!other.gameObject.GetComponent<PlayerTouch>().inHomeZone)
             other.GetComponent<PlayerMovement2>().ReduceSpeed(speedReduction);
@@ -55,6 +56,7 @@ public class ProjectileController2 : MonoBehaviour
         }
         else if (gameObject.tag == "PlayerTwoProjectile" && (other.tag == "PlayerOne" || other.tag == "PlayerThree" || other.tag == "PlayerFour"))
         {
+            SoundControl.PlayWaterSound();
             // Don't slow other player if they are in their own field
             //if (!other.gameObject.GetComponent<PlayerTouch>().inHomeZone)
             other.GetComponent<PlayerMovement2>().ReduceSpeed(speedReduction);

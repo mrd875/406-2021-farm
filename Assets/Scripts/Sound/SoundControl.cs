@@ -27,9 +27,12 @@ public class SoundControl : MonoBehaviour
 
     public static void PlayShovelSound()
     {
-        ShovelSound soundSource = GameObject.FindObjectOfType<ShovelSound>();
-        soundSource.GetComponent<AudioSource>().volume = soundEffectVolume;
-        soundSource.GetComponent<AudioSource>().Play();
+        ShovelSound[] soundSource = GameObject.FindObjectsOfType<ShovelSound>();
+
+        int roll = Mathf.RoundToInt(Random.Range(0, 2));
+
+        soundSource[roll].GetComponent<AudioSource>().volume = soundEffectVolume;
+        soundSource[roll].GetComponent<AudioSource>().Play();
     }
 
     public static void PlayOrderSound()
@@ -65,4 +68,45 @@ public class SoundControl : MonoBehaviour
         soundSource.GetComponent<AudioSource>().Play();
     }
 
+    public static void PlayMoveSound()
+    {
+        MoveSound soundSource = GameObject.FindObjectOfType<MoveSound>();
+        soundSource.GetComponent<AudioSource>().volume = soundEffectVolume;
+        soundSource.GetComponent<AudioSource>().Play();
+    }
+
+
+    public static void StopMoveSound()
+    {
+        MoveSound soundSource = GameObject.FindObjectOfType<MoveSound>();
+        soundSource.GetComponent<AudioSource>().Stop();
+    }
+
+    public static void PlayHarvestSound()
+    {
+        HarvestSound soundSource = GameObject.FindObjectOfType<HarvestSound>();
+        soundSource.GetComponent<AudioSource>().volume = soundEffectVolume;
+        soundSource.GetComponent<AudioSource>().Play();
+    }
+
+    public static void PlayBadSound()
+    {
+        BadSound soundSource = GameObject.FindObjectOfType<BadSound>();
+        soundSource.GetComponent<AudioSource>().volume = soundEffectVolume * 0.1f;
+        soundSource.GetComponent<AudioSource>().Play();
+    }
+
+    public static void PlayWinSound()
+    {
+        WinSound soundSource = GameObject.FindObjectOfType<WinSound>();
+        soundSource.GetComponent<AudioSource>().volume = soundEffectVolume * 0.2f;
+        soundSource.GetComponent<AudioSource>().Play();
+    }
+
+    public static void PlayWaterSound()
+    {
+        WaterSound soundSource = GameObject.FindObjectOfType<WaterSound>();
+        soundSource.GetComponent<AudioSource>().volume = soundEffectVolume * 0.5f;
+        soundSource.GetComponent<AudioSource>().Play();
+    }
 }

@@ -107,10 +107,12 @@ public class PlayerClick : NetworkBehaviour
         }
 
         // Drop Item
+        /* Crashes the game currently, temporarily removed
         if (Input.GetKeyDown(KeyCode.R))
             if (inventory.DropItem())
                 CmdDropItem(inventory.selectedSlot.First.Value.GetComponent<Item2>(), gameObject.transform.position);
 
+        */
         // Interact
         if (Input.GetMouseButtonDown(0) && canInteract)
         {
@@ -129,6 +131,7 @@ public class PlayerClick : NetworkBehaviour
 
                     if (couldAdd)
                     {
+                        SoundControl.PlayHarvestSound();
                         //Remove the pickup and planted location from user and all other clients
                         int removedID = WorldData2.RemovePlantedLocation(WorldData2.p1DiggableLayer.WorldToCell(mouseWorldPos));
                         if (itemToAdd.gameObject.GetComponent<plantID>() != null)
@@ -141,6 +144,7 @@ public class PlayerClick : NetworkBehaviour
                 // Check if interactable object is a seed bin
                 else if (highlightedInteractable.GetComponent<SeedBin>() != null)
                 {
+                    SoundControl.PlayButtonSound();
                     inventory.AddItem(highlightedInteractable.GetComponent<SeedBin>().seed);
                 }
                 // Check if interactable object is a sell bin

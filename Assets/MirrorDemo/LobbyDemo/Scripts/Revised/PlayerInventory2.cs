@@ -81,23 +81,18 @@ public class PlayerInventory2 : NetworkBehaviour
         {
             case 0:
                 UpdateUI("Slot1UI", item, 0);
-                SoundControl.PlayButtonSound();
                 return true;
             case 1:
                 UpdateUI("Slot2UI", item, 1);
-                SoundControl.PlayButtonSound();
                 return true;
             case 2:
                 UpdateUI("Slot3UI", item, 2);
-                SoundControl.PlayButtonSound();
                 return true;
             case 3:
                 UpdateUI("Slot4UI", item, 3);
-                SoundControl.PlayButtonSound();
                 return true;
             case 4:
                 UpdateUI("Slot5UI", item, 4);
-                SoundControl.PlayButtonSound();
                 return true;
             case -1:
                 // inventory full

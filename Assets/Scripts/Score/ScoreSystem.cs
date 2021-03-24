@@ -117,6 +117,7 @@ public class ScoreSystem : MonoBehaviour
                 winScreen.GetComponent<Text>().text = "Draw!";
                 thisRoundInfo.currentRound += 1;
             }
+            SoundControl.PlayWinSound();
             winScreen.SetActive(true);
             StartCoroutine(NextRound());
         }
@@ -149,6 +150,7 @@ public class ScoreSystem : MonoBehaviour
                 winScreen.GetComponent<Text>().text = "Game Over! \n Draw!";
             }
 
+            SoundControl.PlayWinSound();
             winScreen.SetActive(true);
             StartCoroutine(EndGame());
 

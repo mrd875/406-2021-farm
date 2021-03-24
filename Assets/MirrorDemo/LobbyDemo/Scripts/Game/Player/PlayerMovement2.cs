@@ -40,10 +40,12 @@ public class PlayerMovement2 : NetworkBehaviour
 
             if (movement != new Vector3(0, 0) && isMoving == false)
             {
+                SoundControl.PlayMoveSound();
                 isMoving = true;
             }
             else if (movement == new Vector3(0, 0) && isMoving == true)
             {
+                SoundControl.StopMoveSound();
                 isMoving = false;
             }
         }
