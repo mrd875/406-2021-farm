@@ -38,7 +38,7 @@ public class ProjectileController2 : MonoBehaviour
     private void Update()
     {
         transform.rotation = parentRotation;    // Temporarily reset rotation that translate works properly
-        transform.Translate((direction * speed + (startSpeed / 2)) * Time.deltaTime);   // Object moves slightly faster in the direction it is thrown
+        transform.Translate((direction * speed + (0.7f * startSpeed)) * Time.deltaTime);   // Object moves slightly faster in the direction it is thrown
         transform.rotation = rotation;
     }
 
