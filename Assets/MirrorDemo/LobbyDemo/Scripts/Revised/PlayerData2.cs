@@ -9,6 +9,7 @@ public class PlayerData2 : NetworkBehaviour
     static public GameObject playerTwo;
     static public GameObject localPlayer;
     static public PlayerClick playerClick;
+    static public Shoot2 playerShoot;
 
     static public float localGrowSpeed = 1;
 
@@ -33,6 +34,7 @@ public class PlayerData2 : NetworkBehaviour
                 playerTwo = GameObject.FindWithTag("PlayerTwo");
                 localPlayer = playerAuthority.gameObject;
                 playerClick = localPlayer.GetComponent<PlayerClick>();
+                playerShoot = localPlayer.GetComponent<Shoot2>();
             }
         }
         if (playerOne == null || playerTwo == null)

@@ -8,7 +8,8 @@ public class Shoot2 : NetworkBehaviour
 {
     public GameObject projectilePrefab; // prefab to be launched as projectile: must have projectile controller script
     public float projectileSpeed = 10f;   // speed of projectile
-    public float shotCooldown = 1f; // cooldown before fireing another projectile
+    public float shotCooldown = 3f; // cooldown before fireing another projectile
+    public float cooldownProgress; 
 
     [HideInInspector]
     public bool canShoot = true;
@@ -19,6 +20,8 @@ public class Shoot2 : NetworkBehaviour
 
     void Start()
     {
+        cooldownProgress = shotCooldown;
+
         if (gameObject.tag == "PlayerOne")
             projectileTag = "PlayerOneProjectile";
         else if (gameObject.tag == "PlayerTwo")
@@ -30,10 +33,12 @@ public class Shoot2 : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
-        if (Input.GetMouseButton(1)  && canShoot)
+        if (canShoot && Input.GetMouseButton(1))
         {
             isShooting = true;
-            StartCoroutine(ShotCooldown(shotCooldown));
+            canShoot = false;
+            StartCoroutine(ShotCooldown());
+            //StartCoroutine(ShotCooldown(shotCooldown));
 
 
             if (isServer)
@@ -52,20 +57,28 @@ public class Shoot2 : NetworkBehaviour
                     gameObject.transform.position,  // start location
                     gameObject.GetComponent<Rigidbody2D>().velocity,    // start speed
                     projectileTag  // launcher tag
-                    );    
+                    );
             }
+
         }
         else
         {
             isShooting = false;
         }
+
     }
 
-    // Activates shot cooldown, a period which no shots can be fired in
-    private IEnumerator ShotCooldown(float cooldown)
+    // Activates shot cooldown, a period which no shots can be fired in; cooldown progress updates 10 times per second;
+    private IEnumerator ShotCooldown()
     {
-        canShoot = false;
-        yield return new WaitForSeconds(cooldown);
+        cooldownProgress = 0.0f;
+        float updateCooldown = cooldownProgress;
+        while (cooldownProgress < shotCooldown)
+        {
+            updateCooldown += 0.1f;
+            cooldownProgress = updateCooldown;
+            yield return new WaitForSeconds(0.1f);
+        }
         canShoot = true;
     }
 
