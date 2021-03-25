@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BearTrap : MonoBehaviour
 {
-    public string trapOwnerTag = "PlayerTwo";
+    public string trapOwnerTag;
     public float trapTime = 2.5f;
     public float visibilityDistance = 2.0f;
     private bool triggered = false;
