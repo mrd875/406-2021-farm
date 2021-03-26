@@ -298,6 +298,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 4884807220314582406, guid: af9ab6de1e31963458fcf73a7265a0e0, type: 3}
   projectileSpeed: 10
   shotCooldown: 3
+  cooldownProgress: 0
   canShoot: 1
   isShooting: 0
 --- !u!114 &4339153905235148860

@@ -7,15 +7,8 @@ public class RadicalProgressBar : MonoBehaviour
 {
     public GameObject LoadingBar;
 
-    private float progress;
-    /*public Transform TextIndicator;
-    public Transform TextLoading;*/
-
-
-    // Update is called once per frame
     void Update()
     {
-        progress = PlayerData2.playerShoot.cooldownProgress / PlayerData2.playerShoot.shotCooldown;
-        LoadingBar.GetComponent<Image>().fillAmount = progress;
+        LoadingBar.GetComponent<Image>().fillAmount = PlayerData2.playerShoot.cooldownProgress / PlayerData2.playerShoot.shotCooldown;
     }
 }
