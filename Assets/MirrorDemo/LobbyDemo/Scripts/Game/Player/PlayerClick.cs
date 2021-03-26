@@ -18,6 +18,7 @@ public class PlayerClick : NetworkBehaviour
     public float interactionRange = 2f; // range from player to cursor for which player can interact
     Vector3Int previousTileCoordinate;
 
+    // If cursor is in interaction range
     public bool canInteract = false;
 
     // Inventory script belonging to this.gameObject
@@ -49,16 +50,13 @@ public class PlayerClick : NetworkBehaviour
             else
                 highlightedInteractable.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
 
-
-
         // Get mouse coordinates (for highlight tile)
         Vector2 mousePos = Input.mousePosition;
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector3Int tileCoordinate = WorldData2.highlighter.WorldToCell(mouseWorldPos);
 
         // Highlight tile at mouseover
-        // CursorHighlightMode1(tileCoordinate);  // Cursor turns red when out of range
-        CursorHighlightMode2(tileCoordinate);   // Cursor disappears when out of range
+        CursorHighlight(tileCoordinate);   // Cursor disappears when out of range
 
         //Scroll to change items
         if (Input.mouseScrollDelta.y < 0)
@@ -106,13 +104,6 @@ public class PlayerClick : NetworkBehaviour
             SetSlot("Slot5UI", 4);
         }
 
-        // Drop Item
-        /* Crashes the game currently, temporarily removed
-        if (Input.GetKeyDown(KeyCode.R))
-            if (inventory.DropItem())
-                CmdDropItem(inventory.selectedSlot.First.Value.GetComponent<Item2>(), gameObject.transform.position);
-
-        */
         // Interact
         if (Input.GetMouseButtonDown(0) && canInteract)
         {
@@ -173,7 +164,6 @@ public class PlayerClick : NetworkBehaviour
         }
     }
 
-
     //Changes to the given slot. slotName must match exactly to the scene name of UI element.
     public void SetSlot(string slotName, int slotNumber)
     {
@@ -197,37 +187,9 @@ public class PlayerClick : NetworkBehaviour
         inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
     }
 
-
-    // The tile highlight cursor turns red when out of range
-    // param name=tileCoordinate: Tile coordinate on the grid to be highlighted
-    private void CursorHighlightMode1(Vector3Int tileCoordinate)
-    {
-        if (Vector2.Distance(gameObject.transform.position, WorldData2.highlighter.CellToWorld(tileCoordinate)) > interactionRange)
-        {
-            highlightTile.color = new Color(1f, 0f, 0f, 0.5f); // turn red
-            WorldData2.highlighter.SetTile(tileCoordinate, null);
-            WorldData2.highlighter.SetTile(tileCoordinate, highlightTile);
-            canInteract = false;
-        }
-        else
-        {
-            highlightTile.color = new Color(0.0f, 0.5f, 1f, 0.5f);
-            WorldData2.highlighter.SetTile(tileCoordinate, null);
-            WorldData2.highlighter.SetTile(tileCoordinate, highlightTile);
-            canInteract = true;
-        }
-
-        if (tileCoordinate != previousTileCoordinate)
-        {
-            WorldData2.highlighter.SetTile(previousTileCoordinate, null);
-            WorldData2.highlighter.SetTile(tileCoordinate, highlightTile);
-            previousTileCoordinate = tileCoordinate;
-        }
-    }
-
     // The tile highlight cursor disappears when out of range
     // param name=tileCoordinate: Tile coordinate on the grid to be highlighted
-    private void CursorHighlightMode2(Vector3Int tileCoordinate)
+    private void CursorHighlight(Vector3Int tileCoordinate)
     {
         // Check if the center of the tile cursor is on is in interaction range
         if (Vector2.Distance(gameObject.transform.position, WorldData2.highlighter.CellToWorld(tileCoordinate)) < interactionRange)
@@ -236,8 +198,11 @@ public class PlayerClick : NetworkBehaviour
             if (tileCoordinate != previousTileCoordinate)
             {
                 WorldData2.highlighter.SetTile(previousTileCoordinate, null);
-                WorldData2.highlighter.SetTile(tileCoordinate, highlightTile);
-                previousTileCoordinate = tileCoordinate;
+                if (WorldData2.plantableLayer.GetTile(tileCoordinate) != null)
+                {
+                    WorldData2.highlighter.SetTile(tileCoordinate, highlightTile);
+                    previousTileCoordinate = tileCoordinate;
+                }
             }
             canInteract = true;
         }
@@ -250,7 +215,6 @@ public class PlayerClick : NetworkBehaviour
             canInteract = false;
         }
     }
-
 
     [Command]
     private void CmdAddItem(Item2 i, int ID)
@@ -272,7 +236,6 @@ public class PlayerClick : NetworkBehaviour
         }
 
     }
-
 
     [Command]
     private void CmdDropItem(Item2 i, Vector2 v)
