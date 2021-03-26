@@ -100,11 +100,17 @@ public class PlayerMovement2 : NetworkBehaviour
     public IEnumerator Trapped(GameObject trap, float trapTime)
     {
         if (hasAuthority)
+        {
             PlayerData2.playerClick.enabled = false;
+            PlayerData2.playerShoot.canShoot = false;
+        }
         activeMoveSpeed = 0.0f;
         yield return new WaitForSeconds(trapTime);
         if (hasAuthority)
+        {
             PlayerData2.playerClick.enabled = true;
+            PlayerData2.playerShoot.canShoot = true;
+        }
         activeMoveSpeed = maxMoveSpeed;
         Destroy(trap);
     }

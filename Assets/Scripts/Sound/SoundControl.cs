@@ -12,7 +12,7 @@ public class SoundControl : MonoBehaviour
 
     public static void Load()
     {
-        GameSettings gameSettings = JsonUtility.FromJson<GameSettings>(File.ReadAllText(Application.persistentDataPath + "/gamesettings.json"));
+        var gameSettings = SettingManager.LoadSettings();
 
         musicVolume = gameSettings.musicVolume;
         soundEffectVolume = gameSettings.soundEffectsVolume;

@@ -305,7 +305,7 @@ public class PlayerInventory2 : NetworkBehaviour
     private void RpcSetBearTrap(Vector2 location, string userTag)
     {
         GameObject bearTrap = Instantiate(ObjectData.bearTrapPrefab, location, Quaternion.identity);
-        bearTrap.GetComponent<BearTrap>().trapOwnerTag = gameObject.tag;
+        bearTrap.GetComponent<BearTrap>().trapOwnerTag = userTag;
         if (userTag == PlayerData2.localPlayer.tag)
             ItemUsed();
     }

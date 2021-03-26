@@ -8,7 +8,8 @@ public class Shoot2 : NetworkBehaviour
 {
     public GameObject projectilePrefab; // prefab to be launched as projectile: must have projectile controller script
     public float projectileSpeed = 10f;   // speed of projectile
-    public float shotCooldown = 1f; // cooldown before fireing another projectile
+    public float shotCooldown = 3f; // cooldown before fireing another projectile
+    public float cooldownProgress;
 
     [HideInInspector]
     public bool canShoot = true;
@@ -19,6 +20,8 @@ public class Shoot2 : NetworkBehaviour
 
     void Start()
     {
+        cooldownProgress = shotCooldown;
+
         if (gameObject.tag == "PlayerOne")
             projectileTag = "PlayerOneProjectile";
         else if (gameObject.tag == "PlayerTwo")
@@ -30,11 +33,18 @@ public class Shoot2 : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
-        if (Input.GetMouseButton(1)  && canShoot)
+        if (cooldownProgress <= shotCooldown)
+        {
+            cooldownProgress += Time.deltaTime;
+            if (cooldownProgress >= shotCooldown)
+                canShoot = true;
+        }
+
+        if (canShoot && Input.GetMouseButton(1))
         {
             isShooting = true;
-            StartCoroutine(ShotCooldown(shotCooldown));
-
+            canShoot = false;
+            cooldownProgress = 0.0f;
 
             if (isServer)
             {
@@ -52,32 +62,15 @@ public class Shoot2 : NetworkBehaviour
                     gameObject.transform.position,  // start location
                     gameObject.GetComponent<Rigidbody2D>().velocity,    // start speed
                     projectileTag  // launcher tag
-                    );    
+                    );
             }
         }
         else
         {
             isShooting = false;
         }
-    }
 
-    // Activates shot cooldown, a period which no shots can be fired in
-    private IEnumerator ShotCooldown(float cooldown)
-    {
-        canShoot = false;
-        yield return new WaitForSeconds(cooldown);
-        canShoot = true;
     }
-
-/*    // Creates the projectile and sends it moving
-    private void SpawnProjectile()
-    {
-        GameObject projectile = Instantiate(projectilePrefab, gameObject.transform.position, gameObject.transform.rotation);
-        (projectile.GetComponent("ProjectileController2") as ProjectileController2).parentTagName = gameObject.tag;
-        (projectile.GetComponent("ProjectileController2") as ProjectileController2).startLocation = gameObject.transform.position;
-        (projectile.GetComponent("ProjectileController2") as ProjectileController2).startSpeed = gameObject.GetComponent<Rigidbody2D>().velocity;
-        *//*        (projectile.GetComponent("ProjectileController") as ProjectileController).speedReduction = speedReduction;*//* // Edit with special launcher??
-    }*/
 
     [Command]
     private void CmdSpawnProjectile(Vector2 target, Vector2 startLocation, Vector2 startSpeed, string tag)

@@ -9,8 +9,11 @@ public class PlayerData2 : NetworkBehaviour
     static public GameObject playerTwo;
     static public GameObject localPlayer;
     static public PlayerClick playerClick;
+    static public Shoot2 playerShoot;
 
     static public float localGrowSpeed = 1;
+
+    private bool setUp = true;
 
     // Start is called before the first frame update
     void Start()
@@ -27,10 +30,24 @@ public class PlayerData2 : NetworkBehaviour
         {
             if (playerAuthority.hasAuthority)
             {
+                playerOne = GameObject.FindWithTag("PlayerOne");
+                playerTwo = GameObject.FindWithTag("PlayerTwo");
                 localPlayer = playerAuthority.gameObject;
                 playerClick = localPlayer.GetComponent<PlayerClick>();
+                playerShoot = localPlayer.GetComponent<Shoot2>();
             }
         }
+        if (playerOne == null || playerTwo == null)
+            setUp = false;
         //localPlayer = GameObject.Find("LocalPlayer");
+    }
+
+    void Update()
+    {
+        // For if player prefab takes longer than usual to spawn
+        if (!setUp)
+        {
+            StartCoroutine(LateStart(0.1f));
+        }
     }
 }

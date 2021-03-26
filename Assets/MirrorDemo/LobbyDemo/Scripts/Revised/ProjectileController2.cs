@@ -12,6 +12,9 @@ public class ProjectileController2 : MonoBehaviour
     public Quaternion rotation; // desired rotation as the projectile will appear 
     public Quaternion parentRotation;   // Original rotation, used for calculations
 
+    private float zAngle;   // Angle for rotation
+    private float deltaAngle;
+
     public GameObject shovelPrefab;
 
     public float lifeTime = 0.5f;   // how long the projectile will remain airborn for
@@ -25,7 +28,9 @@ public class ProjectileController2 : MonoBehaviour
         parentRotation = transform.rotation;
         Vector2 dir = (Vector3)target - transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + 90f;
-        rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        // rotation = Quaternion.AngleAxis(angle, Vector3.forward); // rotation where round side goes forward
+        zAngle = Random.Range(0, 360);
+        deltaAngle = Random.Range(0.3f, -0.3f);
 
 
         direction = (target - startLocation).normalized;
@@ -39,7 +44,9 @@ public class ProjectileController2 : MonoBehaviour
     {
         transform.rotation = parentRotation;    // Temporarily reset rotation that translate works properly
         transform.Translate((direction * speed + (0.7f * startSpeed)) * Time.deltaTime);   // Object moves slightly faster in the direction it is thrown
-        transform.rotation = rotation;
+        //transform.rotation = rotation;
+        transform.Rotate(0, 0, zAngle += deltaAngle);
+
     }
 
     void OnTriggerEnter2D(Collider2D other)

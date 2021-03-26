@@ -159,6 +159,14 @@ public class ScoreSystem : MonoBehaviour
     }
 
 
+    public void EndGameOveride()
+    {
+        //Should only really need to call on one player, relayed to others through server call. 
+        PlayerAuthority playerOne = GameObject.FindWithTag("PlayerOne").GetComponent<PlayerAuthority>();
+        playerOne.DisconnectPlayer();
+    }
+
+
     private IEnumerator EndGame()
     {
         yield return new WaitForSeconds(4);

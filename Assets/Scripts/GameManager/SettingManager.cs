@@ -22,9 +22,17 @@ public class SettingManager : MonoBehaviour
 
     public Button applyButton;
 
+    public static string SettingPath;
+
+    void Awake()
+    {
+        SettingPath = Application.persistentDataPath + "/gamesettings.json";
+    }
+
     void OnEnable()
     {
-        gameSettings = new GameSettings();
+        gameSettings = LoadSettings();
+        setUiComponent(gameSettings);
 
         displayMode.onValueChanged.AddListener(delegate { OnDisplayModeChange(); });
         resolutionDropdown.onValueChanged.AddListener(delegate { OnResolutionChange(); });
@@ -43,7 +51,6 @@ public class SettingManager : MonoBehaviour
             resolutionDropdown.options.Add(new Dropdown.OptionData(resolution.ToString()));
         }
 
-        LoadSettings();
     }
 
     public void OnDisplayModeChange()
@@ -117,19 +124,40 @@ public class SettingManager : MonoBehaviour
     public void SaveSettings()
     {
         string jsonData = JsonUtility.ToJson(gameSettings, true);
-        File.WriteAllText(Application.persistentDataPath + "/gamesettings.json", jsonData);
+        File.WriteAllText(SettingPath, jsonData);
     }
 
-    public void LoadSettings()
+    private void setUiComponent(GameSettings settings)
     {
-        gameSettings = JsonUtility.FromJson<GameSettings>(File.ReadAllText(Application.persistentDataPath + "/gamesettings.json"));
+        displayMode.value = settings.displayMode;
+        resolutionDropdown.value = settings.resolutionIndex;
+        antialiasingDropdown.value = settings.anitaliasing;
+        textureQualityDropdown.value = settings.textureQuality;
+        vSyncDropdown.value = settings.vSync;
+        musicVolumeSlider.value = settings.musicVolume;
+        soundEffectsVolumeSlider.value = settings.soundEffectsVolume;
+    }
 
-        displayMode.value = gameSettings.displayMode;
-        resolutionDropdown.value = gameSettings.resolutionIndex;
-        antialiasingDropdown.value = gameSettings.anitaliasing;
-        textureQualityDropdown.value = gameSettings.textureQuality;
-        vSyncDropdown.value = gameSettings.vSync;
-        musicVolumeSlider.value = gameSettings.musicVolume;
-        soundEffectsVolumeSlider.value = gameSettings.soundEffectsVolume;
+    public static GameSettings LoadSettings()
+    {
+        GameSettings settings;
+        if (File.Exists(SettingPath))
+        {
+            settings = JsonUtility.FromJson<GameSettings>(File.ReadAllText(SettingPath));
+        }
+        else
+        {
+            // load default settings
+            settings = new GameSettings();
+            settings.displayMode = 0;
+            settings.resolutionIndex = 0;
+            settings.anitaliasing = 0;
+            settings.vSync = 0;
+            settings.resolutionIndex = 0;
+            settings.musicVolume = 0;
+            settings.soundEffectsVolume = 0;
+        }
+
+        return settings;
     }
 }

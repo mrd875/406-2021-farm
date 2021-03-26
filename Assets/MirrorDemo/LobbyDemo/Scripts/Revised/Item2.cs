@@ -26,14 +26,14 @@ public class Item2 : NetworkBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        PlayerData2.localPlayer.GetComponent<PlayerClick>().highlightedInteractable = gameObject;
+        PlayerData2.playerClick.highlightedInteractable = gameObject;
     }
 
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        PlayerData2.localPlayer.GetComponent<PlayerClick>().highlightedInteractable.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
-        PlayerData2.localPlayer.GetComponent<PlayerClick>().highlightedInteractable = null;
+        PlayerData2.playerClick.highlightedInteractable.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+        PlayerData2.playerClick.highlightedInteractable = null;
     }
 
 
