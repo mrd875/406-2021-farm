@@ -695,6 +695,8 @@ MonoBehaviour:
     Switch
     Item
 
+    Drop Item
+
     Pause Menu
 
 '
@@ -831,7 +833,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "WASD \nLeft Click \nRight Click\n1-5\nMouse Scroll\nESC"
+  m_text: "WASD \nLeft Click \nRight Click\n1-5\nMouse Scroll\nR\nESC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b8a067bfaac2fab47be32d6d2130f31f, type: 2}
   m_sharedMaterial: {fileID: -2166865277940543073, guid: b8a067bfaac2fab47be32d6d2130f31f, type: 2}

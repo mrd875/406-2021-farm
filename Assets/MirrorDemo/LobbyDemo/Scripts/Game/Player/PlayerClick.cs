@@ -197,7 +197,6 @@ public class PlayerClick : NetworkBehaviour
             // Remove highlight if an interactable is present at cursor
             if (highlightedInteractable != null)
             {
-                //previousTileCoordinate = tileCoordinate;
                 WorldData2.highlighter.SetTile(tileCoordinate, null);
             }
             else if (WorldData2.plantableLayer.GetTile(tileCoordinate) != null)
