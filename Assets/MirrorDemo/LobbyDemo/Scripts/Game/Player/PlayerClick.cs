@@ -194,7 +194,18 @@ public class PlayerClick : NetworkBehaviour
         // Check if the center of the tile cursor is on is in interaction range
         if (Vector2.Distance(gameObject.transform.position, WorldData2.highlighter.CellToWorld(tileCoordinate)) < interactionRange)
         {
-            // Highlight the tile cursor is on
+            // Remove highlight if an interactable is present at cursor
+            if (highlightedInteractable != null)
+            {
+                previousTileCoordinate = tileCoordinate;
+                WorldData2.highlighter.SetTile(previousTileCoordinate, null);
+            }
+            else if (WorldData2.plantableLayer.GetTile(tileCoordinate) != null)
+            {
+                WorldData2.highlighter.SetTile(tileCoordinate, highlightTile);
+            }
+
+            // Highlight new tiles that the cursor moves to
             if (tileCoordinate != previousTileCoordinate)
             {
                 WorldData2.highlighter.SetTile(previousTileCoordinate, null);
