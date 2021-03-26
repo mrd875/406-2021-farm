@@ -75,9 +75,9 @@ public class Shoot2 : NetworkBehaviour
         float updateCooldown = cooldownProgress;
         while (cooldownProgress < shotCooldown)
         {
-            updateCooldown += 0.1f;
+            updateCooldown += 0.01f;
             cooldownProgress = updateCooldown;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.009f); // 0.009 indstead of 0.01 to make up for overhead
         }
         canShoot = true;
     }
