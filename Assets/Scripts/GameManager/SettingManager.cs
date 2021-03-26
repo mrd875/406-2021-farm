@@ -21,6 +21,7 @@ public class SettingManager : MonoBehaviour
     public GameSettings gameSettings;
 
     public Button applyButton;
+    public Button menuButton;
 
     public static string SettingPath;
 
@@ -32,7 +33,7 @@ public class SettingManager : MonoBehaviour
     void OnEnable()
     {
         gameSettings = LoadSettings();
-        setUiComponent(gameSettings);
+        
 
         displayMode.onValueChanged.AddListener(delegate { OnDisplayModeChange(); });
         resolutionDropdown.onValueChanged.AddListener(delegate { OnResolutionChange(); });
@@ -43,6 +44,7 @@ public class SettingManager : MonoBehaviour
         soundEffectsVolumeSlider.onValueChanged.AddListener(delegate { OnSoundEffectsVolumeChange(); });
 
         applyButton.onClick.AddListener(delegate { OnApplyButtonClick(); });
+        menuButton.onClick.AddListener(delegate { OnMenuButtonClick(); });
 
 
         resolutions = Screen.resolutions;
@@ -50,6 +52,8 @@ public class SettingManager : MonoBehaviour
         {
             resolutionDropdown.options.Add(new Dropdown.OptionData(resolution.ToString()));
         }
+
+        setUiComponent(gameSettings);
 
     }
 
@@ -64,7 +68,6 @@ public class SettingManager : MonoBehaviour
         {
             gameSettings.displayMode = displayMode.value;
             Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
-            Debug.Log(displayMode.value);
         }
     }
 
@@ -76,21 +79,22 @@ public class SettingManager : MonoBehaviour
 
     public void OnTextureQualityChange()
     {
+        gameSettings.textureQuality = textureQualityDropdown.value;
         if (textureQualityDropdown.value == 0)
         {
-            gameSettings.textureQuality = QualitySettings.masterTextureLimit = 4;
+            QualitySettings.masterTextureLimit = 4;
         }
         else if (textureQualityDropdown.value == 1)
         {
-            gameSettings.textureQuality = QualitySettings.masterTextureLimit = 3;
+            QualitySettings.masterTextureLimit = 3;
         }
         else if (textureQualityDropdown.value == 2)
         {
-            gameSettings.textureQuality = QualitySettings.masterTextureLimit = 2;
+            QualitySettings.masterTextureLimit = 2;
         }
         else if (textureQualityDropdown.value == 3)
         {
-            gameSettings.textureQuality = QualitySettings.masterTextureLimit = 1;
+            QualitySettings.masterTextureLimit = 1;
         }
     }
 
@@ -119,6 +123,52 @@ public class SettingManager : MonoBehaviour
     public void OnApplyButtonClick()
     {
         SaveSettings();
+    }
+
+    public void OnMenuButtonClick()
+    {
+        ResetSettings();
+    }
+
+    public void ResetSettings()
+    {
+        gameSettings = LoadSettings();
+        if (gameSettings.displayMode == 0)
+        {
+            Screen.fullScreenMode = FullScreenMode.Windowed;
+        }
+        else
+        {
+            Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+        }
+        Screen.SetResolution(resolutions[gameSettings.resolutionIndex].width, resolutions[gameSettings.resolutionIndex].height, Screen.fullScreenMode);
+
+        if (gameSettings.textureQuality == 0)
+        {
+            QualitySettings.masterTextureLimit = 4;
+        }
+        else if (gameSettings.textureQuality == 1)
+        {
+            QualitySettings.masterTextureLimit = 3;
+        }
+        else if (gameSettings.textureQuality == 2)
+        {
+            QualitySettings.masterTextureLimit = 2;
+        }
+        else if (gameSettings.textureQuality == 3)
+        {
+            QualitySettings.masterTextureLimit = 1;
+        }
+
+        QualitySettings.antiAliasing = gameSettings.anitaliasing;
+        QualitySettings.vSyncCount = gameSettings.vSync;
+
+        SoundControl.musicVolume = gameSettings.soundEffectsVolume;
+        musicSource.volume = gameSettings.musicVolume;
+
+        SoundControl.soundEffectVolume = gameSettings.soundEffectsVolume;
+        soundEffectsSource.volume = gameSettings.soundEffectsVolume;
+
     }
 
     public void SaveSettings()

@@ -3979,7 +3979,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Menu
+  m_Text: Cancel
 --- !u!222 &1082668308
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4435,6 +4435,7 @@ MonoBehaviour:
   musicSource: {fileID: 1341979037}
   soundEffectsSource: {fileID: 1395502286}
   applyButton: {fileID: 812301496}
+  menuButton: {fileID: 1082668306}
 --- !u!4 &1174462198
 Transform:
   m_ObjectHideFlags: 0
