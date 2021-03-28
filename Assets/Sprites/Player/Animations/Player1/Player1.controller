@@ -58,7 +58,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player
+  m_Name: Player1
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Horizontal
@@ -135,23 +135,23 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 13e770c1b2a79439d949597981df2675, type: 2}
-    m_Threshold: 0.2
-    m_Position: {x: 0.5, y: -0.866}
+    m_Threshold: 0.14285715
+    m_Position: {x: 0.75, y: -0.75}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Horizontal
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: f60c5a06e38bd44569a6de7a8386c63b, type: 2}
-    m_Threshold: 0.4
-    m_Position: {x: -0.5, y: -0.866}
+    m_Threshold: 0.2857143
+    m_Position: {x: -0.75, y: -0.75}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Horizontal
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 2a28e8e494f4e4629ae00a523c0b0e0d, type: 2}
-    m_Threshold: 0.6
+    m_Threshold: 0.42857143
     m_Position: {x: -1, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -159,16 +159,32 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 1c1b1ad781b6241ce9799e0223df93dc, type: 2}
-    m_Threshold: 0.8
-    m_Position: {x: -0.5, y: 0.866}
+    m_Threshold: 0.5714286
+    m_Position: {x: -0.75, y: 0.75}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Horizontal
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 4ce6b3711eeac4781a17d89f16476321, type: 2}
+    m_Threshold: 0.71428573
+    m_Position: {x: 0.75, y: 0.75}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Horizontal
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: 9f9f3f3eaf76640948b9c7a7ecb64e83, type: 2}
+    m_Threshold: 0.85714287
+    m_Position: {x: 0, y: 1}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: Horizontal
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: 1e2000b1f1e434de5964564a60afb303, type: 2}
     m_Threshold: 1
-    m_Position: {x: 0.5, y: 0.866}
+    m_Position: {x: 0, y: -1}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Horizontal
