@@ -348,6 +348,36 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3616774984594993580, guid: 449cb29550f3aa2459e3bee7784ca9e5, type: 3}
   m_PrefabInstance: {fileID: 3616774985005702614}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &779366716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779366715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 46a0535e65ec05249aad4f87556b0b49, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &779366720
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -527,6 +557,22 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: fc60e9b4173b8154b8872d7e0bcf7a84, type: 3}
+    - target: {fileID: 1285970495891422051, guid: 449cb29550f3aa2459e3bee7784ca9e5, type: 3}
+      propertyPath: m_Color.a
+      value: 0.6862745
+      objectReference: {fileID: 0}
+    - target: {fileID: 1285970495891422051, guid: 449cb29550f3aa2459e3bee7784ca9e5, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1285970495891422051, guid: 449cb29550f3aa2459e3bee7784ca9e5, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1285970495891422051, guid: 449cb29550f3aa2459e3bee7784ca9e5, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1376954916815516250, guid: 449cb29550f3aa2459e3bee7784ca9e5, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -2703,6 +2749,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: fc60e9b4173b8154b8872d7e0bcf7a84, type: 3}
+    - target: {fileID: 6427170207767970928, guid: 449cb29550f3aa2459e3bee7784ca9e5, type: 3}
+      propertyPath: m_Name
+      value: Overlay
+      objectReference: {fileID: 0}
     - target: {fileID: 6505032117886458520, guid: 449cb29550f3aa2459e3bee7784ca9e5, type: 3}
       propertyPath: m_SizeDelta.x
       value: 800
