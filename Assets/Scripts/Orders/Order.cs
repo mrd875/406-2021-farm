@@ -13,7 +13,7 @@ public class Order
 
         public int Amount { get; set; }
 
-        public int StartAmount { get; }
+        public int StartAmount { get; set; }
 
         public OrderItem(string name, Sprite sprite, int amount)
         {
@@ -62,5 +62,14 @@ public class Order
         }
 
         return 0;
+    }
+
+    public void DuplicateItem(string name, int additionalAmount) {
+        for(int x = 0; x < OrderItems.Count; x++) {
+            if(OrderItems[x].Name.Equals(name)) {
+                OrderItems[x].Amount+= additionalAmount;
+                OrderItems[x].StartAmount+= additionalAmount;
+            }
+        }
     }
 }

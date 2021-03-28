@@ -64,7 +64,14 @@ public class OrderSystem : NetworkBehaviour
                 Sprite orderSprite = produceSprites[randProduce];
                 int orderSize = Random.Range(minItemAmount, maxItemAmount + 1);
 
-                newOrder.AddItem(orderProduce, orderSprite, orderSize);
+                // Check if there are any orders that already contain the same produce
+                if(newOrder.OrderContains(orderProduce)) {
+                    Debug.Log("" + x + newOrder.OrderContains(orderProduce));
+                    newOrder.DuplicateItem(orderProduce, orderSize);
+                }
+                else {
+                    newOrder.AddItem(orderProduce, orderSprite, orderSize);
+                }
             }
             // Add the newly created order to each players total list of orders
             orders.Add(newOrder);
