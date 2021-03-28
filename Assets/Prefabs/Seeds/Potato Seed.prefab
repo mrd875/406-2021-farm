@@ -144,7 +144,7 @@ MonoBehaviour:
   itemName: Potato Seed
   actionTile: {fileID: 11400000, guid: 5b0adc8719424394b821f5e1e0eff8bb, type: 2}
   actionPrefab: {fileID: 117832141236150738, guid: aa7c73c2d89626b4982fa303d0882ff6, type: 3}
-  InventorySprite: {fileID: -9143129208339112651, guid: 6f748577cd125d34ba3dd004e8f7931d, type: 3}
+  InventorySprite: {fileID: 21300000, guid: 50b2e229e24c405468448d5b8dddd3ca, type: 3}
   pickup_allowed: 0
   is_stackable: 1
   is_consumable: 1

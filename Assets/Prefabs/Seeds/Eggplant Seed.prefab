@@ -144,7 +144,7 @@ MonoBehaviour:
   itemName: Eggplant Seed
   actionTile: {fileID: 11400000, guid: 5b0adc8719424394b821f5e1e0eff8bb, type: 2}
   actionPrefab: {fileID: 8109386041393869306, guid: 94a03bf595c05c44ab8e2aba537af3fd, type: 3}
-  InventorySprite: {fileID: 5175044422211186140, guid: 914bcbd557df7664fb3ecae889f031ea, type: 3}
+  InventorySprite: {fileID: 21300000, guid: 16bee2b289841024a8410ef0be43127b, type: 3}
   pickup_allowed: 0
   is_stackable: 1
   is_consumable: 1
