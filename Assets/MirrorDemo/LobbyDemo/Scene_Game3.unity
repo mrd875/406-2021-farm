@@ -899,6 +899,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  playerTwoSprite: {fileID: 9113291519894422807, guid: 2eaa56253d4812346aa64bbfaf603a9d, type: 3}
+  playerTwoAnimatorController: {fileID: 9100000, guid: 00b887aa1081f8240ac080ed40a51b22, type: 2}
 --- !u!4 &147220264
 Transform:
   m_ObjectHideFlags: 0
