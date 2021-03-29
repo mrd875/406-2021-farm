@@ -66,7 +66,6 @@ public class OrderSystem : NetworkBehaviour
 
                 // Check if there are any orders that already contain the same produce
                 if(newOrder.OrderContains(orderProduce)) {
-                    Debug.Log("" + x + newOrder.OrderContains(orderProduce));
                     newOrder.DuplicateItem(orderProduce, orderSize);
                 }
                 else {
