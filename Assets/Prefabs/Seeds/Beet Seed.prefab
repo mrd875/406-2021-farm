@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 901516610405432337}
   - component: {fileID: 924273060893634287}
   m_Layer: 0
-  m_Name: Beet Seed2
+  m_Name: Beet Seed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,7 +144,7 @@ MonoBehaviour:
   itemName: Beet Seed
   actionTile: {fileID: 11400000, guid: 5b0adc8719424394b821f5e1e0eff8bb, type: 2}
   actionPrefab: {fileID: 2654095527611210054, guid: 35407d55af3c6be43801f0a74a508505, type: 3}
-  InventorySprite: {fileID: 5504560165198698044, guid: d18c104fc5f9df342b27bf3512c3137a, type: 3}
+  InventorySprite: {fileID: 21300000, guid: 61ba4f83234748c47a03fa4bbdba4923, type: 3}
   pickup_allowed: 0
   is_stackable: 1
   is_consumable: 1
