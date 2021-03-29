@@ -1,16 +1,22 @@
 fileFormatVersion: 2
-guid: ca514bebf5dfed547a83f54b9e321a42
+guid: e702060e123335e4a81006c6ad7764ae
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8104565290056944633
-    second: Player1IDLE_1
+      213: 1468504839807013521
+    second: ChickenNPC_LD
   - first:
-      213: -1767284473697663581
-    second: Player1IDLE_2
+      213: 1739647628447568516
+    second: ChickenNPC_RD
   - first:
-      213: -5430862785083442631
-    second: Player1IDLE_3
+      213: -3584340099419715261
+    second: ChickenNPC_DU
+  - first:
+      213: -3108270859795200050
+    second: ChickenNPC_RD
+  - first:
+      213: 3141870321833538886
+    second: ChickenNPC_RU
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -98,13 +104,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player1IDLE_1
+      name: ChickenNPC_LD
       rect:
         serializedVersion: 2
-        x: 9
-        y: 302
-        width: 40
-        height: 72
+        x: 18
+        y: 59
+        width: 28
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,20 +118,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 704f13bfeccc68f80800000000000000
-      internalID: -8104565290056944633
+      spriteID: 19293af0f5d216410800000000000000
+      internalID: 1468504839807013521
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player1IDLE_2
+      name: ChickenNPC_DU
       rect:
         serializedVersion: 2
-        x: 51
-        y: 302
-        width: 40
-        height: 72
+        x: 7
+        y: 19
+        width: 28
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -133,29 +139,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a5003872285977e0800000000000000
-      internalID: -1767284473697663581
+      spriteID: 34946e39badd14ec0800000000000000
+      internalID: -3584340099419715261
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player1IDLE_3
+      name: ChickenNPC_RD
       rect:
         serializedVersion: 2
-        x: 94
-        y: 302
-        width: 40
-        height: 72
+        x: 106
+        y: 53
+        width: 28
+        height: 28
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 93a76372213b1a4b0800000000000000
-      internalID: -5430862785083442631
+      spriteID: ec785301f143dd4d0800000000000000
+      internalID: -3108270859795200050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChickenNPC_RU
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 10
+        width: 28
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 645fa3f496a2a9b20800000000000000
+      internalID: 3141870321833538886
       vertices: []
       indices: 
       edges: []

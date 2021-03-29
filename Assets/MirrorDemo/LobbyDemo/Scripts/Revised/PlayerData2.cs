@@ -11,6 +11,9 @@ public class PlayerData2 : NetworkBehaviour
     static public PlayerClick playerClick;
     static public Shoot2 playerShoot;
 
+    public Sprite playerTwoSprite;
+    public RuntimeAnimatorController playerTwoAnimatorController;
+
     static public float localGrowSpeed = 1;
 
     private bool setUp = true;
@@ -40,6 +43,9 @@ public class PlayerData2 : NetworkBehaviour
         if (playerOne == null || playerTwo == null)
             setUp = false;
         //localPlayer = GameObject.Find("LocalPlayer");
+
+        playerTwo.GetComponent<SpriteRenderer>().sprite = playerTwoSprite;
+        playerTwo.GetComponent<Animator>().runtimeAnimatorController = playerTwoAnimatorController;
     }
 
     void Update()
