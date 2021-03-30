@@ -119,7 +119,7 @@ public class ScoreSystem : MonoBehaviour
             }
             SoundControl.PlayWinSound();
             winScreen.SetActive(true);
-            StartCoroutine(NextRound());
+            StartCoroutine(NextRound(thisRoundInfo.currentRound));
         }
         //Game done
         else
@@ -177,19 +177,24 @@ public class ScoreSystem : MonoBehaviour
 
     }
 
-    private IEnumerator NextRound()
+    private IEnumerator NextRound(int currentRound)
     {
         yield return new WaitForSeconds(4);
         Debug.Log("Next");
-        RestartScene();
+        RestartScene(currentRound);
     }
 
 
     [Server]
-    private void RestartScene()
+    private void RestartScene(int currentRound)
     {
         NetworkManager thisManager = GameObject.FindObjectOfType<NetworkManager>();
-        thisManager.ServerChangeScene(sceneName);
+        if(currentRound == 2) {
+            thisManager.ServerChangeScene("2_Fall_Game_Scene");
+        }
+        else if (currentRound == 3) {
+            thisManager.ServerChangeScene("3_Winter_Game_Scene");
+        }
         Debug.Log("Switched Scene");
     }
 }
