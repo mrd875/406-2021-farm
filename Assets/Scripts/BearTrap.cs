@@ -46,13 +46,4 @@ public class BearTrap : MonoBehaviour
             }
         }
     }
-
-/*    private IEnumerator Trapped(PlayerMovement2 playerMovement)
-    {
-        float baseMovementSpeed = playerMovement.baseMoveSpeed;
-        playerMovement.moveSpeed = 0.0f;
-        yield return new WaitForSeconds(trapTime);
-        playerMovement.moveSpeed = baseMovementSpeed;
-        Destroy(this.gameObject);
-    }*/
 }

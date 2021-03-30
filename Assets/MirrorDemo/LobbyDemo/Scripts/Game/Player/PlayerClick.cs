@@ -19,12 +19,13 @@ public class PlayerClick : NetworkBehaviour
     Vector3Int previousTileCoordinate;
 
     // If cursor is in interaction range
-    public bool canInteract = false;
+    public bool canInteract = true;
 
     // Inventory script belonging to this.gameObject
     private PlayerInventory2 inventory;
     private GameObject selectedItemSpriteGO;    // place-holder for drawing items at cursor; displayed placable item before it is placed
     private SpriteRenderer selectedItemSR;
+    public bool canPlaceItem = false;
 
     private int oldSlotNumber = 0;
     private string[] slotNames = new string[] { "Slot1UI", "Slot2UI", "Slot3UI", "Slot4UI", "Slot5UI" };
@@ -42,6 +43,9 @@ public class PlayerClick : NetworkBehaviour
         whatIsInteractable = LayerMask.GetMask("Interactable");
 
         selectedItemSpriteGO = new GameObject();
+        selectedItemSpriteGO.tag = "Cursor";
+        CircleCollider2D cc = selectedItemSpriteGO.AddComponent<CircleCollider2D>();
+        cc.isTrigger = true;
         selectedItemSR = selectedItemSpriteGO.AddComponent<SpriteRenderer>();
         selectedItemSR.sortingOrder = 0;
         selectedItemSR.sortingLayerName = "Item";
@@ -74,7 +78,9 @@ public class PlayerClick : NetworkBehaviour
         // Highlight tile at mouseover
         else
         {
-            selectedItemSR.color = new Color(1, 1, 1, 0);
+            Color color = selectedItemSR.material.color;
+            color.a = 0;
+            selectedItemSR.material.color = color;
             CursorHighlight(tileCoordinate);   // Cursor disappears when out of range
         }
 
@@ -173,7 +179,13 @@ public class PlayerClick : NetworkBehaviour
             else if (inventory.selectedSlot.First != null)
             {
                 Debug.Log("Using Item");
-                inventory.UseSelectedItem(mouseWorldPos);
+                if (inventory.selectedSlot.First.Value.itemName == "BearTrap")
+                {
+                    if (canPlaceItem)
+                        inventory.UseSelectedItem(mouseWorldPos);
+                }
+                else
+                    inventory.UseSelectedItem(mouseWorldPos);
             }
             // No actions
             else
@@ -212,6 +224,19 @@ public class PlayerClick : NetworkBehaviour
 
     private void DrawItemAtCursor(Vector2 mouseWorldPos)
    {
+        Color color = selectedItemSR.material.color;
+        if (!canPlaceItem)
+        {
+            color.g = 0;
+            color.b = 0;
+            selectedItemSR.material.color = color;
+        }
+        else
+        {
+            color.g = 1;
+            color.b = 1;
+            selectedItemSR.material.color = color;
+        }
         selectedItemSR.sprite = inventory.selectedSlot.First.Value.gameObject.GetComponent<SpriteRenderer>().sprite;
         // Check if the center of the tile cursor is on is in interaction range
         if (Vector2.Distance(gameObject.transform.position, mouseWorldPos) < interactionRange)
@@ -219,17 +244,20 @@ public class PlayerClick : NetworkBehaviour
             // Remove highlight if an interactable is present at cursor
             if (highlightedInteractable != null)
             {
-                selectedItemSR.color = new Color(1, 1, 1, 0);
+                color.a = 0;
+                selectedItemSR.material.color = color;
             }
             else
             {
-                selectedItemSR.color = new Color(1, 1, 1, 0.7f);
+                color.a = 0.7f;
+                selectedItemSR.material.color = color;
                 selectedItemSpriteGO.transform.position = mouseWorldPos;
             }
         }
         else
         {
-            selectedItemSR.color = new Color(1, 1, 1, 0);
+            color.a = 0;
+            selectedItemSR.material.color = color;
         }
     }
 
