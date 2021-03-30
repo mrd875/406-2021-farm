@@ -219,6 +219,15 @@ public class PlayerData : MonoBehaviour
         //Update money text
         UpdateMoney moneyText = FindObjectOfType<UpdateMoney>();
         moneyText.UpdateMoneyText();
+
+        if (value > 0)
+        {
+            moneyText.PlayGain();
+        }
+        else
+        {
+            moneyText.PlayLoss();
+        }
     }
 
     public static void SetPlayer(GameObject newPlayer)

@@ -112,6 +112,7 @@ MonoBehaviour:
   fullyGrownItem: {fileID: 1163457314481026931, guid: 151fd55795dd78d468e7c5739fc69631, type: 3}
   ID: 0
   growthModifier: 0
+  speedGrowthEffect: {fileID: 7283519029586466633, guid: b9d5506bd3bbf6e4fa17ac8a61d034e9, type: 3}
 --- !u!114 &1205270321442772438
 MonoBehaviour:
   m_ObjectHideFlags: 0

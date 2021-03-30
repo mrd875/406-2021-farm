@@ -22,6 +22,7 @@ public class MenuMusic : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         GetComponent<AudioSource>().volume = SoundControl.musicVolume * 0.5f;
+        
 
     }
 

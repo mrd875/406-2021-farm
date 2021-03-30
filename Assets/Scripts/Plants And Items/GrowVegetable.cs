@@ -30,6 +30,8 @@ public class GrowVegetable : NetworkBehaviour
 
     private bool canGrow = false;
 
+    public GameObject speedGrowthEffect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +49,11 @@ public class GrowVegetable : NetworkBehaviour
     public void StartGrowing(float growthRate)
     {
         growthModifier = growthRate;
+        if (growthModifier < 1)
+        {
+            GameObject sparkles = Instantiate(speedGrowthEffect, this.transform);
+            sparkles.transform.localPosition = new Vector3(0, 0.3f);
+        }
         Debug.Log("Starting to Grow with " + growthModifier.ToString() + " growth rate");
         growTimer = Time.time + currentStage.growTime * growthModifier;
         canGrow = true;

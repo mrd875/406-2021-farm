@@ -8,9 +8,9 @@ public class SettingManager : MonoBehaviour
 {
     public Dropdown displayMode;
     public Dropdown resolutionDropdown;
-    public Dropdown textureQualityDropdown;
-    public Dropdown antialiasingDropdown;
-    public Dropdown vSyncDropdown;
+    //public Dropdown textureQualityDropdown;
+    //public Dropdown antialiasingDropdown;
+    //public Dropdown vSyncDropdown;
     public Slider musicVolumeSlider;
     public Slider soundEffectsVolumeSlider;
 
@@ -30,16 +30,16 @@ public class SettingManager : MonoBehaviour
         SettingPath = Application.persistentDataPath + "/gamesettings.json";
     }
 
-    void OnEnable()
+    void Start()
     {
         gameSettings = LoadSettings();
         
 
         displayMode.onValueChanged.AddListener(delegate { OnDisplayModeChange(); });
         resolutionDropdown.onValueChanged.AddListener(delegate { OnResolutionChange(); });
-        textureQualityDropdown.onValueChanged.AddListener(delegate { OnTextureQualityChange(); });
-        antialiasingDropdown.onValueChanged.AddListener(delegate { OnAntialiasingChange(); });
-        vSyncDropdown.onValueChanged.AddListener(delegate { OnVSyncChange(); });
+        //textureQualityDropdown.onValueChanged.AddListener(delegate { OnTextureQualityChange(); });
+        //antialiasingDropdown.onValueChanged.AddListener(delegate { OnAntialiasingChange(); });
+        //vSyncDropdown.onValueChanged.AddListener(delegate { OnVSyncChange(); });
         musicVolumeSlider.onValueChanged.AddListener(delegate { OnMusicVolumeChange(); });
         soundEffectsVolumeSlider.onValueChanged.AddListener(delegate { OnSoundEffectsVolumeChange(); });
 
@@ -76,7 +76,7 @@ public class SettingManager : MonoBehaviour
         gameSettings.resolutionIndex = resolutionDropdown.value;
         Screen.SetResolution(resolutions[resolutionDropdown.value].width, resolutions[resolutionDropdown.value].height, Screen.fullScreenMode);
     }
-
+    /*
     public void OnTextureQualityChange()
     {
         gameSettings.textureQuality = textureQualityDropdown.value;
@@ -107,17 +107,17 @@ public class SettingManager : MonoBehaviour
     {
         gameSettings.vSync = QualitySettings.vSyncCount = vSyncDropdown.value;
     }
-
+    */
     public void OnMusicVolumeChange()
     {
         SoundControl.musicVolume = musicVolumeSlider.value;
-        gameSettings.musicVolume = musicSource.volume = musicVolumeSlider.value;
+        gameSettings.musicVolume = musicVolumeSlider.value;
     }
 
     public void OnSoundEffectsVolumeChange()
     {
         SoundControl.soundEffectVolume = soundEffectsVolumeSlider.value;
-        gameSettings.soundEffectsVolume = soundEffectsSource.volume = soundEffectsVolumeSlider.value;
+        gameSettings.soundEffectsVolume = soundEffectsVolumeSlider.value;
     }
 
     public void OnApplyButtonClick()
@@ -129,6 +129,7 @@ public class SettingManager : MonoBehaviour
     {
         ResetSettings();
     }
+
 
     public void ResetSettings()
     {
@@ -143,6 +144,7 @@ public class SettingManager : MonoBehaviour
         }
         Screen.SetResolution(resolutions[gameSettings.resolutionIndex].width, resolutions[gameSettings.resolutionIndex].height, Screen.fullScreenMode);
 
+        /*
         if (gameSettings.textureQuality == 0)
         {
             QualitySettings.masterTextureLimit = 4;
@@ -162,7 +164,7 @@ public class SettingManager : MonoBehaviour
 
         QualitySettings.antiAliasing = gameSettings.anitaliasing;
         QualitySettings.vSyncCount = gameSettings.vSync;
-
+        */
         SoundControl.musicVolume = gameSettings.soundEffectsVolume;
         musicSource.volume = gameSettings.musicVolume;
 
@@ -175,15 +177,16 @@ public class SettingManager : MonoBehaviour
     {
         string jsonData = JsonUtility.ToJson(gameSettings, true);
         File.WriteAllText(SettingPath, jsonData);
+        Debug.Log("Saved Data");
     }
 
     private void setUiComponent(GameSettings settings)
     {
         displayMode.value = settings.displayMode;
         resolutionDropdown.value = settings.resolutionIndex;
-        antialiasingDropdown.value = settings.anitaliasing;
-        textureQualityDropdown.value = settings.textureQuality;
-        vSyncDropdown.value = settings.vSync;
+        //antialiasingDropdown.value = settings.anitaliasing;
+        //textureQualityDropdown.value = settings.textureQuality;
+        //vSyncDropdown.value = settings.vSync;
         musicVolumeSlider.value = settings.musicVolume;
         soundEffectsVolumeSlider.value = settings.soundEffectsVolume;
     }
@@ -201,9 +204,9 @@ public class SettingManager : MonoBehaviour
             settings = new GameSettings();
             settings.displayMode = 0;
             settings.resolutionIndex = 0;
-            settings.anitaliasing = 0;
-            settings.vSync = 0;
-            settings.resolutionIndex = 0;
+            //settings.anitaliasing = 0;
+            //settings.vSync = 0;
+            //settings.resolutionIndex = 0;
             settings.musicVolume = 0;
             settings.soundEffectsVolume = 0;
         }
