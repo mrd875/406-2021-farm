@@ -30,6 +30,9 @@ public class PlayerClick : NetworkBehaviour
     private LayerMask whatIsInteractable;
     public GameObject highlightedInteractable;
 
+    public Sprite inventoryNormalSprite;
+    public Sprite inventorySelectedSprite;
+
     private void Start()
     {
         highlightTile.color = new Color(0f, 0.5f, 1f, 0.5f); // default color (rgba)
@@ -171,11 +174,13 @@ public class PlayerClick : NetworkBehaviour
         if (inventory.itemSlots[oldSlotNumber].Count != 0)
         {
             inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            inventory.selectedSlotUI.transform.GetComponent<Image>().sprite = inventoryNormalSprite;
         }
         //Leaving an empty slot. Make it invisible
         else
         {
             inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
+            inventory.selectedSlotUI.transform.GetComponent<Image>().sprite = inventoryNormalSprite;
         }
         //Store data to check on next slot change
         oldSlotNumber = slotNumber;
@@ -185,6 +190,7 @@ public class PlayerClick : NetworkBehaviour
         GameObject newSlot = GameObject.Find(slotName);
         inventory.selectedSlotUI = newSlot;
         inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+        inventory.selectedSlotUI.transform.GetComponent<Image>().sprite = inventorySelectedSprite;
     }
 
     // The tile highlight cursor disappears when out of range

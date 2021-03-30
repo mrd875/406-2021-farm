@@ -307,6 +307,8 @@ MonoBehaviour:
   interactionRange: 2
   canInteract: 0
   highlightedInteractable: {fileID: 0}
+  inventoryNormalSprite: {fileID: 21300000, guid: 12e7d192832ccf34890505249e9c933f, type: 3}
+  inventorySelectedSprite: {fileID: 21300000, guid: aa822213b7ad7564cb48b1ed0be57103, type: 3}
 --- !u!61 &9000735518018980513
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -368,6 +370,7 @@ MonoBehaviour:
   money: 100
   inBinRange: 0
   shovelPrefab: {fileID: 1618075013237995541, guid: f53f1ac7d364cbb45a96ff437f0c65a6, type: 3}
+  startingInventorySelection: {fileID: 21300000, guid: aa822213b7ad7564cb48b1ed0be57103, type: 3}
 --- !u!114 &2715932179984281046
 MonoBehaviour:
   m_ObjectHideFlags: 0

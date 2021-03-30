@@ -25,6 +25,8 @@ public class PlayerInventory2 : NetworkBehaviour
 
     public GameObject shovelPrefab;
 
+    public Sprite startingInventorySelection;
+
     void Start()
     {
         itemSlots = new LinkedList<Item2>[5];
@@ -41,6 +43,7 @@ public class PlayerInventory2 : NetworkBehaviour
         // Add shovel from start
         GameObject shovel = Instantiate(shovelPrefab, Vector2.zero, Quaternion.identity);
         AddItem(shovel.GetComponent<Item2>());
+        selectedSlotUI.transform.GetComponent<Image>().sprite = startingInventorySelection;
     }
 
     void Update()
@@ -118,7 +121,7 @@ public class PlayerInventory2 : NetworkBehaviour
         }
 
         if (item.is_stackable)
-            GameObject.Find(slotName).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[slotNumber].Count;
+            GameObject.Find(slotName).transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "x " + itemSlots[slotNumber].Count;
         //Destroy(item.transform.gameObject);
         item.transform.position = new Vector3(-500, 0, 0);
     }
@@ -243,7 +246,7 @@ public class PlayerInventory2 : NetworkBehaviour
                 selectedSlotUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = ""; // clear text
             }
             else
-                selectedSlotUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[selectedSlotNumber].Count;
+                selectedSlotUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "x " + itemSlots[selectedSlotNumber].Count;
         }
     }
 
