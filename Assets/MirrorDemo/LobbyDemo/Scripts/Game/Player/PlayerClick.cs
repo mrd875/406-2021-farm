@@ -23,6 +23,8 @@ public class PlayerClick : NetworkBehaviour
 
     // Inventory script belonging to this.gameObject
     private PlayerInventory2 inventory;
+    private GameObject selectedItemSpriteGO;    // place-holder for drawing items at cursor; displayed placable item before it is placed
+    private SpriteRenderer selectedItemSR;
 
     private int oldSlotNumber = 0;
     private string[] slotNames = new string[] { "Slot1UI", "Slot2UI", "Slot3UI", "Slot4UI", "Slot5UI" };
@@ -35,6 +37,11 @@ public class PlayerClick : NetworkBehaviour
         highlightTile.color = new Color(0f, 0.5f, 1f, 0.5f); // default color (rgba)
         inventory = gameObject.GetComponent<PlayerInventory2>();
         whatIsInteractable = LayerMask.GetMask("Interactable");
+
+        selectedItemSpriteGO = new GameObject();
+        selectedItemSR = selectedItemSpriteGO.AddComponent<SpriteRenderer>();
+        selectedItemSR.sortingOrder = 0;
+        selectedItemSR.sortingLayerName = "Item";
     }
 
     private void Update()
@@ -55,8 +62,18 @@ public class PlayerClick : NetworkBehaviour
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector3Int tileCoordinate = WorldData2.highlighter.WorldToCell(mouseWorldPos);
 
+        // If placable item is selected form inventory, draw item at cursor
+        if (inventory.selectedSlot.First != null && inventory.selectedSlot.First.Value.itemName == "BearTrap")
+        {
+            WorldData2.highlighter.SetTile(tileCoordinate, null);
+            DrawItemAtCursor(mouseWorldPos);
+        }
         // Highlight tile at mouseover
-        CursorHighlight(tileCoordinate);   // Cursor disappears when out of range
+        else
+        {
+            selectedItemSR.color = new Color(1, 1, 1, 0);
+            CursorHighlight(tileCoordinate);   // Cursor disappears when out of range
+        }
 
         //Scroll to change items
         if (Input.mouseScrollDelta.y < 0)
@@ -185,6 +202,29 @@ public class PlayerClick : NetworkBehaviour
         GameObject newSlot = GameObject.Find(slotName);
         inventory.selectedSlotUI = newSlot;
         inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+    }
+
+    private void DrawItemAtCursor(Vector2 mouseWorldPos)
+   {
+        selectedItemSR.sprite = inventory.selectedSlot.First.Value.gameObject.GetComponent<SpriteRenderer>().sprite;
+        // Check if the center of the tile cursor is on is in interaction range
+        if (Vector2.Distance(gameObject.transform.position, mouseWorldPos) < interactionRange)
+        {
+            // Remove highlight if an interactable is present at cursor
+            if (highlightedInteractable != null)
+            {
+                selectedItemSR.color = new Color(1, 1, 1, 0);
+            }
+            else
+            {
+                selectedItemSR.color = new Color(1, 1, 1, 0.7f);
+                selectedItemSpriteGO.transform.position = mouseWorldPos;
+            }
+        }
+        else
+        {
+            selectedItemSR.color = new Color(1, 1, 1, 0);
+        }
     }
 
     // The tile highlight cursor disappears when out of range
