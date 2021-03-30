@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine.Tilemaps;
 using UnityEngine;
 
@@ -121,12 +122,17 @@ public class WorldData2 : MonoBehaviour
 
     }
 
+
+
+
     //Removes the plant with the given unique ID. Used by other clients to remove plants (location is unreliable)
     public static void RemoveItemsWithID(int id)
     {
         //For some reason IDs get multiplied by 256. Extract usable ID
         int usableID = id / 256;
         Debug.Log("Destroying plant of id: " + usableID.ToString());
+
+        
         Item2[] allItems = GameObject.FindObjectsOfType<Item2>();
         
         //For all items...
@@ -148,6 +154,8 @@ public class WorldData2 : MonoBehaviour
             }
         }
     }
+
+
 
     //Removes a used planted location by plant ID
     private static void RemoveByID(int ID)

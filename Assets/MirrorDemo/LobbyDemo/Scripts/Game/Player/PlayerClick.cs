@@ -235,6 +235,13 @@ public class PlayerClick : NetworkBehaviour
     [ClientRpc]
     private void RpcAddItem(Item2 i, int ID)
     {
+        StartCoroutine(PickupDelay(i, ID));
+
+    }
+
+    private IEnumerator PickupDelay(Item2 i, int ID)
+    {
+        yield return new WaitForSeconds(0.5f);
         //For plant pickups/ dynamically spawned in stuff
         WorldData2.RemoveItemsWithID(ID);
 
