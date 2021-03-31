@@ -22,7 +22,7 @@ public class PlayerClick : NetworkBehaviour
     public bool canInteract = true;
 
     // Inventory script belonging to this.gameObject
-    private PlayerInventory2 inventory;
+    public PlayerInventory2 inventory;
     private GameObject selectedItemSpriteGO;    // place-holder for drawing items at cursor; displayed placable item before it is placed
     private SpriteRenderer selectedItemSR;
     public bool canPlaceItem = false;
@@ -70,7 +70,7 @@ public class PlayerClick : NetworkBehaviour
         Vector3Int tileCoordinate = WorldData2.highlighter.WorldToCell(mouseWorldPos);
 
         // If placable item is selected form inventory, draw item at cursor
-        if (inventory.selectedSlot.First != null && inventory.selectedSlot.First.Value.itemName == "BearTrap")
+        if (inventory.SelectedSlot.First != null && inventory.SelectedSlot.First.Value.itemName == "BearTrap")
         {
             WorldData2.highlighter.SetTile(tileCoordinate, null);
             DrawItemAtCursor(mouseWorldPos);
@@ -133,7 +133,7 @@ public class PlayerClick : NetworkBehaviour
         // Interact
         if (Input.GetMouseButtonDown(0) && canInteract)
         {
-            ShopSystem shop;    // used to store shop script if exists on interactable    
+            ShopSystem shop;    // used to store shop script if exists on interactable
 
             // Check if interactable object was clicked
             if (highlightedInteractable != null)
@@ -176,10 +176,10 @@ public class PlayerClick : NetworkBehaviour
                 }
             }
             // Use item
-            else if (inventory.selectedSlot.First != null)
+            else if (inventory.SelectedSlot.First != null)
             {
                 Debug.Log("Using Item");
-                if (inventory.selectedSlot.First.Value.itemName == "BearTrap")
+                if (inventory.SelectedSlot.First.Value.itemName == "BearTrap")
                 {
                     if (canPlaceItem)
                         inventory.UseSelectedItem(mouseWorldPos);
@@ -194,32 +194,39 @@ public class PlayerClick : NetworkBehaviour
                 Debug.Log("false");
             }
         }
+
+        var scrollWheelValue = Input.GetAxis("Mouse ScrollWheel");
+        if (scrollWheelValue != 0)
+        {
+            Debug.Log("scrollWheelValue >>> " + scrollWheelValue);
+
+        }
     }
 
     //Changes to the given slot. slotName must match exactly to the scene name of UI element.
     public void SetSlot(string slotName, int slotNumber)
     {
         //There is something in the slot you are leaving. Restore opacity
-        if (inventory.itemSlots[oldSlotNumber].Count != 0)
+        if (inventory.ItemSlots[oldSlotNumber].Count != 0)
         {
-            inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
-            inventory.selectedSlotUI.transform.GetComponent<Image>().sprite = inventoryNormalSprite;
+            inventory.SelectedSlotUi.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            inventory.SelectedSlotUi.transform.GetComponent<Image>().sprite = inventoryNormalSprite;
         }
         //Leaving an empty slot. Make it invisible
         else
         {
-            inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
-            inventory.selectedSlotUI.transform.GetComponent<Image>().sprite = inventoryNormalSprite;
+            inventory.SelectedSlotUi.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0);
+            inventory.SelectedSlotUi.transform.GetComponent<Image>().sprite = inventoryNormalSprite;
         }
         //Store data to check on next slot change
         oldSlotNumber = slotNumber;
 
         //Change to new item
-        inventory.selectedSlotNumber = slotNumber;
-        GameObject newSlot = GameObject.Find(slotName);
-        inventory.selectedSlotUI = newSlot;
-        inventory.selectedSlotUI.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
-        inventory.selectedSlotUI.transform.GetComponent<Image>().sprite = inventorySelectedSprite;
+        inventory.SelectedSlotNumber = slotNumber;
+        // GameObject newSlot = GameObject.Find(slotName);
+        // inventory.selectedSlotUI = newSlot;
+        inventory.SelectedSlotUi.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+        inventory.SelectedSlotUi.transform.GetComponent<Image>().sprite = inventorySelectedSprite;
     }
 
     private void DrawItemAtCursor(Vector2 mouseWorldPos)
@@ -237,7 +244,7 @@ public class PlayerClick : NetworkBehaviour
             color.b = 1;
             selectedItemSR.material.color = color;
         }
-        selectedItemSR.sprite = inventory.selectedSlot.First.Value.gameObject.GetComponent<SpriteRenderer>().sprite;
+        selectedItemSR.sprite = inventory.SelectedSlot.First.Value.gameObject.GetComponent<SpriteRenderer>().sprite;
         // Check if the center of the tile cursor is on is in interaction range
         if (Vector2.Distance(gameObject.transform.position, mouseWorldPos) < interactionRange)
         {

@@ -49,7 +49,7 @@ public class ShopItem : MonoBehaviour
             if (bearTrap)
             {
                 GameObject bearTrapItemClone = Instantiate(ObjectData.bearTrapItemPrefab, Vector2.zero, Quaternion.identity);
-                PlayerData2.localPlayer.GetComponent<PlayerInventory2>().AddItem(bearTrapItemClone.GetComponent<Item2>());
+                PlayerData2.playerClick.inventory.AddItem(bearTrapItemClone.GetComponent<Item2>());
             }
 
         }
