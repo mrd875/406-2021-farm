@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class BearTrap : MonoBehaviour
+public class BearTrap : NetworkBehaviour
 {
     public string trapOwnerTag;
     public float trapTime = 2.5f;
@@ -46,13 +47,4 @@ public class BearTrap : MonoBehaviour
             }
         }
     }
-
-/*    private IEnumerator Trapped(PlayerMovement2 playerMovement)
-    {
-        float baseMovementSpeed = playerMovement.baseMoveSpeed;
-        playerMovement.moveSpeed = 0.0f;
-        yield return new WaitForSeconds(trapTime);
-        playerMovement.moveSpeed = baseMovementSpeed;
-        Destroy(this.gameObject);
-    }*/
 }

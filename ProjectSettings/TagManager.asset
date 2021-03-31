@@ -21,6 +21,7 @@ TagManager:
   - PlayerOneZoneCheck
   - PlayerTwoZoneCheck
   - Scenery
+  - Cursor
   layers:
   - Default
   - TransparentFX

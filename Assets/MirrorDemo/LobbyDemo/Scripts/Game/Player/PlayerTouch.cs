@@ -40,11 +40,6 @@ public class PlayerTouch : NetworkBehaviour
                 }
             }
         }
-
-/*        if (collision.gameObject.tag == "Player")
-        {
-            CmdOnCollidePlayer(collision.gameObject.GetComponent<NetworkIdentity>());
-        }*/
     }
 
     [Command]

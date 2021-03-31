@@ -83,19 +83,11 @@ public class PlayerMovement2 : NetworkBehaviour
             CmdReduceSpeed(reduction);
     }
 
-    public void TrapPlayer(GameObject trap, float trapTime)
-    {
-        if (isServer)
-            RpcTrap(trap, trapTime);
-        else
-            CmdTrap(trap, trapTime);
-    }
-
-
     // Changes movement speed back to normal after a certain time. Timer resets when hit by another projectile.
     private IEnumerator RegainSpeed()
     {
         StatusEffects icon = transform.GetChild(0).GetComponent<StatusEffects>();
+        Debug.Log(gameObject.tag);
         icon.StartEffect("Wet");
         yield return new WaitForSeconds(3f);
         icon.StopEffects();
@@ -108,14 +100,12 @@ public class PlayerMovement2 : NetworkBehaviour
         }
     }
 
-
     public IEnumerator Trapped(GameObject trap, float trapTime)
     {
         StatusEffects statusIcon = transform.GetChild(0).GetComponent<StatusEffects>();
         statusIcon.StartEffect("Bear Trap");
         if (hasAuthority)
         {
-            
             PlayerData2.playerClick.enabled = false;
             PlayerData2.playerShoot.canShoot = false;
         }
@@ -132,7 +122,6 @@ public class PlayerMovement2 : NetworkBehaviour
         Destroy(trap);
     }
 
-
     [Command]
     private void CmdReduceSpeed(float reduction)
     {
@@ -145,17 +134,5 @@ public class PlayerMovement2 : NetworkBehaviour
         activeMoveSpeed = maxMoveSpeed * reduction;
         appliedReductionEffects += 1;
         StartCoroutine(RegainSpeed());
-    }
-
-    [Command]
-    private void CmdTrap(GameObject trap, float trapTime)
-    {
-        RpcTrap(trap, trapTime);
-    }
-
-    [ClientRpc]
-    private void RpcTrap(GameObject trap, float trapTime)
-    {
-        StartCoroutine(Trapped(trap, trapTime));
     }
 }
