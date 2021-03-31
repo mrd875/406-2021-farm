@@ -86,6 +86,7 @@ public class PlayerClick : NetworkBehaviour
         if (inventory.selectedSlot.First != null && inventory.selectedSlot.First.Value.itemName == "BearTrap")
         {
             WorldData2.highlighter.SetTile(tileCoordinate, null);
+            WorldData2.highlighter.SetTile(previousTileCoordinate, null);
             DrawItemAtCursor(mouseWorldPos);
         }
         // Highlight tile at mouseover

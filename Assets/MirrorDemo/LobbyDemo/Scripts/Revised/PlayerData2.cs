@@ -60,6 +60,8 @@ public class PlayerData2 : NetworkBehaviour
             playerOne.GetComponent<PlayerClick>().enabled = true;
             playerOne.GetComponent<Shoot2>().enabled = true;
 
+            // Disable collider that blocks trap placement. This is only to exist on other players
+            localPlayer.transform.GetChild(1).GetComponent<CircleCollider2D>().enabled = false;
         }
     }
 
