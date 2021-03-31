@@ -43,13 +43,16 @@ public class PlayerClick : NetworkBehaviour
         inventory = gameObject.GetComponent<PlayerInventory2>();
         whatIsInteractable = LayerMask.GetMask("Interactable");
 
-        selectedItemSpriteGO = new GameObject();
-        selectedItemSpriteGO.tag = "Cursor";
-        CircleCollider2D cc = selectedItemSpriteGO.AddComponent<CircleCollider2D>();
-        cc.isTrigger = true;
-        selectedItemSR = selectedItemSpriteGO.AddComponent<SpriteRenderer>();
-        selectedItemSR.sortingOrder = 0;
-        selectedItemSR.sortingLayerName = "Item";
+        if (hasAuthority)
+        {
+            selectedItemSpriteGO = new GameObject();
+            selectedItemSpriteGO.tag = "Cursor";
+            CircleCollider2D cc = selectedItemSpriteGO.AddComponent<CircleCollider2D>();
+            cc.isTrigger = true;
+            selectedItemSR = selectedItemSpriteGO.AddComponent<SpriteRenderer>();
+            selectedItemSR.sortingOrder = 0;
+            selectedItemSR.sortingLayerName = "Item";
+        }
     }
 
     private void Update()
@@ -143,7 +146,6 @@ public class PlayerClick : NetworkBehaviour
         // Interact
         if (Input.GetMouseButtonDown(0) && canInteract)
         {
-            Debug.Log("Clicked");
             ShopSystem shop;    // used to store shop script if exists on interactable    
 
             // Check if interactable object was clicked
@@ -192,12 +194,11 @@ public class PlayerClick : NetworkBehaviour
                 Debug.Log("Using Item");
                 if (inventory.selectedSlot.First.Value.itemName == "BearTrap")
                 {
-                    Debug.Log("Using Bear Trap");
                     if (canPlaceItem)
                         inventory.UseSelectedItem(mouseWorldPos);
                 }
                 else
-                    // Note: this is currently assuming that all remaining possible selected items interact with tiles (e.g. Shovel and Seeds)  
+                    // if item interacts with tiles (e.g. shovel and seeds) 
                     if (canInteractWithTile)
                         inventory.UseSelectedItem(mouseWorldPos);
             }

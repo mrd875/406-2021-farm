@@ -6,7 +6,6 @@ public class CursorCollider : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Enter");
         if (other.tag == "Cursor")
         {
             PlayerData2.playerClick.canPlaceItem = false;
@@ -15,7 +14,6 @@ public class CursorCollider : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("Exit");
         if (other.tag == "Cursor")
         {
             PlayerData2.playerClick.canPlaceItem = true;
