@@ -17,6 +17,7 @@ public class PlayerData2 : NetworkBehaviour
     static public float localGrowSpeed = 1;
 
     private bool setUp = true;
+    private int setUpAttempt = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -40,12 +41,26 @@ public class PlayerData2 : NetworkBehaviour
                 playerShoot = localPlayer.GetComponent<Shoot2>();
             }
         }
-        if (playerOne == null || playerTwo == null)
+        if ((playerOne == null || playerTwo == null) && setUpAttempt < 5)
+        {
             setUp = false;
-        //localPlayer = GameObject.Find("LocalPlayer");
+            setUpAttempt++; // if this fails 5 times, assume only one player will load in (for testing purpose)
+        }
+        else
+        {
+            if (setUpAttempt != 5)
+            {
+                playerTwo.GetComponent<SpriteRenderer>().sprite = playerTwoSprite;
+                playerTwo.GetComponent<Animator>().runtimeAnimatorController = playerTwoAnimatorController;
+                playerTwo.GetComponent<PlayerMovement2>().enabled = true;
+                playerTwo.GetComponent<PlayerClick>().enabled = true;
+                playerTwo.GetComponent<Shoot2>().enabled = true;
+            }
+            playerOne.GetComponent<PlayerMovement2>().enabled = true;
+            playerOne.GetComponent<PlayerClick>().enabled = true;
+            playerOne.GetComponent<Shoot2>().enabled = true;
 
-        playerTwo.GetComponent<SpriteRenderer>().sprite = playerTwoSprite;
-        playerTwo.GetComponent<Animator>().runtimeAnimatorController = playerTwoAnimatorController;
+        }
     }
 
     void Update()
@@ -53,6 +68,8 @@ public class PlayerData2 : NetworkBehaviour
         // For if player prefab takes longer than usual to spawn
         if (!setUp)
         {
+            Debug.Log("Player data failed to set values, reattempting...");
+            setUp = true; // until proven otherwise in the following function (to prevent message spam)
             StartCoroutine(LateStart(0.1f));
         }
     }

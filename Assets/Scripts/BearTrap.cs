@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class BearTrap : MonoBehaviour
+public class BearTrap : NetworkBehaviour
 {
     public string trapOwnerTag;
     public float trapTime = 2.5f;

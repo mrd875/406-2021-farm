@@ -18,14 +18,15 @@ public class PlayerClick : NetworkBehaviour
     public float interactionRange = 2f; // range from player to cursor for which player can interact
     Vector3Int previousTileCoordinate;
 
-    // If cursor is in interaction range
-    public bool canInteract = true;
+    
+    public bool canInteract = true; // If cursor is in interaction range. 
+    public bool canInteractWithTile = true; // If interaction range reaches the center of the tile that the mouse is on
 
     // Inventory script belonging to this.gameObject
     private PlayerInventory2 inventory;
     private GameObject selectedItemSpriteGO;    // place-holder for drawing items at cursor; displayed placable item before it is placed
     private SpriteRenderer selectedItemSR;
-    public bool canPlaceItem = false;
+    public bool canPlaceItem = true;
 
     private int oldSlotNumber = 0;
     private string[] slotNames = new string[] { "Slot1UI", "Slot2UI", "Slot3UI", "Slot4UI", "Slot5UI" };
@@ -57,6 +58,7 @@ public class PlayerClick : NetworkBehaviour
         if (!hasAuthority)
             return;
 
+
         // highlight interactable at mouseover if in range to grab
         if (highlightedInteractable != null)
             if (canInteract)
@@ -68,6 +70,14 @@ public class PlayerClick : NetworkBehaviour
         Vector2 mousePos = Input.mousePosition;
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector3Int tileCoordinate = WorldData2.highlighter.WorldToCell(mouseWorldPos);
+
+
+        if (Vector2.Distance(gameObject.transform.position, mouseWorldPos) < interactionRange)
+            canInteract = true;
+        else
+            canInteract = false;
+
+
 
         // If placable item is selected form inventory, draw item at cursor
         if (inventory.selectedSlot.First != null && inventory.selectedSlot.First.Value.itemName == "BearTrap")
@@ -133,6 +143,7 @@ public class PlayerClick : NetworkBehaviour
         // Interact
         if (Input.GetMouseButtonDown(0) && canInteract)
         {
+            Debug.Log("Clicked");
             ShopSystem shop;    // used to store shop script if exists on interactable    
 
             // Check if interactable object was clicked
@@ -181,11 +192,14 @@ public class PlayerClick : NetworkBehaviour
                 Debug.Log("Using Item");
                 if (inventory.selectedSlot.First.Value.itemName == "BearTrap")
                 {
+                    Debug.Log("Using Bear Trap");
                     if (canPlaceItem)
                         inventory.UseSelectedItem(mouseWorldPos);
                 }
                 else
-                    inventory.UseSelectedItem(mouseWorldPos);
+                    // Note: this is currently assuming that all remaining possible selected items interact with tiles (e.g. Shovel and Seeds)  
+                    if (canInteractWithTile)
+                        inventory.UseSelectedItem(mouseWorldPos);
             }
             // No actions
             else
@@ -239,7 +253,7 @@ public class PlayerClick : NetworkBehaviour
         }
         selectedItemSR.sprite = inventory.selectedSlot.First.Value.gameObject.GetComponent<SpriteRenderer>().sprite;
         // Check if the center of the tile cursor is on is in interaction range
-        if (Vector2.Distance(gameObject.transform.position, mouseWorldPos) < interactionRange)
+        if (canInteract)
         {
             // Remove highlight if an interactable is present at cursor
             if (highlightedInteractable != null)
@@ -268,6 +282,7 @@ public class PlayerClick : NetworkBehaviour
         // Check if the center of the tile cursor is on is in interaction range
         if (Vector2.Distance(gameObject.transform.position, WorldData2.highlighter.CellToWorld(tileCoordinate)) < interactionRange)
         {
+            canInteractWithTile = true;
             // Remove highlight if an interactable is present at cursor
             if (highlightedInteractable != null)
             {
@@ -288,15 +303,14 @@ public class PlayerClick : NetworkBehaviour
                     previousTileCoordinate = tileCoordinate;
                 }
             }
-            canInteract = true;
         }
         else
         {
-            if (canInteract)
+            if (canInteractWithTile)
             {
                 WorldData2.highlighter.SetTile(previousTileCoordinate, null);
             }
-            canInteract = false;
+            canInteractWithTile = false;
         }
     }
 

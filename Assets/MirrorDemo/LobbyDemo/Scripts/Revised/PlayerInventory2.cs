@@ -311,6 +311,9 @@ public class PlayerInventory2 : NetworkBehaviour
         bearTrap.GetComponent<BearTrap>().trapOwnerTag = userTag;
         if (userTag == PlayerData2.localPlayer.tag)
             ItemUsed();
+        else
+            // For the other player, disable collider that prevents additional traps from being placed nearby
+            bearTrap.transform.GetChild(0).GetComponent<CircleCollider2D>().enabled = false;
     }
 
 }
