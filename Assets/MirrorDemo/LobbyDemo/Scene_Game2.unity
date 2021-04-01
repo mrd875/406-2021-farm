@@ -290,6 +290,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdb5914c9358d8b4a89f4a8e1158a930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  playerTwoSprite: {fileID: 0}
+  playerTwoAnimatorController: {fileID: 0}
 --- !u!4 &147220264
 Transform:
   m_ObjectHideFlags: 0
@@ -612,6 +616,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 412677979}
     m_Modifications:
+    - target: {fileID: 723398984629834110, guid: e10d910c3d4a48049af8f3584b43369d, type: 3}
+      propertyPath: sceneId
+      value: 3742977566
+      objectReference: {fileID: 0}
     - target: {fileID: 2470999435882280507, guid: e10d910c3d4a48049af8f3584b43369d, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0

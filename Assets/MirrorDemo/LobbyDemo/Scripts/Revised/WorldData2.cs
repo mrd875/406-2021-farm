@@ -134,9 +134,20 @@ public class WorldData2 : MonoBehaviour
         int usableID = id / 256;
         Debug.Log("Destroying plant of id: " + usableID.ToString());
 
-        
+        GrowVegetable[] growingVegetables = GameObject.FindObjectsOfType<GrowVegetable>();
         Item2[] allItems = GameObject.FindObjectsOfType<Item2>();
         
+        //For all growing vegetables...
+        foreach (var growingVegetable in growingVegetables)
+        {
+            if (growingVegetable.ID == usableID)
+            {
+                Debug.Log("Got a hit, destroying");
+                RemoveByID(growingVegetable.ID);
+                growingVegetable.transform.position = new Vector3(-500, 0, 0);
+            }
+        }
+
         //For all items...
         foreach (var allItem in allItems)
         {

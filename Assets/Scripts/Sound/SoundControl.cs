@@ -109,4 +109,22 @@ public class SoundControl : MonoBehaviour
         soundSource.GetComponent<AudioSource>().volume = soundEffectVolume * 0.5f;
         soundSource.GetComponent<AudioSource>().Play();
     }
+    public static void PlayTrapSound()
+    {
+        TrapSound soundSource = GameObject.FindObjectOfType<TrapSound>();
+        soundSource.GetComponent<AudioSource>().volume = soundEffectVolume * 0.2f;
+        soundSource.GetComponent<AudioSource>().Play();
+    }
+    public static void PlayRechargeSound()
+    {
+        RechargeSound soundSource = GameObject.FindObjectOfType<RechargeSound>();
+        soundSource.GetComponent<AudioSource>().volume = soundEffectVolume * 0.3f;
+        soundSource.GetComponent<AudioSource>().Play();
+    }
+    public static void PlayStartSound()
+    {
+        StartSound soundSource = GameObject.FindObjectOfType<StartSound>();
+        soundSource.GetComponent<AudioSource>().volume = soundEffectVolume * 0.3f;
+        soundSource.GetComponent<AudioSource>().Play();
+    }
 }
