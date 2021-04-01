@@ -6,7 +6,6 @@ using Mirror;
 public class PlayerMovement2 : NetworkBehaviour
 {
     // basic movement variables
-    public float maxMoveSpeed = 200.0f;
     private float activeMoveSpeed;
     public float speedUpgradeMagnitude = 1.2f;
     public int speedUpgradeCount = 0;
@@ -24,7 +23,7 @@ public class PlayerMovement2 : NetworkBehaviour
     {
         animator = this.GetComponent<Animator>();
         rb = gameObject.GetComponent<Rigidbody2D>();
-        activeMoveSpeed = maxMoveSpeed;
+        activeMoveSpeed = PlayerData2.maxMoveSpeed;
     }
 
 
@@ -69,8 +68,16 @@ public class PlayerMovement2 : NetworkBehaviour
 
     public void SpeedUpgrade()
     {
-        maxMoveSpeed *= speedUpgradeMagnitude;
+        PlayerData2.maxMoveSpeed *= speedUpgradeMagnitude;
+        activeMoveSpeed = PlayerData2.maxMoveSpeed;
         speedUpgradeCount += 1;
+    }
+
+    public void ResetSpeed()
+    {
+        PlayerData2.maxMoveSpeed = 200f;
+        activeMoveSpeed = PlayerData2.maxMoveSpeed;
+        speedUpgradeCount = 0;
     }
 
 
@@ -93,7 +100,7 @@ public class PlayerMovement2 : NetworkBehaviour
         icon.StopEffects();
         appliedReductionEffects -= 1;
         if (appliedReductionEffects == 0)
-            activeMoveSpeed = maxMoveSpeed;
+            activeMoveSpeed = PlayerData2.maxMoveSpeed;
         if (appliedReductionEffects < 0)
         {
             Debug.Log("Error: applied speed effects less than 0");
@@ -110,7 +117,9 @@ public class PlayerMovement2 : NetworkBehaviour
             PlayerData2.playerShoot.canShoot = false;
         }
         activeMoveSpeed = 0.0f;
-        yield return new WaitForSeconds(trapTime);
+        yield return new WaitForSeconds(0.3f);
+        GetComponent<SpriteRenderer>().color = Color.white;
+        yield return new WaitForSeconds(trapTime-0.5f);
         if (hasAuthority)
         {
             
@@ -118,7 +127,7 @@ public class PlayerMovement2 : NetworkBehaviour
             PlayerData2.playerShoot.canShoot = true;
         }
         statusIcon.StopEffects();
-        activeMoveSpeed = maxMoveSpeed;
+        activeMoveSpeed = PlayerData2.maxMoveSpeed;
         Destroy(trap);
     }
 
@@ -131,7 +140,7 @@ public class PlayerMovement2 : NetworkBehaviour
     [ClientRpc]
     private void RpcReduceSpeed(float reduction)
     {
-        activeMoveSpeed = maxMoveSpeed * reduction;
+        activeMoveSpeed = PlayerData2.maxMoveSpeed * reduction;
         appliedReductionEffects += 1;
         StartCoroutine(RegainSpeed());
     }

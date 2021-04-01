@@ -15,7 +15,7 @@ public class PlayerAuthority : NetworkBehaviour
 
     private void Start()
     {
-        if (gameObject.transform.position.y > 5)
+        if (gameObject.transform.position.y > 8)
         {
             gameObject.tag = "PlayerTwo";
         }
@@ -49,6 +49,11 @@ public class PlayerAuthority : NetworkBehaviour
         {
             Destroy(persistentRoundInfo.gameObject);
         }
+        PlayerData.money = 100;
+        PlayerData2.localGrowSpeed = 1.0f;
+        PlayerMovement2 playerMoveScript = PlayerData2.localPlayer.GetComponent<PlayerMovement2>();
+        playerMoveScript.ResetSpeed();
+
     }
 
     [ClientRpc]
@@ -59,6 +64,10 @@ public class PlayerAuthority : NetworkBehaviour
         {
             Destroy(persistentRoundInfo.gameObject);
         }
+        PlayerData.money = 100;
+        PlayerData2.localGrowSpeed = 1.0f;
+        PlayerMovement2 playerMoveScript = PlayerData2.localPlayer.GetComponent<PlayerMovement2>();
+        playerMoveScript.ResetSpeed();
     }
 
     [Server]

@@ -17,6 +17,7 @@ public class BearTrap : NetworkBehaviour
             GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
         else
             GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+        GetComponent<Animator>().enabled = false;
     }
 
     void Update()
@@ -44,6 +45,9 @@ public class BearTrap : NetworkBehaviour
                 other.transform.position = gameObject.transform.position + new Vector3(0, 0.7f, 0);
                 PlayerMovement2 playerMovement = other.GetComponent<PlayerMovement2>();
                 StartCoroutine(playerMovement.Trapped(this.gameObject, trapTime));
+                playerMovement.gameObject.GetComponent<SpriteRenderer>().color = new Color(1,0.5f,0.5f,1f);
+                SoundControl.PlayTrapSound();
+                GetComponent<Animator>().enabled = true;
             }
         }
     }

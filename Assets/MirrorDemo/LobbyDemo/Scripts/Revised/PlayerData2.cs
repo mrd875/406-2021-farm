@@ -15,6 +15,7 @@ public class PlayerData2 : NetworkBehaviour
     public RuntimeAnimatorController playerTwoAnimatorController;
 
     static public float localGrowSpeed = 1;
+    static public float maxMoveSpeed = 200.0f;
 
     private bool setUp = true;
     private int setUpAttempt = 0;
