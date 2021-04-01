@@ -70,6 +70,7 @@ public class PlayerMovement2 : NetworkBehaviour
     public void SpeedUpgrade()
     {
         maxMoveSpeed *= speedUpgradeMagnitude;
+        activeMoveSpeed = maxMoveSpeed;
         speedUpgradeCount += 1;
     }
 
