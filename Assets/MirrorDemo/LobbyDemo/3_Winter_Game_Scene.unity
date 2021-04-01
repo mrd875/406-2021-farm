@@ -6501,28 +6501,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eeb45b3e96667544a89eedad02d99d00, type: 3}
---- !u!68 &8209871180314487142
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8209871180314487149}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 40, y: 20.8}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: -46.36397, y: -7.257984}
-  - {x: -35.62476, y: -12.584882}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!60 &8209871180314487144
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -6576,9 +6554,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8209871180314487146}
   - component: {fileID: 8209871180314487144}
-  - component: {fileID: 8209871180314487142}
   - component: {fileID: 8209871180314487150}
   - component: {fileID: 8209871180314487151}
+  - component: {fileID: 8209871180314487152}
   m_Layer: 0
   m_Name: PlayerTwoZone
   m_TagString: Untagged
@@ -6621,6 +6599,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneOwnerTag: PlayerTwo
+--- !u!68 &8209871180314487152
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8209871180314487149}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 40, y: 20.8}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -46.5, y: -7.4}
+  - {x: -35.7, y: -12.8}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &8209871180370093018
 GameObject:
   m_ObjectHideFlags: 0
@@ -6711,28 +6711,6 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
---- !u!68 &8209871180647294055
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8209871180647294059}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.8}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: -23.657877, y: 4.3101964}
-  - {x: -6.2358866, y: 13.066211}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!4 &8209871180647294056
 Transform:
   m_ObjectHideFlags: 0
@@ -6788,8 +6766,8 @@ GameObject:
   - component: {fileID: 8209871180647294057}
   - component: {fileID: 8209871180647294052}
   - component: {fileID: 8209871180647294053}
-  - component: {fileID: 8209871180647294055}
   - component: {fileID: 8209871180647294061}
+  - component: {fileID: 8209871180647294060}
   m_Layer: 0
   m_Name: PlayerOneZone
   m_TagString: Untagged
@@ -6797,6 +6775,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!68 &8209871180647294060
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8209871180647294059}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.8}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -23.7, y: 4.1}
+  - {x: -6.3, y: 12.7}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!114 &8209871180647294061
 MonoBehaviour:
   m_ObjectHideFlags: 0
