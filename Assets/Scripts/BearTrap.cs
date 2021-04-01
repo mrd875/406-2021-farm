@@ -2,17 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.EventSystems;
 
-public class BearTrap : NetworkBehaviour
+public class BearTrap : NetworkBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    public int id;
     public string trapOwnerTag;
     public float trapTime = 2.5f;
     public float visibilityDistance = 2.0f;
     private bool triggered = false;
-    
+
+    public HealthBar durabilityBar;
+    public int maxDurability = 10;
+
+    public int durability;
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        PlayerData2.playerClick.highlightedInteractable = gameObject;
+        if (PlayerData2.playerClick.canInteract)
+            gameObject.transform.GetChild(1).gameObject.SetActive(true);
+    }
+
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        PlayerData2.playerClick.highlightedInteractable.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+        PlayerData2.playerClick.highlightedInteractable = null;
+        gameObject.transform.GetChild(1).gameObject.SetActive(false);
+    }
 
     void Start()
     {
+        if (PlayerData2.localPlayer.tag == trapOwnerTag)
+            gameObject.layer = 0;
+        durabilityBar.SetMaxHealth(maxDurability);
+        durability = maxDurability;
         if (trapOwnerTag == PlayerData2.localPlayer.tag)
             GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
         else
@@ -30,6 +55,11 @@ public class BearTrap : NetworkBehaviour
                 GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
             }
         }
+
+        if (durability <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -46,5 +76,11 @@ public class BearTrap : NetworkBehaviour
                 StartCoroutine(playerMovement.Trapped(this.gameObject, trapTime));
             }
         }
+    }
+
+    public void Damage()
+    {
+        durability -= 1;
+        durabilityBar.SetHealth(durability);
     }
 }

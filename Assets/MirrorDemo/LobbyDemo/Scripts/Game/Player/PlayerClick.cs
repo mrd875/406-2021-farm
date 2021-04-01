@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using Mirror;
@@ -37,6 +37,9 @@ public class PlayerClick : NetworkBehaviour
     public Sprite inventoryNormalSprite;
     public Sprite inventorySelectedSprite;
 
+
+    public GameObject trapToDestory;
+
     private void Start()
     {
         highlightTile.color = new Color(0f, 0.5f, 1f, 0.5f); // default color (rgba)
@@ -61,7 +64,6 @@ public class PlayerClick : NetworkBehaviour
         if (!hasAuthority)
             return;
 
-
         // highlight interactable at mouseover if in range to grab
         if (highlightedInteractable != null)
             if (canInteract)
@@ -74,13 +76,10 @@ public class PlayerClick : NetworkBehaviour
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector3Int tileCoordinate = WorldData2.highlighter.WorldToCell(mouseWorldPos);
 
-
         if (Vector2.Distance(gameObject.transform.position, mouseWorldPos) < interactionRange)
             canInteract = true;
         else
             canInteract = false;
-
-
 
         // If placable item is selected form inventory, draw item at cursor
         if (inventory.selectedSlot.First != null && inventory.selectedSlot.First.Value.itemName == "BearTrap")
@@ -187,6 +186,16 @@ public class PlayerClick : NetworkBehaviour
                 else if ((shop = highlightedInteractable.GetComponent<ShopSystem>()) != null)
                 {
                     shop.OpenShopWindow();
+                }
+                // Check if interactable object is a trap
+                else if (highlightedInteractable.GetComponent<BearTrap>() != null)// && highlightedInteractable.GetComponent<BearTrap>().trapOwnerTag != PlayerData2.localPlayer.tag)
+                {
+                    BearTrap bt = highlightedInteractable.GetComponent<BearTrap>();
+                    if (isServer)
+                        RpcDamageTrap(bt.id);
+                    else
+                        CmdDamageTrap(bt.id);
+                    //highlightedInteractable.GetComponent<BearTrap>().Damage();
                 }
             }
             // Use item
@@ -326,7 +335,6 @@ public class PlayerClick : NetworkBehaviour
     private void RpcAddItem(Item2 i, int ID)
     {
         StartCoroutine(PickupDelay(i, ID));
-
     }
 
     private IEnumerator PickupDelay(Item2 i, int ID)
@@ -341,7 +349,6 @@ public class PlayerClick : NetworkBehaviour
             //Destroy(i.transform.gameObject);
             i.transform.position = new Vector3(-500, 0, 0);
         }
-
     }
 
     [Command]
@@ -354,5 +361,17 @@ public class PlayerClick : NetworkBehaviour
     private void RpcDropItem(Item2 i, Vector2 v)
     {
         i.transform.position = v;
+    }
+
+    [Command]
+    private void CmdDamageTrap(int id)
+    { 
+        RpcDamageTrap(id);
+    }
+
+    [ClientRpc]
+    private void RpcDamageTrap(int id)
+    {
+        WorldData2.traps[id].Damage();
     }
 }

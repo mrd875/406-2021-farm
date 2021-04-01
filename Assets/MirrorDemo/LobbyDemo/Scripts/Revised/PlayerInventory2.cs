@@ -228,8 +228,6 @@ public class PlayerInventory2 : NetworkBehaviour
         }
     }
 
-
-
     public void ItemUsed()
     {
         // Consumption
@@ -266,7 +264,6 @@ public class PlayerInventory2 : NetworkBehaviour
         moneyText.UpdateMoneyText();
     }
 
-
     [Command]
     private void CmdPlantSeed(Vector3Int location, string plantName, float growthRate)
     {
@@ -280,7 +277,6 @@ public class PlayerInventory2 : NetworkBehaviour
         Debug.Log("Have plant growth of: " + growthRate);
         WorldData2.AddPlantedLocation(location, plantName, growthRate);
     }
-
 
     [Command]
     private void CmdSetTile(Vector3Int v)
@@ -297,7 +293,6 @@ public class PlayerInventory2 : NetworkBehaviour
         WorldData2.p2DiggableLayer.SetTile(v, null);
     }
 
-
     [Command]
     private void CmdSetBearTrap(Vector2 location, string userTag)
     {
@@ -307,13 +302,21 @@ public class PlayerInventory2 : NetworkBehaviour
     [ClientRpc]
     private void RpcSetBearTrap(Vector2 location, string userTag)
     {
-        GameObject bearTrap = Instantiate(ObjectData.bearTrapPrefab, location, Quaternion.identity);
-        bearTrap.GetComponent<BearTrap>().trapOwnerTag = userTag;
+        GameObject bearTrapGO = Instantiate(ObjectData.bearTrapPrefab, location, Quaternion.identity);
+        BearTrap bearTrap = bearTrapGO.GetComponent<BearTrap>();
+        int id = WorldData2.AddTrap(bearTrap);
+        if (id == -1)
+        {
+            Destroy(bearTrapGO);
+            Debug.Log("The maximum number of traps have been placed on the field");
+            return;
+        }
+        bearTrap.id = id;
+        bearTrap.trapOwnerTag = userTag;
         if (userTag == PlayerData2.localPlayer.tag)
             ItemUsed();
         else
             // For the other player, disable collider that prevents additional traps from being placed nearby
-            bearTrap.transform.GetChild(0).GetComponent<CircleCollider2D>().enabled = false;
+            bearTrapGO.transform.GetChild(0).GetComponent<CircleCollider2D>().enabled = false;
     }
-
 }

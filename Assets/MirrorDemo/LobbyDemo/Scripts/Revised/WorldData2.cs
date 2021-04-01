@@ -24,8 +24,6 @@ public class WorldData2 : MonoBehaviour
     static public PolygonCollider2D playerOneZone;
     static public PolygonCollider2D playerTwoZone;
 
-
-
     //Used to delete plants across clients. Tracks spawned plant info.
     public struct plantWorldInfo
     {
@@ -40,8 +38,11 @@ public class WorldData2 : MonoBehaviour
     static public Vector2 playerOneSpawnerLocation;
     static public Vector2 playerTwoSpawnerLocation;
     //static public Vector2 playerThreeSpawnLocation;
-    //static public Vector2 playerFourSpawnLocation;
+    //static public Vector2 playerFourSpawnLocation
 
+    // Keeps references to traps laid down accross the map 
+    static public BearTrap[] traps;
+    static public int trapsPointerIndex = 0;
 
     void Awake()
     {
@@ -62,6 +63,7 @@ public class WorldData2 : MonoBehaviour
         plantedLocations = new List<plantWorldInfo>();
         plants = new List<plantInfo>();
 
+        traps = new BearTrap[20];
     }
 
 
@@ -199,8 +201,20 @@ public class WorldData2 : MonoBehaviour
                 return false;
             }
         }
-
         return true;
+    }
 
+    public static int AddTrap(BearTrap trap)
+    {
+        int lastIndex = trapsPointerIndex - 1;
+        while (trapsPointerIndex != lastIndex)
+        {
+            if (traps[trapsPointerIndex] == null)
+            {
+                traps[trapsPointerIndex] = trap;
+                return trapsPointerIndex++;
+            }
+        }
+        return -1; // can't add anymore traps to map
     }
 }

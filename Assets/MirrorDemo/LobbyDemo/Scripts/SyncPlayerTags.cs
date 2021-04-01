@@ -24,7 +24,10 @@ public class SyncPlayerTags : NetworkBehaviour
         // Initially, the client player objects are the only ones with set tags (player one is not set here for some reason so added part to update) 
         if (gameObject.tag != "Player")
         {
-            RpcSyncTags(gameObject.tag);
+            if (isServer)
+                RpcSyncTags(gameObject.tag);
+            else
+                CmdSyncTags(gameObject.tag);
         }
     }
     void Update()
