@@ -37,7 +37,11 @@ public class Shoot2 : NetworkBehaviour
         {
             cooldownProgress += Time.deltaTime;
             if (cooldownProgress >= shotCooldown)
+            {
+                SoundControl.PlayRechargeSound();
                 canShoot = true;
+            }
+
         }
 
         if (canShoot && Input.GetMouseButton(1))

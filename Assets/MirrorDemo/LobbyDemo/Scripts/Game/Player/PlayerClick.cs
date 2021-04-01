@@ -331,7 +331,7 @@ public class PlayerClick : NetworkBehaviour
 
     private IEnumerator PickupDelay(Item2 i, int ID)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         //For plant pickups/ dynamically spawned in stuff
         WorldData2.RemoveItemsWithID(ID);
 

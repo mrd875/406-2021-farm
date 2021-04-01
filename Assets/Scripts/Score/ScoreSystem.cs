@@ -46,6 +46,7 @@ public class ScoreSystem : MonoBehaviour
 
         // Starts the timer automatically
         timerIsRunning = true;
+        SoundControl.PlayStartSound();
         sceneName = this.gameObject.scene.name;
     }
 
