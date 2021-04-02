@@ -215,17 +215,37 @@ public class WorldData2 : MonoBehaviour
         return true;
     }
 
-    public static int AddTrap(BearTrap trap)
+    public static int GetFreeTrapIndex()
     {
         int lastIndex = trapsPointerIndex - 1;
-        while (trapsPointerIndex != lastIndex)
+        if (lastIndex == -1)
+            lastIndex = traps.Length;
+        if (trapsPointerIndex >= traps.Length)
+            trapsPointerIndex = 0;
+        while (trapsPointerIndex != lastIndex && trapsPointerIndex < traps.Length)
         {
             if (traps[trapsPointerIndex] == null)
             {
-                traps[trapsPointerIndex] = trap;
-                return trapsPointerIndex++;
+                Debug.Log(trapsPointerIndex + "------" + traps.Length);
+                return trapsPointerIndex;
             }
+            trapsPointerIndex++;
+            if (trapsPointerIndex == traps.Length)
+                trapsPointerIndex = 0;
         }
         return -1; // can't add anymore traps to map
+    }
+
+    public static bool AddTrap(BearTrap trap, int index)
+    {
+
+        if (traps[index] == null)
+        {
+            traps[index] = trap;
+            if (trapsPointerIndex == index)
+                trapsPointerIndex++;
+            return true;
+        }
+        return false;
     }
 }
