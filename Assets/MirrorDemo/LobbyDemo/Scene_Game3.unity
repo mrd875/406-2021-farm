@@ -7874,3 +7874,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba8004b4fc9a75449b339ec6ee7eb67e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &9020921136394525013
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2838724227650505063, guid: f86002a04df294542b83204fc01ca978, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838724227650505063, guid: f86002a04df294542b83204fc01ca978, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838724227650505063, guid: f86002a04df294542b83204fc01ca978, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838724227650505063, guid: f86002a04df294542b83204fc01ca978, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838724227650505063, guid: f86002a04df294542b83204fc01ca978, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838724227650505063, guid: f86002a04df294542b83204fc01ca978, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838724227650505063, guid: f86002a04df294542b83204fc01ca978, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838724227650505063, guid: f86002a04df294542b83204fc01ca978, type: 3}
+      propertyPath: m_RootOrder
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838724227650505063, guid: f86002a04df294542b83204fc01ca978, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838724227650505063, guid: f86002a04df294542b83204fc01ca978, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838724227650505063, guid: f86002a04df294542b83204fc01ca978, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7885372387466916117, guid: f86002a04df294542b83204fc01ca978, type: 3}
+      propertyPath: m_Name
+      value: CheeringChicken
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f86002a04df294542b83204fc01ca978, type: 3}
