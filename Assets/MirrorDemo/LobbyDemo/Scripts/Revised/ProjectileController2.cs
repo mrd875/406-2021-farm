@@ -30,7 +30,7 @@ public class ProjectileController2 : MonoBehaviour
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + 90f;
         // rotation = Quaternion.AngleAxis(angle, Vector3.forward); // rotation where round side goes forward
         zAngle = Random.Range(0, 360);
-        deltaAngle = Random.Range(0.3f, -0.3f);
+        deltaAngle = Random.Range(0.7f, -0.7f);
 
 
         direction = (target - startLocation).normalized;

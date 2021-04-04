@@ -221,5 +221,6 @@ public class WorldData2 : MonoBehaviour
     {
         traps.Add(trap);
         trap.id = traps.IndexOf(trap);
+        //Debug.Log(trap.id);
     }
 }
