@@ -41,7 +41,8 @@ public class WorldData2 : MonoBehaviour
     //static public Vector2 playerFourSpawnLocation
 
     // Keeps references to traps laid down accross the map 
-    static public BearTrap[] traps;
+    //static public BearTrap[] traps;
+    static public ArrayList traps;
     static public int trapsPointerIndex = 0;
 
     void Awake()
@@ -63,7 +64,8 @@ public class WorldData2 : MonoBehaviour
         plantedLocations = new List<plantWorldInfo>();
         plants = new List<plantInfo>();
 
-        traps = new BearTrap[20];
+        //traps = new BearTrap[20];
+        traps = new ArrayList();
     }
 
 
@@ -215,37 +217,9 @@ public class WorldData2 : MonoBehaviour
         return true;
     }
 
-    public static int GetFreeTrapIndex()
+    public static void AddTrap(BearTrap trap)
     {
-        int lastIndex = trapsPointerIndex - 1;
-        if (lastIndex == -1)
-            lastIndex = traps.Length;
-        if (trapsPointerIndex >= traps.Length)
-            trapsPointerIndex = 0;
-        while (trapsPointerIndex != lastIndex && trapsPointerIndex < traps.Length)
-        {
-            if (traps[trapsPointerIndex] == null)
-            {
-                Debug.Log(trapsPointerIndex + "------" + traps.Length);
-                return trapsPointerIndex;
-            }
-            trapsPointerIndex++;
-            if (trapsPointerIndex == traps.Length)
-                trapsPointerIndex = 0;
-        }
-        return -1; // can't add anymore traps to map
-    }
-
-    public static bool AddTrap(BearTrap trap, int index)
-    {
-
-        if (traps[index] == null)
-        {
-            traps[index] = trap;
-            if (trapsPointerIndex == index)
-                trapsPointerIndex++;
-            return true;
-        }
-        return false;
+        traps.Add(trap);
+        trap.id = traps.IndexOf(trap);
     }
 }

@@ -302,22 +302,10 @@ public class PlayerInventory2 : NetworkBehaviour
     [ClientRpc]
     private void RpcSetBearTrap(Vector2 location, string userTag)
     {
-        // Get empty array index for trap array
-        int id = WorldData2.GetFreeTrapIndex();
-        if (id == -1)
-        {
-            Debug.Log("The maximum number of traps have been placed on the field");
-            return;
-        }
         GameObject bearTrapGO = Instantiate(ObjectData.bearTrapPrefab, location, Quaternion.identity);
         BearTrap bearTrap = bearTrapGO.GetComponent<BearTrap>();
-        bearTrap.id = id;
         bearTrap.trapOwnerTag = userTag;
-        if (!WorldData2.AddTrap(bearTrap, id))
-        {
-            Debug.Log("The targeted index has since been filled"); // can expand if this ever becomes an issue
-            return;
-        }
+        WorldData2.AddTrap(bearTrap);
         if (userTag == PlayerData2.localPlayer.tag)
             ItemUsed();
         else

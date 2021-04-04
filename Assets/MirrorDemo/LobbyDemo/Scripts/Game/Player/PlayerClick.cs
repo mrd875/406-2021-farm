@@ -372,6 +372,7 @@ public class PlayerClick : NetworkBehaviour
     [ClientRpc]
     private void RpcDamageTrap(int id)
     {
-        WorldData2.traps[id].Damage();
+        BearTrap trap = (BearTrap)WorldData2.traps[id];
+        trap.Damage();
     }
 }
