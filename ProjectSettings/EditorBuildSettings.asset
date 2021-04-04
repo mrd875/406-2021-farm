@@ -43,10 +43,10 @@ EditorBuildSettings:
     guid: 126593a555e806649b2cbc6c614be471
   - enabled: 1
     path: Assets/MirrorDemo/LobbyDemo/2_Fall_Game_Scene.unity
-    guid: 5e2ff1bb3bd12b64b8c41b3ec5409c4d
+    guid: 82584b839bc4bbd469bf32ad8c965f17
   - enabled: 1
     path: Assets/MirrorDemo/LobbyDemo/3_Winter_Game_Scene.unity
-    guid: 3921ff452ee4a2d40a3e766c6417b2dc
+    guid: f9fac7f4e4b57544a95e7b7d5b779cc2
   - enabled: 1
     path: Assets/Scenes/Instructions1.unity
     guid: b8c8106c432775047b1d401b1c9a1b81
