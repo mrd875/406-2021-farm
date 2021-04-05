@@ -1,37 +1,25 @@
 fileFormatVersion: 2
-guid: 100a2018dd69d7942aa1704b06a4d357
+guid: 641b504d828d4b84d88123b1dd2e909a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5113310739543953015
-    second: WinterFrog_0
+      213: 5838675710096665177
+    second: SleepingSquirrel_0
   - first:
-      213: -1238888754320421407
-    second: WinterFrog_1
+      213: 616648553979893038
+    second: SleepingSquirrel_1
   - first:
-      213: -4353076782727643343
-    second: WinterFrog_2
+      213: -6428620065155298368
+    second: SleepingSquirrel_2
   - first:
-      213: 5040876030670914988
-    second: WinterFrog_3
+      213: 3146660640421774033
+    second: SleepingSquirrel_3
   - first:
-      213: 8845382641496065099
-    second: WinterFrog_4
+      213: 6252483244388450582
+    second: SleepingSquirrel_4
   - first:
-      213: 7680085195929141905
-    second: WinterFrog_5
-  - first:
-      213: -5778810289447494224
-    second: WinterFrog_6
-  - first:
-      213: 7178216623409434653
-    second: WinterFrog_7
-  - first:
-      213: -3296060578752730314
-    second: WinterFrog_8
-  - first:
-      213: 2209791336061418298
-    second: WinterFrog_9
+      213: 1750471852192104509
+    second: SleepingSquirrel_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -76,7 +64,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 80
+  spritePixelsToUnits: 60
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -119,13 +107,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WinterFrog_0
+      name: SleepingSquirrel_0
       rect:
         serializedVersion: 2
-        x: 25
-        y: 398
-        width: 60
-        height: 42
+        x: 43
+        y: 269
+        width: 35
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -133,20 +121,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 981fa4f49fed909b0800000000000000
-      internalID: -5113310739543953015
+      spriteID: 95a630baf94270150800000000000000
+      internalID: 5838675710096665177
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WinterFrog_1
+      name: SleepingSquirrel_1
       rect:
         serializedVersion: 2
-        x: 145
-        y: 398
-        width: 60
-        height: 45
+        x: 163
+        y: 269
+        width: 35
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,20 +142,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ed418aed359ecee0800000000000000
-      internalID: -1238888754320421407
+      spriteID: e25da3bb796ce8800800000000000000
+      internalID: 616648553979893038
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WinterFrog_2
+      name: SleepingSquirrel_2
       rect:
         serializedVersion: 2
-        x: 265
-        y: 398
-        width: 60
-        height: 45
+        x: 43
+        y: 149
+        width: 35
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -175,20 +163,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13fb48dcab3c693c0800000000000000
-      internalID: -4353076782727643343
+      spriteID: 0cb487c6c14f8c6a0800000000000000
+      internalID: -6428620065155298368
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WinterFrog_3
+      name: SleepingSquirrel_3
       rect:
         serializedVersion: 2
-        x: 25
-        y: 278
-        width: 60
-        height: 45
+        x: 163
+        y: 149
+        width: 35
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -196,20 +184,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ca5cbecca0ac4f540800000000000000
-      internalID: 5040876030670914988
+      spriteID: 1d20b054e2f2bab20800000000000000
+      internalID: 3146660640421774033
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WinterFrog_4
+      name: SleepingSquirrel_4
       rect:
         serializedVersion: 2
-        x: 145
-        y: 278
-        width: 60
-        height: 45
+        x: 43
+        y: 29
+        width: 35
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -217,20 +205,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b4487c8c5ac11ca70800000000000000
-      internalID: 8845382641496065099
+      spriteID: 6110bd9326845c650800000000000000
+      internalID: 6252483244388450582
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WinterFrog_5
+      name: SleepingSquirrel_5
       rect:
         serializedVersion: 2
-        x: 265
-        y: 278
-        width: 60
-        height: 45
+        x: 163
+        y: 29
+        width: 35
+        height: 65
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -238,92 +226,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 192c71c7bc4259a60800000000000000
-      internalID: 7680085195929141905
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WinterFrog_6
-      rect:
-        serializedVersion: 2
-        x: 25
-        y: 158
-        width: 60
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0bd1c11c8aa8dcfa0800000000000000
-      internalID: -5778810289447494224
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WinterFrog_7
-      rect:
-        serializedVersion: 2
-        x: 145
-        y: 158
-        width: 60
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d109f17bcf52e9360800000000000000
-      internalID: 7178216623409434653
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WinterFrog_8
-      rect:
-        serializedVersion: 2
-        x: 265
-        y: 158
-        width: 60
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 63b664ded5a0242d0800000000000000
-      internalID: -3296060578752730314
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WinterFrog_9
-      rect:
-        serializedVersion: 2
-        x: 25
-        y: 38
-        width: 60
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a3b3dad1381caae10800000000000000
-      internalID: 2209791336061418298
+      spriteID: d300b3b00ecea4810800000000000000
+      internalID: 1750471852192104509
       vertices: []
       indices: 
       edges: []
