@@ -170,6 +170,7 @@ public class ScoreSystem : MonoBehaviour
 
     private IEnumerator EndGame()
     {
+        GameObject.FindObjectOfType<SellingBin>().GetComponent<Animation>().Play();
         yield return new WaitForSeconds(4);
         Debug.Log("Game Done");
         //Should only really need to call on one player, relayed to others through server call. 
@@ -180,6 +181,7 @@ public class ScoreSystem : MonoBehaviour
 
     private IEnumerator NextRound(int currentRound)
     {
+        GameObject.FindObjectOfType<SellingBin>().GetComponent<Animation>().Play();
         yield return new WaitForSeconds(4);
         Debug.Log("Next");
         RestartScene(currentRound);

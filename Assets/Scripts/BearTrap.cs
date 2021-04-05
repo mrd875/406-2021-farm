@@ -47,9 +47,9 @@ public class BearTrap : NetworkBehaviour, IPointerEnterHandler, IPointerExitHand
 
     void Update()
     {
-        if (trapOwnerTag != PlayerData2.localPlayer.tag)
+        if (trapOwnerTag != PlayerData2.localPlayer.tag && triggered == false)
         {
-            if (Vector2.Distance(PlayerData2.localPlayer.transform.position, transform.position) < visibilityDistance)
+            if (Vector2.Distance(PlayerData2.localPlayer.transform.position, transform.position) < visibilityDistance )
                 GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
             else
             {
@@ -75,9 +75,11 @@ public class BearTrap : NetworkBehaviour, IPointerEnterHandler, IPointerExitHand
                 other.transform.position = gameObject.transform.position + new Vector3(0, 0.7f, 0);
                 PlayerMovement2 playerMovement = other.GetComponent<PlayerMovement2>();
                 StartCoroutine(playerMovement.Trapped(this.gameObject, trapTime));
-                playerMovement.gameObject.GetComponent<SpriteRenderer>().color = new Color(1,0.5f,0.5f,1f);
+                playerMovement.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
                 SoundControl.PlayTrapSound();
                 GetComponent<Animator>().enabled = true;
+                GetComponent<SpriteRenderer>().sortingOrder = 1;
+                GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
             }
         }
     }

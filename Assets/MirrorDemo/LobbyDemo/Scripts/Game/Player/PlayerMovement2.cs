@@ -96,7 +96,20 @@ public class PlayerMovement2 : NetworkBehaviour
         StatusEffects icon = transform.GetChild(0).GetComponent<StatusEffects>();
         Debug.Log(gameObject.tag);
         icon.StartEffect("Wet");
-        yield return new WaitForSeconds(3f);
+
+        float alternatingTime = 0.5f;
+        GetComponent<SpriteRenderer>().color = Color.blue;
+
+        for (int i = 0; i < 3; i++)
+        {
+            yield return new WaitForSeconds(alternatingTime);
+            GetComponent<SpriteRenderer>().color = Color.white;
+            yield return new WaitForSeconds(alternatingTime);
+            GetComponent<SpriteRenderer>().color = Color.blue;
+
+        }
+
+        GetComponent<SpriteRenderer>().color = Color.white;
         icon.StopEffects();
         appliedReductionEffects -= 1;
         if (appliedReductionEffects == 0)
@@ -109,6 +122,8 @@ public class PlayerMovement2 : NetworkBehaviour
 
     public IEnumerator Trapped(GameObject trap, float trapTime)
     {
+
+        float alternatingTime = trapTime / 6;
         StatusEffects statusIcon = transform.GetChild(0).GetComponent<StatusEffects>();
         statusIcon.StartEffect("Bear Trap");
         if (hasAuthority)
@@ -117,9 +132,16 @@ public class PlayerMovement2 : NetworkBehaviour
             PlayerData2.playerShoot.canShoot = false;
         }
         activeMoveSpeed = 0.0f;
-        yield return new WaitForSeconds(0.3f);
+        for (int i = 0; i < 3; i++)
+        {
+            yield return new WaitForSeconds(alternatingTime);
+            GetComponent<SpriteRenderer>().color = Color.white;
+            yield return new WaitForSeconds(alternatingTime);
+            GetComponent<SpriteRenderer>().color = Color.red;
+
+        }
         GetComponent<SpriteRenderer>().color = Color.white;
-        yield return new WaitForSeconds(trapTime-0.5f);
+
         if (hasAuthority)
         {
             

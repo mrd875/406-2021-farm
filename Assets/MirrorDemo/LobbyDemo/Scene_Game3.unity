@@ -990,6 +990,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 6712ce9b9a0666749bd3618a00421968, type: 3}
+    - target: {fileID: 8048206721430409203, guid: 7c1e3a8f28151d042b99a6d3c527631e, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8048206721430409205, guid: 7c1e3a8f28151d042b99a6d3c527631e, type: 3}
       propertyPath: m_Name
       value: Selling Bin
@@ -4093,6 +4097,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3624195941721652019, guid: 4fa3ab59973f7b741b07c8bd06444303, type: 3}
   m_PrefabInstance: {fileID: 1124606304}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1128591821 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8048206721430409205, guid: 7c1e3a8f28151d042b99a6d3c527631e, type: 3}
+  m_PrefabInstance: {fileID: 228942297}
+  m_PrefabAsset: {fileID: 0}
+--- !u!111 &1128591826
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128591821}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 3e0be27138e1f444193ba9c7c1450757, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 3e0be27138e1f444193ba9c7c1450757, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1001 &1148919735
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7407,8 +7432,24 @@ PrefabInstance:
       propertyPath: m_TileSpriteArray.Array.data[0].m_Data
       value: 
       objectReference: {fileID: 21300000, guid: 160ac2c3cde638f44bbb358d8fa65fa5, type: 3}
+    - target: {fileID: 1137913771154945262, guid: 0679e33fd67a37c4d899c665436eaffb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1137913771441746493, guid: 0679e33fd67a37c4d899c665436eaffb, type: 3}
       propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137913771441746495, guid: 0679e33fd67a37c4d899c665436eaffb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137913771685565936, guid: 0679e33fd67a37c4d899c665436eaffb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137913771790592953, guid: 0679e33fd67a37c4d899c665436eaffb, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1137913771790592959, guid: 0679e33fd67a37c4d899c665436eaffb, type: 3}
@@ -7418,6 +7459,10 @@ PrefabInstance:
     - target: {fileID: 1137913772118364792, guid: 0679e33fd67a37c4d899c665436eaffb, type: 3}
       propertyPath: m_SortingOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137913772118364794, guid: 0679e33fd67a37c4d899c665436eaffb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0679e33fd67a37c4d899c665436eaffb, type: 3}
@@ -8007,6 +8052,10 @@ PrefabInstance:
     - target: {fileID: 3311225725561578274, guid: c17db374f737ac94ea3047ada85b2a68, type: 3}
       propertyPath: m_Name
       value: UICanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3311225725561578274, guid: c17db374f737ac94ea3047ada85b2a68, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3311225725561578286, guid: c17db374f737ac94ea3047ada85b2a68, type: 3}
       propertyPath: m_LocalPosition.x

@@ -22,6 +22,8 @@ public class ProjectileController2 : MonoBehaviour
 
     private Vector2 direction; // Direction for projectile to move
 
+    private bool oneSound = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,10 +53,16 @@ public class ProjectileController2 : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+
         // Player one projectile hits player two
         if (gameObject.tag == "PlayerOneProjectile" && (other.tag == "PlayerTwo" || other.tag == "PlayerThree" || other.tag == "PlayerFour"))
         {
-            SoundControl.PlayWaterSound();
+            if (oneSound)
+            {
+                SoundControl.PlayWaterSound();
+                oneSound = false;
+            }
+            
             // Don't slow other player if they are in their own field
             //if (!other.gameObject.GetComponent<PlayerTouch>().inHomeZone)
             other.GetComponent<PlayerMovement2>().ReduceSpeed(speedReduction);
@@ -63,7 +71,11 @@ public class ProjectileController2 : MonoBehaviour
         }
         else if (gameObject.tag == "PlayerTwoProjectile" && (other.tag == "PlayerOne" || other.tag == "PlayerThree" || other.tag == "PlayerFour"))
         {
-            SoundControl.PlayWaterSound();
+            if (oneSound)
+            {
+                SoundControl.PlayWaterSound();
+                oneSound = false;
+            }
             // Don't slow other player if they are in their own field
             //if (!other.gameObject.GetComponent<PlayerTouch>().inHomeZone)
             other.GetComponent<PlayerMovement2>().ReduceSpeed(speedReduction);
