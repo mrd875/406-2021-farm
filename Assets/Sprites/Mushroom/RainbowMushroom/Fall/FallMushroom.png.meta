@@ -1,7 +1,46 @@
 fileFormatVersion: 2
 guid: dd81d93f3eb7cc04e99488c917cabd76
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 3313356231405812859
+    second: FallMushroom_0
+  - first:
+      213: -7023296520701039040
+    second: FallMushroom_1
+  - first:
+      213: -1734039462655890688
+    second: FallMushroom_2
+  - first:
+      213: -5458265009629383236
+    second: FallMushroom_3
+  - first:
+      213: 8987214587252544570
+    second: FallMushroom_4
+  - first:
+      213: -5100422807754852474
+    second: FallMushroom_5
+  - first:
+      213: 9016374119825260028
+    second: FallMushroom_6
+  - first:
+      213: 8512580952301650558
+    second: FallMushroom_7
+  - first:
+      213: 8432171107030870304
+    second: FallMushroom_8
+  - first:
+      213: 1417880361480651845
+    second: FallMushroom_9
+  - first:
+      213: -5015716572246518748
+    second: FallMushroom_10
+  - first:
+      213: -1448090025969496780
+    second: FallMushroom_11
+  - first:
+      213: -9200003813565020843
+    second: FallMushroom_12
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -46,7 +85,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 80
+  spritePixelsToUnits: 60
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -87,7 +126,280 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: FallMushroom_0
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 389
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7c354300f76bfd20800000000000000
+      internalID: 3313356231405812859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallMushroom_1
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 389
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04ea063860d388e90800000000000000
+      internalID: -7023296520701039040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallMushroom_2
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 389
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00be2e9cb447fe7e0800000000000000
+      internalID: -1734039462655890688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallMushroom_3
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 389
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb5b81394e85044b0800000000000000
+      internalID: -5458265009629383236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallMushroom_4
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 269
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3495610d0009bc70800000000000000
+      internalID: 8987214587252544570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallMushroom_5
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 269
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 687b873ca78a739b0800000000000000
+      internalID: -5100422807754852474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallMushroom_6
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 269
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfdb53ebd78902d70800000000000000
+      internalID: 9016374119825260028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallMushroom_7
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 269
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7242b74643c22670800000000000000
+      internalID: 8512580952301650558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallMushroom_8
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 149
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02923ef32f6150570800000000000000
+      internalID: 8432171107030870304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallMushroom_9
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 149
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5448e003da25da310800000000000000
+      internalID: 1417880361480651845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallMushroom_10
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 149
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 424d4391a58946ab0800000000000000
+      internalID: -5015716572246518748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallMushroom_11
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 149
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43d4d4f2bc957ebe0800000000000000
+      internalID: -1448090025969496780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallMushroom_12
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 29
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 555c7387645035080800000000000000
+      internalID: -9200003813565020843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

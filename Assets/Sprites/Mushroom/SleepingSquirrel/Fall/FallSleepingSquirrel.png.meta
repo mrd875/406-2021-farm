@@ -1,7 +1,25 @@
 fileFormatVersion: 2
 guid: faf933c18dce1454ab49addb8346091a
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -3440950494201112229
+    second: FallSleepingSquirrel_0
+  - first:
+      213: -8793564264495115767
+    second: FallSleepingSquirrel_1
+  - first:
+      213: 1995777113502615467
+    second: FallSleepingSquirrel_2
+  - first:
+      213: 2472508425398907852
+    second: FallSleepingSquirrel_3
+  - first:
+      213: 1873037287510711374
+    second: FallSleepingSquirrel_4
+  - first:
+      213: -2048779727172303967
+    second: FallSleepingSquirrel_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -46,7 +64,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 80
+  spritePixelsToUnits: 60
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -87,7 +105,133 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: FallSleepingSquirrel_0
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 269
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b591077a1c94f30d0800000000000000
+      internalID: -3440950494201112229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallSleepingSquirrel_1
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 269
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 902133944ebf6f580800000000000000
+      internalID: -8793564264495115767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallSleepingSquirrel_2
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 149
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba78d2de5bc62bb10800000000000000
+      internalID: 1995777113502615467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallSleepingSquirrel_3
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 149
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc3ff00205d105220800000000000000
+      internalID: 2472508425398907852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallSleepingSquirrel_4
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 29
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4c132d3d7d5ef910800000000000000
+      internalID: 1873037287510711374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FallSleepingSquirrel_5
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 29
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a38fda61b54193e0800000000000000
+      internalID: -2048779727172303967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
