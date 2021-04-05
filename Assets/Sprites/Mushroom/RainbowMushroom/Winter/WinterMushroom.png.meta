@@ -1,7 +1,46 @@
 fileFormatVersion: 2
 guid: 06f4d37263cbd8d40b6f07f96d8b5717
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -1629254718991990553
+    second: WinterMushroom_0
+  - first:
+      213: 6835019719392137386
+    second: WinterMushroom_1
+  - first:
+      213: -1939077790989058036
+    second: WinterMushroom_2
+  - first:
+      213: 8984467489527612654
+    second: WinterMushroom_3
+  - first:
+      213: -5655353743039964397
+    second: WinterMushroom_4
+  - first:
+      213: -6914849581706710883
+    second: WinterMushroom_5
+  - first:
+      213: -3666935323453190418
+    second: WinterMushroom_6
+  - first:
+      213: -316105007022289242
+    second: WinterMushroom_7
+  - first:
+      213: 581516249926928517
+    second: WinterMushroom_8
+  - first:
+      213: 2966280504626598142
+    second: WinterMushroom_9
+  - first:
+      213: 8211035733781466023
+    second: WinterMushroom_10
+  - first:
+      213: 1556246107174237966
+    second: WinterMushroom_11
+  - first:
+      213: 5046484614883403473
+    second: WinterMushroom_12
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -46,7 +85,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 80
+  spritePixelsToUnits: 60
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -87,7 +126,280 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: WinterMushroom_0
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 389
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e08ad91779b369e0800000000000000
+      internalID: -1629254718991990553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WinterMushroom_1
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 389
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa09827a83edade50800000000000000
+      internalID: 6835019719392137386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WinterMushroom_2
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 389
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c008f34d5030715e0800000000000000
+      internalID: -1939077790989058036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WinterMushroom_3
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 389
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee4c659749d3fac70800000000000000
+      internalID: 8984467489527612654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WinterMushroom_4
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 269
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31b5deaebb52481b0800000000000000
+      internalID: -5655353743039964397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WinterMushroom_5
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 269
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d90fc1f11f48900a0800000000000000
+      internalID: -6914849581706710883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WinterMushroom_6
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 269
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eee8d3760cd6c1dc0800000000000000
+      internalID: -3666935323453190418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WinterMushroom_7
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 269
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6aec6b0cb28fc9bf0800000000000000
+      internalID: -316105007022289242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WinterMushroom_8
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 149
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5880304c2f5f11800800000000000000
+      internalID: 581516249926928517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WinterMushroom_9
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 149
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef05f6627685a2920800000000000000
+      internalID: 2966280504626598142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WinterMushroom_10
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 149
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ab4516fe7573f170800000000000000
+      internalID: 8211035733781466023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WinterMushroom_11
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 149
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e077431d695e89510800000000000000
+      internalID: 1556246107174237966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WinterMushroom_12
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 29
+        width: 35
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d669921507b80640800000000000000
+      internalID: 5046484614883403473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
