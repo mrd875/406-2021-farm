@@ -58,7 +58,6 @@ public class NetworkRoomPlayerGame : NetworkRoomPlayer
 
         if (!room.allPlayersReady)
             return;
-
         room.ServerChangeScene(room.GameplayScene);
     }
 

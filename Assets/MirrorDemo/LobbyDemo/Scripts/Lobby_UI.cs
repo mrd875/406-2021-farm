@@ -179,7 +179,20 @@ public class Lobby_UI : MonoBehaviour
     {
         if (IsHost() && NetMan.allPlayersReady)
         {
+            GameObject roundInfo = GameObject.Find("RoundInfo");
+            if (roundInfo != null)
+            {
+                PersistentRoundInfo pri = roundInfo.GetComponent<PersistentRoundInfo>();
+                pri.currentRound = 1;
+                pri.playerOneScore = 0;
+                pri.playerTwoScore = 0;
+            }
             LocalPlayer.CmdStartGame();
+/*            foreach (var player in NetMan.roomSlots)
+            {
+                player.CmdChangeReadyState(false);
+            }*/
+
             return;
         }
 

@@ -170,10 +170,15 @@ public class NetworkRoomManagerGame : NetworkRoomManager
     public override bool OnRoomServerSceneLoadedForPlayer(NetworkConnection conn, GameObject roomPlayer, GameObject gamePlayer)
     {
         OnRoomServerSceneLoadedPlayer?.Invoke(conn, roomPlayer, gamePlayer);
+        NetworkRoomPlayerGame nrpg = roomPlayer.GetComponent<NetworkRoomPlayerGame>();
 
-        if (roomPlayer.GetComponent<NetworkRoomPlayerGame>().index == 0)
+        // Change 
+        nrpg.CmdChangeReadyState(false);
+        nrpg.readyToBegin = false;
+
+        if (nrpg.index == 0)
             gamePlayer.tag = "PlayerOne";
-        if (roomPlayer.GetComponent<NetworkRoomPlayerGame>().index == 1)
+        if (nrpg.index == 1)
             gamePlayer.tag = "PlayerTwo";
 
         return base.OnRoomServerSceneLoadedForPlayer(conn, roomPlayer, gamePlayer);
