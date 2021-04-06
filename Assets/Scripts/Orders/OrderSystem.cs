@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Mirror;
+using UnityEngine.Windows.WebCam;
 
 public class OrderSystem : NetworkBehaviour
 {
@@ -140,6 +141,30 @@ public class OrderSystem : NetworkBehaviour
         localplayer.GetComponent<PlayerScore>().UpdateScore();
     }
 
+    public bool OutsourceTicket()
+    {
+        int rightMostIndex = activeTicketObjects.Count - 1;
+        if (rightMostIndex == -1)
+        {
+            return false;
+        }
+        // Find the ticket object at the given index, remove it from the list, and destroy it
+        GameObject ticketToRemove = activeTicketObjects[rightMostIndex];
+        activeTicketObjects.Remove(ticketToRemove);
+        Destroy(ticketToRemove);
+
+        // Remove the order from the active list
+        int points = activeOrders[rightMostIndex].Points;
+        activeOrders.RemoveAt(rightMostIndex);
+
+        // Add money to the players total
+        //PlayerData.AddMoney(points * 5);
+
+        // Increase the players score
+        GameObject localplayer = ClientScene.localPlayer.gameObject;
+        localplayer.GetComponent<PlayerScore>().UpdateScore();
+        return true;
+    }
 
     // Check if any of the active orders contain the given produce
     // If they do, return true AND the index of the first order to contain that produce

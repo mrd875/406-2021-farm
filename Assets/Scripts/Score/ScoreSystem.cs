@@ -177,9 +177,10 @@ public class ScoreSystem : MonoBehaviour
         yield return new WaitForSeconds(4);
         Debug.Log("Game Done");
         //Should only really need to call on one player, relayed to others through server call
+        PlayerAuthority playerOne = GameObject.FindWithTag("PlayerOne").GetComponent<PlayerAuthority>();
+        playerOne.ShutDownSetup();
         gameManager.EndGame();
-        /*PlayerAuthority playerOne = GameObject.FindWithTag("PlayerOne").GetComponent<PlayerAuthority>();
-        playerOne.DisconnectPlayer();*/
+
 
     }
 
@@ -187,6 +188,9 @@ public class ScoreSystem : MonoBehaviour
     {
         GameObject.FindObjectOfType<SellingBin>().GetComponent<Animation>().Play();
         yield return new WaitForSeconds(4);
+        PlayerData2.localGrowSpeed = 1.0f;
+        PlayerMovement2 playerMoveScript = PlayerData2.localPlayer.GetComponent<PlayerMovement2>();
+        playerMoveScript.ResetSpeed();
         Debug.Log("Next");
         RestartScene(currentRound);
     }

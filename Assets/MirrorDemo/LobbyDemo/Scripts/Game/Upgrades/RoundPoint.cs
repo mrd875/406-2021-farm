@@ -5,9 +5,9 @@ using UnityEngine;
 public class RoundPoint : MonoBehaviour
 {
 
-    public static void Activate()
+    public static bool Activate()
     {
-        GameObject localplayer = PlayerData2.localPlayer.gameObject;
-        localplayer.GetComponent<PlayerScore>().UpdateScore();
+        OrderSystem orderSystem = GameObject.FindObjectOfType<OrderSystem>();
+        return orderSystem.OutsourceTicket();
     }
 }

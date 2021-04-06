@@ -7,7 +7,7 @@ public class PlayerMovement2 : NetworkBehaviour
 {
     // basic movement variables
     private float activeMoveSpeed;
-    public float speedUpgradeMagnitude = 1.2f;
+    public float speedUpgradeMagnitude = 1.3f;
     public int speedUpgradeCount = 0;
     private bool isMoving = false;
     private int appliedReductionEffects; // amount of slow effects applied (for duration purpose)

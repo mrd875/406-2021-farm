@@ -34,10 +34,10 @@ public class PlayerAuthority : NetworkBehaviour
         }
     }
 
-    public void DisconnectPlayer()
+    public void ShutDownSetup()
     {
         CmdShutdownSetup();
-        ShutDownServer();
+        //ShutDownServer();
     }
 
     [Command]
@@ -69,7 +69,7 @@ public class PlayerAuthority : NetworkBehaviour
         PlayerMovement2 playerMoveScript = PlayerData2.localPlayer.GetComponent<PlayerMovement2>();
         playerMoveScript.ResetSpeed();
     }
-
+    /*
     [Server]
     void ShutDownServer()
     {
@@ -78,6 +78,6 @@ public class PlayerAuthority : NetworkBehaviour
 
         NetworkServer.Shutdown();
     }
-
+    */
 
 }
