@@ -125,12 +125,11 @@ public class Lobby_UI : MonoBehaviour
     private void OnRoomClientDisconnected(NetworkConnection obj)
     {
         // tell the ui that we disconnected
-        if (joiningPanel.isActiveAndEnabled)
+        if (joiningPanel == null ? false : joiningPanel.isActiveAndEnabled)
             joiningPanel.OnJoinOutcome(false, "Connection timed out.");
         else if (lobbyPanel.isActiveAndEnabled)
         {
-            lobbyPanel.OnLeftLobby();
-
+            lobbyPanel.OnDisconnectLobby();
             popupMessageOnEnable = "Lost connection to lobby.";
             popupPanel.DoPopup(popupMessageOnEnable);
         }

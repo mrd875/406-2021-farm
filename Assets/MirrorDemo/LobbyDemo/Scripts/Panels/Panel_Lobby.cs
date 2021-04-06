@@ -47,6 +47,12 @@ public class Panel_Lobby : MonoBehaviour
         panel_hostJoin.SetActive(true);*/
     }
 
+    public void OnDisconnectLobby()
+    {
+        gameObject.SetActive(false);
+        //panel_hostJoin.SetActive(true);
+    }
+
     public void Button_Kick(int num)
     {
         gameObject.GetComponentInParent<Lobby_UI>().Button_Kick(num);

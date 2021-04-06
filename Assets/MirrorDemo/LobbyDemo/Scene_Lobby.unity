@@ -2793,6 +2793,18 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 7566860468623482809, guid: 449cb29550f3aa2459e3bee7784ca9e5, type: 3}
+      propertyPath: panel_nameinput
+      value: 
+      objectReference: {fileID: 3616774985005702615}
+    - target: {fileID: 7566860468623482809, guid: 449cb29550f3aa2459e3bee7784ca9e5, type: 3}
+      propertyPath: other_panel
+      value: 
+      objectReference: {fileID: 3616774985005702615}
+    - target: {fileID: 7566860468623482809, guid: 449cb29550f3aa2459e3bee7784ca9e5, type: 3}
+      propertyPath: nameinput_panel
+      value: 
+      objectReference: {fileID: 3616774985005702615}
     - target: {fileID: 8676216979157812745, guid: 449cb29550f3aa2459e3bee7784ca9e5, type: 3}
       propertyPath: m_AnchorMin.x
       value: 1
@@ -2840,3 +2852,8 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 3616774984229026139, guid: 449cb29550f3aa2459e3bee7784ca9e5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 449cb29550f3aa2459e3bee7784ca9e5, type: 3}
+--- !u!1 &3616774985005702615 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3616774984992077381, guid: 449cb29550f3aa2459e3bee7784ca9e5, type: 3}
+  m_PrefabInstance: {fileID: 3616774985005702614}
+  m_PrefabAsset: {fileID: 0}
