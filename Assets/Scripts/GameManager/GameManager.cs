@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Mirror;
 
 // Controls scene switching
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
     // Loads the game scene
     public void StartGame()
@@ -35,8 +36,20 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
+    // When one of the players leaves the game.
+    public void EndGame()
+    {
+        CmdEndGame();
+    }
+
     public void MoveToScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    [Command(ignoreAuthority = true)]
+    public void CmdEndGame()
+    {
+        NetworkManager.singleton.ServerChangeScene("Scene_Lobby_Panel");
     }
 }

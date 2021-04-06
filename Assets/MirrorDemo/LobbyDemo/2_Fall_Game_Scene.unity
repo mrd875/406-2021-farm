@@ -473,7 +473,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 411029990}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_MethodName: EndGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12555,6 +12555,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8938392642206288916, guid: 965cc1229ffbfff438b4f4502eade269, type: 3}
+      propertyPath: sceneId
+      value: 2146400499
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 965cc1229ffbfff438b4f4502eade269, type: 3}
 --- !u!114 &411029990 stripped
@@ -18126,8 +18130,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3223563485656542695, guid: c17db374f737ac94ea3047ada85b2a68, type: 3}
       propertyPath: timeRemaining
-      value: 90
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3223563485656542695, guid: c17db374f737ac94ea3047ada85b2a68, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 411029990}
     - target: {fileID: 3311225724908190002, guid: c17db374f737ac94ea3047ada85b2a68, type: 3}
       propertyPath: sceneId
       value: 3632258802

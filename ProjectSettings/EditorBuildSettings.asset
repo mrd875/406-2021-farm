@@ -68,4 +68,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Instructions7.unity
     guid: 0d24c20cdc3e94e4398fd9d296cb64d0
+  - enabled: 0
+    path: Assets/MirrorDemo/LobbyDemo/Scene_Lobby_Open.unity
+    guid: 6207c2984c20fc9439d25c2903e413d1
+  - enabled: 0
+    path: Assets/MirrorDemo/LobbyDemo/Scene_Setup.unity
+    guid: 3c1e829cbefb54b4189933d6ed0d6f32
+  - enabled: 1
+    path: Assets/MirrorDemo/LobbyDemo/Scene_Lobby_Panel.unity
+    guid: c7cd0da3d93a5214888f28068cbe46ba
   m_configObjects: {}

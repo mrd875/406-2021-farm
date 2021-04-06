@@ -27,6 +27,9 @@ public class ScoreSystem : MonoBehaviour
 
     private string sceneName;
 
+    [SerializeField]
+    private GameManager gameManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -163,8 +166,8 @@ public class ScoreSystem : MonoBehaviour
     public void EndGameOveride()
     {
         //Should only really need to call on one player, relayed to others through server call. 
-        PlayerAuthority playerOne = GameObject.FindWithTag("PlayerOne").GetComponent<PlayerAuthority>();
-        playerOne.DisconnectPlayer();
+        /*PlayerAuthority playerOne = GameObject.FindWithTag("PlayerOne").GetComponent<PlayerAuthority>();
+        playerOne.DisconnectPlayer();*/
     }
 
 
@@ -173,9 +176,10 @@ public class ScoreSystem : MonoBehaviour
         GameObject.FindObjectOfType<SellingBin>().GetComponent<Animation>().Play();
         yield return new WaitForSeconds(4);
         Debug.Log("Game Done");
-        //Should only really need to call on one player, relayed to others through server call. 
-        PlayerAuthority playerOne = GameObject.FindWithTag("PlayerOne").GetComponent<PlayerAuthority>();
-        playerOne.DisconnectPlayer();
+        //Should only really need to call on one player, relayed to others through server call
+        gameManager.EndGame();
+        /*PlayerAuthority playerOne = GameObject.FindWithTag("PlayerOne").GetComponent<PlayerAuthority>();
+        playerOne.DisconnectPlayer();*/
 
     }
 

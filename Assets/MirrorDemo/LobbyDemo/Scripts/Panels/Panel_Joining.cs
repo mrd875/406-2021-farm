@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class Panel_Joining : MonoBehaviour
@@ -50,6 +51,7 @@ public class Panel_Joining : MonoBehaviour
         if (success)
         {
             // go to lobby
+            //SceneManager.LoadScene("Scene_Lobby_Panel");
             gameObject.SetActive(false);
             panel_lobby.SetActive(true);
             return;
