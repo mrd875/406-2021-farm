@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class Panel_Lobby : MonoBehaviour
@@ -41,8 +42,9 @@ public class Panel_Lobby : MonoBehaviour
     public void OnLeftLobby()
     {
         // we left the lobby
-        gameObject.SetActive(false);
-        panel_hostJoin.SetActive(true);
+        SceneManager.LoadScene("Scene_Lobby");
+/*        gameObject.SetActive(false);
+        panel_hostJoin.SetActive(true);*/
     }
 
     public void Button_Kick(int num)
