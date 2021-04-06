@@ -50,6 +50,13 @@ public class GameManager : NetworkBehaviour
     [Command(ignoreAuthority = true)]
     public void CmdEndGame()
     {
+        RpcEndGame();
         NetworkManager.singleton.ServerChangeScene("Scene_Lobby_Panel");
+    }
+
+    [ClientRpc]
+    private void RpcEndGame()
+    {
+        PlayerData.money = 100;
     }
 }
