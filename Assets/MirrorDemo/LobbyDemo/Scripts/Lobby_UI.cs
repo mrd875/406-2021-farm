@@ -57,6 +57,13 @@ public class Lobby_UI : MonoBehaviour
         NetMan.OnRoomClientEntered += OnRoomClientEntered;
         NetMan.OnRoomClientExited += OnRoomClientExited;
 
+        if (LocalPlayer == null ? false : LocalPlayer.readyToBegin)
+        {
+            LocalPlayer.CmdChangeReadyState(!LocalPlayer.readyToBegin);
+        }
+
+        NetMan.CheckReadyToBegin();
+
 
         // flush a popup message
         if (!string.IsNullOrWhiteSpace(popupMessageOnEnable))
@@ -177,8 +184,16 @@ public class Lobby_UI : MonoBehaviour
 
     public void Go_Pressed()
     {
-        if (IsHost() && NetMan.allPlayersReady)
+        bool allPlayersReady = false; // NetMan.AllPlayersReady is inconsistent upon reloading lobby scene so using this instead
+        foreach (var player in NetMan.roomSlots)
         {
+            allPlayersReady = player.readyToBegin;
+            if (allPlayersReady == false)
+                break;
+        }
+            
+        if (IsHost() && allPlayersReady)
+        { 
             GameObject roundInfo = GameObject.Find("RoundInfo");
             if (roundInfo != null)
             {
@@ -188,10 +203,6 @@ public class Lobby_UI : MonoBehaviour
                 pri.playerTwoScore = 0;
             }
             LocalPlayer.CmdStartGame();
-/*            foreach (var player in NetMan.roomSlots)
-            {
-                player.CmdChangeReadyState(false);
-            }*/
 
             return;
         }

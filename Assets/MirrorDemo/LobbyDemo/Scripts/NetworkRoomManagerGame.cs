@@ -172,10 +172,6 @@ public class NetworkRoomManagerGame : NetworkRoomManager
         OnRoomServerSceneLoadedPlayer?.Invoke(conn, roomPlayer, gamePlayer);
         NetworkRoomPlayerGame nrpg = roomPlayer.GetComponent<NetworkRoomPlayerGame>();
 
-        // Change 
-        nrpg.CmdChangeReadyState(false);
-        nrpg.readyToBegin = false;
-
         if (nrpg.index == 0)
             gamePlayer.tag = "PlayerOne";
         if (nrpg.index == 1)

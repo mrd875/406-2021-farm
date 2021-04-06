@@ -17792,7 +17792,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3223563485656542695, guid: c17db374f737ac94ea3047ada85b2a68, type: 3}
       propertyPath: timeRemaining
-      value: 2
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 3223563485656542695, guid: c17db374f737ac94ea3047ada85b2a68, type: 3}
       propertyPath: gameManager

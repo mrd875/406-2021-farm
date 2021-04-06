@@ -73,7 +73,7 @@ public class PlayerData2 : NetworkBehaviour
         {
             Debug.Log("Player data failed to set values, reattempting...");
             setUp = true; // until proven otherwise in the following function (to prevent message spam)
-            StartCoroutine(LateStart(0.1f));
+            StartCoroutine(LateStart(0.5f));
         }
     }
 }
