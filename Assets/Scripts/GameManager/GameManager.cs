@@ -51,7 +51,7 @@ public class GameManager : NetworkBehaviour
     public void CmdEndGame()
     {
         RpcEndGame();
-        NetworkManager.singleton.ServerChangeScene("Scene_Lobby_Panel");
+        NetworkManager.singleton.ServerChangeScene("Scene_Lobby");
     }
 
     [ClientRpc]

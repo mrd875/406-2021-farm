@@ -48,6 +48,18 @@ public class Lobby_UI : MonoBehaviour
 
     public static string popupMessageOnEnable = null;
 
+    void Start()
+    {
+        NetMan.StopHost();
+        NetMan.StopClient();
+        /*if ((NetworkRoomPlayerGame)FindObjectOfType(typeof(NetworkRoomPlayerGame)))
+        {
+            nameSetPanel.gameObject.SetActive(false);
+            lobbyPanel.gameObject.SetActive(true);
+        }*/
+    }
+
+
     private void OnEnable()
     {
         // setup the callbacks
