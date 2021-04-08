@@ -9,6 +9,8 @@ public class RadicalProgressBar : MonoBehaviour
 
     void Update()
     {
+        if (PlayerData2.localPlayer == null)
+            return;
         LoadingBar.GetComponent<Image>().fillAmount = PlayerData2.playerShoot.cooldownProgress / PlayerData2.playerShoot.shotCooldown;
     }
 }
