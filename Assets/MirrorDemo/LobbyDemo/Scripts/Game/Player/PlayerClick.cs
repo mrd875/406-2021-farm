@@ -18,7 +18,6 @@ public class PlayerClick : NetworkBehaviour
     public float interactionRange = 2f; // range from player to cursor for which player can interact
     Vector3Int previousTileCoordinate;
 
-    
     public bool canInteract = true; // If cursor is in interaction range. 
     public bool canInteractWithTile = true; // If interaction range reaches the center of the tile that the mouse is on
 
@@ -76,7 +75,7 @@ public class PlayerClick : NetworkBehaviour
         Vector2 mouseWorldPos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector3Int tileCoordinate = WorldData2.highlighter.WorldToCell(mouseWorldPos);
 
-        if (Vector2.Distance(gameObject.transform.position, mouseWorldPos) < interactionRange)
+        if (Vector2.Distance(gameObject.transform.position - new Vector3(0, 0.4f, 0), mouseWorldPos) < interactionRange)
             canInteract = true;
         else
             canInteract = false;
@@ -144,7 +143,7 @@ public class PlayerClick : NetworkBehaviour
         }
 
         // Interact
-        if (Input.GetMouseButtonDown(0) && canInteract)
+        if (Input.GetMouseButtonDown(0) && (canInteract || canInteractWithTile))
         {
             ShopSystem shop;    // used to store shop script if exists on interactable    
 
@@ -202,7 +201,7 @@ public class PlayerClick : NetworkBehaviour
             else if (inventory.selectedSlot.First != null)
             {
                 Debug.Log("Using Item");
-                if (inventory.selectedSlot.First.Value.itemName == "BearTrap")
+                if (inventory.selectedSlot.First.Value.itemName == "BearTrap" && canInteract)
                 {
                     if (canPlaceItem)
                         inventory.UseSelectedItem(mouseWorldPos);
@@ -291,13 +290,15 @@ public class PlayerClick : NetworkBehaviour
     private void CursorHighlight(Vector3Int tileCoordinate)
     {
         // Check if the center of the tile cursor is on is in interaction range
-        if (Vector2.Distance(gameObject.transform.position, WorldData2.highlighter.CellToWorld(tileCoordinate)) < interactionRange)
+        if (Vector2.Distance(gameObject.transform.position - new Vector3(0, 0.4f, 0), WorldData2.highlighter.GetCellCenterWorld(tileCoordinate)) < interactionRange)
         {
             canInteractWithTile = true;
             // Remove highlight if an interactable is present at cursor
             if (highlightedInteractable != null)
             {
                 WorldData2.highlighter.SetTile(tileCoordinate, null);
+                WorldData2.highlighter.SetTile(previousTileCoordinate, null);
+
             }
             else if (WorldData2.plantableLayer.GetTile(tileCoordinate) != null)
             {
@@ -319,6 +320,7 @@ public class PlayerClick : NetworkBehaviour
         {
             if (canInteractWithTile)
             {
+                WorldData2.highlighter.SetTile(tileCoordinate, null);
                 WorldData2.highlighter.SetTile(previousTileCoordinate, null);
             }
             canInteractWithTile = false;
