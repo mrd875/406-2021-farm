@@ -51,15 +51,30 @@ public class PlayerData2 : NetworkBehaviour
         {
             if (setUpAttempt != 5)
             {
-                playerTwo.GetComponent<SpriteRenderer>().sprite = playerTwoSprite;
-                playerTwo.GetComponent<Animator>().runtimeAnimatorController = playerTwoAnimatorController;
-                playerTwo.GetComponent<PlayerMovement2>().enabled = true;
-                playerTwo.GetComponent<PlayerClick>().enabled = true;
-                playerTwo.GetComponent<Shoot2>().enabled = true;
+                if (playerTwo != null)
+                {
+                    playerTwo.GetComponent<SpriteRenderer>().sprite = playerTwoSprite;
+                    playerTwo.GetComponent<Animator>().runtimeAnimatorController = playerTwoAnimatorController;
+                    playerTwo.GetComponent<PlayerMovement2>().enabled = true;
+                    playerTwo.GetComponent<PlayerClick>().enabled = true;
+                    playerTwo.GetComponent<Shoot2>().enabled = true;
+                }
+                else
+                {
+                    Debug.Log("LateStart PlayerTwo is null");
+                }
             }
-            playerOne.GetComponent<PlayerMovement2>().enabled = true;
-            playerOne.GetComponent<PlayerClick>().enabled = true;
-            playerOne.GetComponent<Shoot2>().enabled = true;
+
+            if (playerOne != null)
+            {
+                playerOne.GetComponent<PlayerMovement2>().enabled = true;
+                playerOne.GetComponent<PlayerClick>().enabled = true;
+                playerOne.GetComponent<Shoot2>().enabled = true;
+            }
+            else
+            {
+                Debug.Log("LateStart playerOne is null");
+            }
 
             // Disable collider that blocks trap placement. This is only to exist on other players
             localPlayer.transform.GetChild(1).GetComponent<CircleCollider2D>().enabled = false;
