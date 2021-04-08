@@ -57,6 +57,9 @@ public class GameManager : NetworkBehaviour
     [ClientRpc]
     private void RpcEndGame()
     {
+        PlayerData2.localGrowSpeed = 1.0f;
+        PlayerMovement2 playerMoveScript = PlayerData2.localPlayer.GetComponent<PlayerMovement2>();
+        playerMoveScript.ResetSpeed();
         PlayerData.money = 100;
     }
 }
