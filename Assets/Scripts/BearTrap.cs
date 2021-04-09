@@ -34,8 +34,7 @@ public class BearTrap : NetworkBehaviour, IPointerEnterHandler, IPointerExitHand
 
     void Start()
     {
-        if (PlayerData2.localPlayer.tag == trapOwnerTag)
-            gameObject.layer = 0;
+        StartCoroutine(LateStart(0.2f));
         durabilityBar.SetMaxHealth(maxDurability);
         durability = maxDurability;
         if (trapOwnerTag == PlayerData2.localPlayer.tag)
@@ -43,6 +42,13 @@ public class BearTrap : NetworkBehaviour, IPointerEnterHandler, IPointerExitHand
         else
             GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
         GetComponent<Animator>().enabled = false;
+    }
+
+    IEnumerator LateStart(float startTime)
+    {
+        yield return new WaitForSeconds(startTime);
+        if (PlayerData2.localPlayer.tag == trapOwnerTag)
+            gameObject.layer = 0;
     }
 
     void Update()
@@ -65,13 +71,21 @@ public class BearTrap : NetworkBehaviour, IPointerEnterHandler, IPointerExitHand
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.tag != PlayerData2.localPlayer.tag)
+            return;
+
         if (triggered)
             return;
         if (other.tag == "PlayerOne" || other.tag == "PlayerTwo")
         {
             if (other.tag != trapOwnerTag)
             {
-                triggered = true;
+                if (isServer)
+                    RpcTriggered(PlayerData2.localPlayer);
+                else
+                    CmdTriggered(PlayerData2.localPlayer);
+
+                /*triggered = true;
                 other.transform.position = gameObject.transform.position + new Vector3(0, 0.7f, 0);
                 PlayerMovement2 playerMovement = other.GetComponent<PlayerMovement2>();
                 StartCoroutine(playerMovement.Trapped(this.gameObject, trapTime));
@@ -79,7 +93,7 @@ public class BearTrap : NetworkBehaviour, IPointerEnterHandler, IPointerExitHand
                 SoundControl.PlayTrapSound();
                 GetComponent<Animator>().enabled = true;
                 GetComponent<SpriteRenderer>().sortingOrder = 1;
-                GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);*/
             }
         }
     }
@@ -88,5 +102,25 @@ public class BearTrap : NetworkBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         durability -= 1;
         durabilityBar.SetHealth(durability);
+    }
+
+    [Command(ignoreAuthority = true)]
+    void CmdTriggered(GameObject player)
+    {
+        RpcTriggered(player);
+    }
+
+    [ClientRpc]
+    void RpcTriggered(GameObject player)
+    {
+        triggered = true;
+        player.transform.position = gameObject.transform.position + new Vector3(0, 0.7f, 0);
+        PlayerMovement2 playerMovement = player.GetComponent<PlayerMovement2>();
+        StartCoroutine(playerMovement.Trapped(this.gameObject, trapTime));
+        playerMovement.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        SoundControl.PlayTrapSound();
+        GetComponent<Animator>().enabled = true;
+        GetComponent<SpriteRenderer>().sortingOrder = 1;
+        GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
     }
 }

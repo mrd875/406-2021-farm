@@ -202,9 +202,9 @@ public class PlayerInventory2 : NetworkBehaviour
 
                     case "BearTrap":
                         //selectedItemObject = selectedItem.actionPrefab;
-                        if (isServer)
+/*                        if (isServer)
                             RpcSetBearTrap(location, gameObject.tag);
-                        else
+                        else*/
                             CmdSetBearTrap(location, gameObject.tag);
                         break;
                 }
@@ -296,10 +296,30 @@ public class PlayerInventory2 : NetworkBehaviour
     [Command]
     private void CmdSetBearTrap(Vector2 location, string userTag)
     {
-        RpcSetBearTrap(location, tag);
+        GameObject bearTrapGO = Instantiate(ObjectData.bearTrapPrefab, location, Quaternion.identity);
+        NetworkServer.Spawn(bearTrapGO);
+
+        RpcSetBearTrap(bearTrapGO, userTag);
+
+    }
+    [ClientRpc]
+    private void RpcSetBearTrap(GameObject trap, string userTag)
+    {
+        if (trap == null)
+        {
+            Debug.Log("Trap is null");
+        }
+        BearTrap bearTrap = trap.GetComponent<BearTrap>();
+        bearTrap.trapOwnerTag = userTag;
+        WorldData2.AddTrap(bearTrap);
+        if (userTag == PlayerData2.localPlayer.tag)
+            ItemUsed();
+        else
+            // For the other player, disable collider that prevents additional traps from being placed nearby
+            trap.transform.GetChild(0).GetComponent<CircleCollider2D>().enabled = false;
     }
 
-    [ClientRpc]
+/*    [ClientRpc]
     private void RpcSetBearTrap(Vector2 location, string userTag)
     {
         GameObject bearTrapGO = Instantiate(ObjectData.bearTrapPrefab, location, Quaternion.identity);
@@ -311,5 +331,5 @@ public class PlayerInventory2 : NetworkBehaviour
         else
             // For the other player, disable collider that prevents additional traps from being placed nearby
             bearTrapGO.transform.GetChild(0).GetComponent<CircleCollider2D>().enabled = false;
-    }
+    }*/
 }

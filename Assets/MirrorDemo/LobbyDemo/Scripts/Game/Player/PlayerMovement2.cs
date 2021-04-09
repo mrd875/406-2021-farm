@@ -128,6 +128,7 @@ public class PlayerMovement2 : NetworkBehaviour
         statusIcon.StartEffect("Bear Trap");
         if (hasAuthority)
         {
+            Debug.Log("Disabled");
             PlayerData2.playerClick.enabled = false;
             PlayerData2.playerShoot.canShoot = false;
         }
@@ -144,7 +145,7 @@ public class PlayerMovement2 : NetworkBehaviour
 
         if (hasAuthority)
         {
-            
+            Debug.Log("Enabled");
             PlayerData2.playerClick.enabled = true;
             PlayerData2.playerShoot.canShoot = true;
         }
