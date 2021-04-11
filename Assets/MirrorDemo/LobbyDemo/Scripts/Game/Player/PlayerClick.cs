@@ -120,6 +120,11 @@ public class PlayerClick : NetworkBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            inventory.DropItem();
+        }
+
         // Change Item Cursor with keys 1-5
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {

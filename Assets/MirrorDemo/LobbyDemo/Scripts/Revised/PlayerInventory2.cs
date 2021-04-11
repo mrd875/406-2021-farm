@@ -146,7 +146,7 @@ public class PlayerInventory2 : NetworkBehaviour
                 selectedSlotUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = ""; // clear text
             }
             else
-                selectedSlotUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + itemSlots[selectedSlotNumber].Count;
+                selectedSlotUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "x " + itemSlots[selectedSlotNumber].Count;
             return true;
         }
         return false;
